@@ -6,7 +6,7 @@ Most collectors organize their collections in commercially made folders, and mus
 
 Many people start collections with their children when they are young, but drift away from the activity as the children grow more independent because the task of checking the coins against the collections can be tedious when done alone. Similarly, it is hard to share the joy of collecting between people who are physically separated, such as between a grandchild in Minnesota and a grandparent in Florida.
 
-My CoinFolder app brings back the excitement of collecting by allowing collectors not only to see if they need any coins that they find, but to be notified if there are other collectors using the app that need the coin that they found. Email messaging between the users helps share the joy of collecting, as well as create and maintain connections between the collectors. Progress is reinforced by charts and graphs of progress compared with other users of the app.
+CoinFolder brings back the excitement of collecting by allowing collectors not only to see if they need any coins that they find, but to be notified if there are other collectors using the app that need the coin that they found. Email messaging between the users helps share the joy of collecting, as well as create and maintain connections between the collectors. Progress is reinforced by charts and graphs of progress compared with other users of the app.
 
 The features and configuration are geared toward collecting circulating coins from the United States Mint.
 
