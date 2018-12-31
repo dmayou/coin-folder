@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-class MainMenu extends React.Component {
+class MainMenu extends Component {
     state = {
         anchorEl: null,
     };
-
     handleClick = event => {
         this.setState({ anchorEl: event.currentTarget });
     };
-
-    handleClose = () => {
+    handleClose = link => () => {
         this.setState({ anchorEl: null });
+        if (link.includes('/')) { // needed for Menu onClose
+            this.props.history.push(link);
+        }
     };
-    loggedIn = () => {
-
-    }
     render() {
         const { anchorEl } = this.state;
         const { user } = this.props;
@@ -31,28 +30,43 @@ class MainMenu extends React.Component {
                     onClick={this.handleClick}
                 >
                     Open Menu
-        </Button>
+                </Button>
                 <Menu
                     id="simple-menu"
                     anchorEl={anchorEl}
                     open={Boolean(anchorEl)}
-                    onClose={this.handleClose}
+                    onClose={this.handleClose('')}
                 >
                     {user.id ?
-                        <div>
-                            <MenuItem onClick={this.handleClose}>Check A Find</MenuItem>
-                            <MenuItem onClick={this.handleClose}>My Collections</MenuItem>
-                            <MenuItem onClick={this.handleClose}>Add a Collections</MenuItem>
-                            <MenuItem onClick={this.handleClose}>My Profile</MenuItem>
-                        </div>
+                        <MenuItem 
+                            onClick={this.handleClose('/info')}
+                            >Check A Find
+                        </MenuItem>
                     :
-                        ''
-                    }
-                    <MenuItem onClick={this.handleClose}>About</MenuItem>
+                    ''}
                     {user.id ?
-                        <MenuItem onClick={this.handleClose}>Log Out</MenuItem>
+                        <MenuItem 
+                            onClick={this.handleClose('collections')}
+                            >My Collections
+                        </MenuItem>
                     :
-                        <MenuItem onClick={this.handleClose}>Log In/Register</MenuItem>}
+                    ''}
+                    {user.id ?
+                        <MenuItem 
+                            onClick={this.handleClose('addCollection')}
+                            >Add a Collections
+                        </MenuItem>
+                    :
+                    ''}
+                    {user.id ?
+                        <MenuItem onClick={this.handleClose('profile')}>My Profile</MenuItem>
+                    :
+                    ''}
+                    <MenuItem onClick={this.handleClose('/about')}>About</MenuItem>
+                    {user.id ?
+                        <MenuItem onClick={this.handleClose('logOut')}>Log Out</MenuItem>
+                    :
+                        <MenuItem onClick={this.handleClose('logIn')}>Log In/Register</MenuItem>}
                 </Menu>
             </div>
         );
@@ -65,4 +79,4 @@ const mapStoreToProps = (store) => {
     });
 }
 
-export default connect(mapStoreToProps)(MainMenu);
+export default connect(mapStoreToProps)(withRouter(MainMenu));
