@@ -116,7 +116,6 @@ class LoginPage extends Component {
             >Log In
             </Button>
           </Grid>
-        </form>
           <Grid item xs={12}>
             <Button
               className={classes.button}
@@ -124,6 +123,7 @@ class LoginPage extends Component {
             >Register
           </Button>
           </Grid>
+        </form>
       </Grid>
     );
   }

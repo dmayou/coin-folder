@@ -145,14 +145,14 @@ class RegisterPage extends Component {
             >Register
             </Button>
           </Grid>
+          <Grid item xs={12}>
+            <Button
+              className={classes.button}
+              onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}
+            >Log In
+            </Button>
+          </Grid>
         </form>
-        <Grid item xs={12}>
-          <Button
-            className={classes.button}
-            onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}
-          >Log In
-          </Button>
-        </Grid>
       </Grid>
     );
   }
