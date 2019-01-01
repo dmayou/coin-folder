@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 
@@ -27,7 +26,6 @@ const styles = {
 
 const Nav = (props) => {
   const { classes } = props;
-  const { user } = props;
   return (
     <div className={classes.root}>
       <AppBar position="static">
