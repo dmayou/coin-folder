@@ -1,6 +1,7 @@
 import React from 'react';
 import CoinCard from '../CoinCard/CoinCard';
 import Grid from '@material-ui/core/Grid';
+import FilterTabs from '../FilterTabs/FilterTabs';
 
 const styles = theme => ({
   container: {
@@ -37,6 +38,7 @@ const styles = theme => ({
 
 const InfoPage = () => (
   <Grid container >
+    <FilterTabs />
     <Grid item xs={12}>
       <p>Info Page</p>
     </Grid>
