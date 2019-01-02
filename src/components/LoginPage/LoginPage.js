@@ -19,11 +19,14 @@ const styles = theme => ({
       maxWidth: '50%',
     },
   },
+  headLine: {
+    marginLeft: theme.spacing.unit * 1.5,
+  },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: 200,
-    margin: 'auto',
+    marginTop: 25,
   },
   dense: {
     marginTop: 19,
@@ -33,6 +36,7 @@ const styles = theme => ({
   },
   button: {
     marginTop: 30,
+    marginLeft: theme.spacing.unit,
   },
 });
 
@@ -82,7 +86,7 @@ class LoginPage extends Component {
         </Grid>
         <form className={classes.container} onSubmit={this.login}>
           <Grid item xs={12}>
-            <Typography variant="h4" color="inherit" className={classes.grow}>
+            <Typography variant="h4" color="inherit" className={classes.headLine}>
               Log In
             </Typography>
           </Grid>
@@ -94,6 +98,7 @@ class LoginPage extends Component {
               value={this.state.username}
               onChange={this.handleChangeFor('username')}
               margin="normal"
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -105,6 +110,7 @@ class LoginPage extends Component {
               value={this.state.password}
               onChange={this.handleChangeFor('password')}
               margin="normal"
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={12}>

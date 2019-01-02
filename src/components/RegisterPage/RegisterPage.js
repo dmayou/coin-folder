@@ -19,10 +19,14 @@ const styles = theme => ({
       maxWidth: '50%',
     },
   },
+  headLine: {
+    marginLeft: theme.spacing.unit * 1.5,
+  },
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 200,
+    marginTop: 20,
+    width: 300,
     margin: 'auto',
   },
   dense: {
@@ -32,7 +36,8 @@ const styles = theme => ({
     width: 200,
   },
   button: {
-    marginTop: 30,
+    marginLeft: theme.spacing.unit,
+    marginTop: 25,
   },
 });
 
@@ -66,7 +71,7 @@ class RegisterPage extends Component {
     return (
       <Grid
         container
-        spacing={16}
+        spacing={24}
         direction="row"
         justify="center"
         alignItems="center"
@@ -83,7 +88,8 @@ class RegisterPage extends Component {
         </Grid>
         <form className={classes.container} onSubmit={this.registerUser}>
           <Grid item xs={12}>
-            <Typography variant="h4" color="inherit" className={classes.grow}>
+            <Typography variant="h4" color="inherit" 
+              className={classes.headLine}>
               Register User
             </Typography>
           </Grid>
@@ -95,6 +101,7 @@ class RegisterPage extends Component {
               value={this.state.username}
               onChange={this.handleChangeFor('username')}
               margin="normal"
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -106,6 +113,7 @@ class RegisterPage extends Component {
               value={this.state.password}
               onChange={this.handleChangeFor('password')}
               margin="normal"
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -115,6 +123,7 @@ class RegisterPage extends Component {
               value={this.state.first_name}
               onChange={this.handleChangeFor('first_name')}
               margin="normal"
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -124,6 +133,7 @@ class RegisterPage extends Component {
               value={this.state.last_name}
               onChange={this.handleChangeFor('last_name')}
               margin="normal"
+              variant="outlined"
               />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -134,6 +144,7 @@ class RegisterPage extends Component {
               value={this.state.email_address}
               onChange={this.handleChangeFor('email_address')}
               margin="normal"
+              variant="outlined"
             />
           </Grid>
           <Grid item xs={12}>

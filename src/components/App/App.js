@@ -18,7 +18,7 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import MainMenu from '../MainMenu/MainMenu';
 
-import './App.css';
+// import './App.css';
 
 class App extends Component {
   componentDidMount () {
