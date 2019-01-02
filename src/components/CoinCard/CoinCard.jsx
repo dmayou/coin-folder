@@ -16,7 +16,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const styles = theme => ({
     card: {
         maxWidth: 400,
-        // display: 'flex',
     },
     coin: {
         display: 'flex',
@@ -79,11 +78,8 @@ class CoinCard extends Component {
                     </CardActions>
                 <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                        <Typography paragraph>Method:</Typography>
-                        <Typography paragraph>
-                            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-                            minutes.
-                        </Typography>
+                        <Typography>Condition: good</Typography>
+                        <Typography>4 other users need this coin</Typography>
                     </CardContent>
                 </Collapse>
             </Card>
