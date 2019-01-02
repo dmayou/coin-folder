@@ -31,7 +31,7 @@ const Nav = (props) => {
       <AppBar position="static">
       <Toolbar>
         <IconButton 
-          onClick={()=>props.dispatch({ type: 'SHOW_MENU' })}
+          onClick={(event)=>props.dispatch({ type: 'SHOW_MENU', payload: event.currentTarget })}
           className={classes.menuButton} 
           color="inherit" 
           aria-label="Menu">

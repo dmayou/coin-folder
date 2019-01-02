@@ -5,9 +5,6 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 class MainMenu extends Component {
-    handleClick = event => {
-        this.dispatch({ type: 'SHOW_MENU', payload: event.currentTarget })
-    };
     handleClose = link => () => {
         this.props.dispatch({ type: 'HIDE_MENU' })
         if (link.includes('/')) { // needed for Menu onClose
