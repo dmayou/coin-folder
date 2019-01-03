@@ -26,7 +26,30 @@ CREATE TABLE "items" (
     "image_path" VARCHAR(255),
     "year" INT,
     "denomination" VARCHAR(20),
-    "mint" VARCHAR(2),
+    "mint" VARCHAR(2)
+);
+
+CREATE TABLE "condition" (
+    "id" SERIAL PRIMARY KEY,
+    "grade" VARCHAR(20) NOT NULL,
+    "description" VARCHAR(100)
+);
+
+CREATE TABLE "user_collections" (
+    "id" SERIAL PRIMARY KEY,
+    "user_id" INTEGER REFERENCES "user" NOT NULL,
+    "collection_id" INTEGER REFERENCES "collection_type" NOT NULL
+);
+
+CREATE TABLE "collection_items" (
+    "id" SERIAL PRIMARY KEY,
+    "user_collection_id" INTEGER REFERENCES "user_collections",
+    "item_id" INTEGER REFERENCES "items",
+    "found" BOOLEAN DEFAULT FALSE NOT NULL,
+    "date_found" DATE,
+    "condition_id" INTEGER REFERENCES "condition",
+    "location_found" VARCHAR(60),
+    "will_trade" BOOLEAN DEFAULT FALSE
 );
 
 --INSERT Items for Statehood Quarters Collection

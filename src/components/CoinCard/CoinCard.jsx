@@ -51,7 +51,6 @@ class CoinCard extends Component {
     };
     render() {
         const { classes } = this.props;
-        console.log('classes:', classes);
         return (
             <Card className={classes.card}>
                 <div className={classes.coin}>

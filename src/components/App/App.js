@@ -18,8 +18,6 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import MainMenu from '../MainMenu/MainMenu';
 
-// import './App.css';
-
 class App extends Component {
   componentDidMount () {
     this.props.dispatch({type: 'FETCH_USER'})
