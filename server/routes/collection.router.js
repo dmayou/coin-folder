@@ -13,7 +13,7 @@ router.get('/collection_items/:userCollectionId', rejectUnauthenticated, (req, r
         ORDER BY "items"."year" ASC, "collection_items"."item_id" DESC;`;
     pool.query(query)
         .then( (results) => {
-            res.send(results.data);
+            res.send(results.rows);
         }).catch( (err) => {
             res.sendStatus(500);
         });

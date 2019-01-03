@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import CoinCard from '../CoinCard/CoinCard';
 import Grid from '@material-ui/core/Grid';
 import FilterTabs from '../FilterTabs/FilterTabs';
@@ -36,22 +37,31 @@ const styles = theme => ({
   },
 });
 
-const InfoPage = () => (
-  <Grid container >
-    <FilterTabs />
-    <Grid item xs={12}>
-      <p>Info Page</p>
-    </Grid>
-    <Grid item xs={12} sm={6} lg={4}>
-      <CoinCard image="apostle"/>
-    </Grid>
-    <Grid item xs={12} sm={6} lg={4}>
-      <CoinCard image="roosevelt" />
-    </Grid>
-    <Grid item xs={12} sm={6} lg={4}>
-      <CoinCard image="roosevelt" />
-    </Grid>
-  </Grid>
-);
+class InfoPage extends Component {
+  componentDidMount () {
+    this.props.dispatch({ type: 'FETCH_USER_COLLECTION_ITEMS', payload: 42 });
+  }
+  render () {
+    return (
+      <Grid container >
+        <FilterTabs />
+        <Grid item xs={12}>
+          <p>Info Page</p>
+        </Grid>
+        <Grid item xs={12} sm={6} lg={4}>
+          <CoinCard image="apostle"/>
+        </Grid>
+        <Grid item xs={12} sm={6} lg={4}>
+          <CoinCard image="roosevelt" />
+        </Grid>
+        <Grid item xs={12} sm={6} lg={4}>
+          <CoinCard image="roosevelt" />
+        </Grid>
+      </Grid>
+    );
+  }
+}
 
-export default InfoPage;
+const mapStoreToProps = ({ collectionItems }) => ({ collectionItems });
+
+export default connect(mapStoreToProps)(InfoPage);
