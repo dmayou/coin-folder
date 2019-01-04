@@ -10,7 +10,7 @@ router.get('/collection_items/:userCollectionId', rejectUnauthenticated, (req, r
         JOIN "items" ON "collection_items"."item_id"="items"."id"
         LEFT JOIN "condition" ON "collection_items"."condition_id"="condition"."id"
         WHERE "collection_items"."user_collection_id"=${userCollectionId}
-        ORDER BY "items"."year" ASC, "collection_items"."item_id" DESC;`;
+        ORDER BY "items"."year" ASC, "collection_items"."item_id" ASC;`;
     pool.query(query)
         .then( (results) => {
             res.send(results.rows);
@@ -27,7 +27,7 @@ router.post('/collection_items/:userCollectionId', rejectUnauthenticated, (req, 
     console.log('collection_items POST. userCollectionID=', userCollectionId);
     const query =
         `INSERT INTO "collection_items" ("user_collection_id", "item_id")
-        SELECT "user_collections"."id" AS "user_collection_id", "items.id" FROM "items"
+        SELECT "user_collections"."id" AS "user_collection_id", "items"."id" FROM "items"
         JOIN "user_collections" ON "user_collections"."id"=${userCollectionId}
         WHERE "items"."collection_id"="user_collections"."collection_id"
         ORDER BY "items"."id";`;
