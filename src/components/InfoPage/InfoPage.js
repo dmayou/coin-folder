@@ -14,7 +14,11 @@ class InfoPage extends Component {
       coinList = this.props.collectionItems.collectionItems.map( (coin) => {
         return (
           <Grid key={coin.id} item xs={12} sm={6} lg={4}>
-            <CoinCard image={coin.image_path}/>
+            <CoinCard 
+              image={coin.image_path}
+              year={coin.year}
+              mint={coin.mint}
+            />
           </Grid>
         );
         });
@@ -27,15 +31,6 @@ class InfoPage extends Component {
           <p>Info Page</p>
         </Grid>
         {coinList}
-        <Grid item xs={12} sm={6} lg={4}>
-          <CoinCard image="apostle"/>
-        </Grid>
-        <Grid item xs={12} sm={6} lg={4}>
-          <CoinCard image="roosevelt" />
-        </Grid>
-        <Grid item xs={12} sm={6} lg={4}>
-          <CoinCard image="roosevelt" />
-        </Grid>
       </Grid>
     );
   }

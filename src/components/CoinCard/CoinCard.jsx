@@ -60,7 +60,7 @@ class CoinCard extends Component {
                         title=""
                     />
                     <CardHeader
-                        title="2018-P"
+                        title={`${this.props.year}-${this.props.mint}`}
                         subheader="In collection"
                     />
                 </div>

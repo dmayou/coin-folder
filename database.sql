@@ -17,7 +17,10 @@ CREATE TABLE "collection_type" (
 );
 
 INSERT INTO "collection_type" ("name")
-VALUES('Statehood Quarters'), ('Monument Quarters');
+VALUES
+('50 State Quarters'),
+('D.C. and U.S. Territories Quarters'),
+('America the Beautiful Quarters');
 
 CREATE TABLE "items" (
     "id" SERIAL PRIMARY KEY,
@@ -31,9 +34,21 @@ CREATE TABLE "items" (
 
 CREATE TABLE "condition" (
     "id" SERIAL PRIMARY KEY,
-    "grade" VARCHAR(20) NOT NULL,
-    "description" VARCHAR(100)
+    "grade" VARCHAR(30) NOT NULL,
+    "description" VARCHAR(120)
 );
+
+INSERT INTO "condition" ("grade", "description")
+VALUES
+('Fair', 'Mostly worn, though some detail is visible'),
+('About Good', 'Worn rims but most lettering is readable though worn'),
+('Good', 'Complete or slightly worn rims, flat detail, peripheral lettering full or nearly full'),
+('Very Good', 'Design worn with slight detail'),
+('Fine', 'Some deeply recessed areas with detail, all lettering sharp'),
+('Very Fine', 'Some definition of detail, all lettering full and sharp'),
+('Choice Very Fine', 'Almost complete detail with flat areas'),
+('About Uncirculated', 'Full detail with friction over most of the surface, slight flatness on high points'),
+('Choice About Uncirculated', 'Full detail with slight friction on less than 1/2 of surface, on high points');
 
 CREATE TABLE "user_collections" (
     "id" SERIAL PRIMARY KEY,
@@ -55,7 +70,7 @@ CREATE TABLE "collection_items" (
 --INSERT Items for Statehood Quarters Collection
 DO $$
 DECLARE 
-  collection_name VARCHAR:='Statehood Quarters';
+  collection_name VARCHAR:='50 State Quarters';
   collection_id INTEGER:=(SELECT id FROM "collection_type" WHERE "name"=collection_name);
 BEGIN
 RAISE NOTICE 'For collection_name = %, collection_id = %', collection_name, collection_id;
@@ -160,7 +175,23 @@ VALUES
 (2008, 'P', 'Alaska', collection_id, 'quarter'),
 (2008, 'D', 'Alaska', collection_id, 'quarter'),
 (2008, 'P', 'Hawaii', collection_id, 'quarter'),
-(2008, 'D', 'Hawaii', collection_id, 'quarter'),
+(2008, 'D', 'Hawaii', collection_id, 'quarter');
+
+--Generate Image Paths for Items
+UPDATE "items" SET "image_path"=REPLACE(CONCAT("items"."year", '-', "items"."name", '.jpeg'), ' ', '-')
+WHERE "image_path" IS NULL;
+
+END$$;
+
+--INSERT Items for DC and US Territories Quarters Collection
+DO $$
+DECLARE 
+  collection_name VARCHAR:='D.C. and U.S. Territories Quarters';
+  collection_id INTEGER:=(SELECT id FROM "collection_type" WHERE "name"=collection_name);
+BEGIN
+RAISE NOTICE 'For collection_name = %, collection_id = %', collection_name, collection_id;
+INSERT INTO "items" ("year", "mint", "name", "collection_id", "denomination")
+VALUES
 (2009, 'P', 'District of Columbia', collection_id, 'quarter'),
 (2009, 'D', 'District of Columbia', collection_id, 'quarter'),
 (2009, 'P', 'Puerto Rico', collection_id, 'quarter'),
@@ -173,6 +204,122 @@ VALUES
 (2009, 'D', 'U.S. Virgin Islands', collection_id, 'quarter'),
 (2009, 'P', 'Northern Mariana Islands', collection_id, 'quarter'),
 (2009, 'D', 'Northern Mariana Islands', collection_id, 'quarter');
+
+--Generate Image Paths for Items
+UPDATE "items" SET "image_path"=REPLACE(CONCAT("items"."year", '-', "items"."name", '.jpeg'), ' ', '-')
+WHERE "image_path" IS NULL;
+
+END$$;
+
+--INSERT Items for America the Beautiful Quarters Collection
+DO $$
+DECLARE 
+  collection_name VARCHAR:='America the Beautiful Quarters';
+  collection_id INTEGER:=(SELECT id FROM "collection_type" WHERE "name"=collection_name);
+BEGIN
+RAISE NOTICE 'For collection_name = %, collection_id = %', collection_name, collection_id;
+INSERT INTO "items" ("year", "mint", "name", "collection_id", "denomination")
+VALUES
+(2010, 'P', 'Hot Springs National Park', collection_id, 'quarter'),
+(2010, 'D', 'Hot Springs National Park', collection_id, 'quarter'),
+(2010, 'P', 'Yellowstone National Park', collection_id, 'quarter'),
+(2010, 'D', 'Yellowstone National Park', collection_id, 'quarter'),
+(2010, 'P', 'Yosemite National Park', collection_id, 'quarter'),
+(2010, 'D', 'Yosemite National Park', collection_id, 'quarter'),
+(2010, 'P', 'Grand Canyon National Park', collection_id, 'quarter'),
+(2010, 'D', 'Grand Canyon National Park', collection_id, 'quarter'),
+(2010, 'P', 'Mount Hood National Forest', collection_id, 'quarter'),
+(2010, 'D', 'Mount Hood National Forest', collection_id, 'quarter'),
+(2011, 'P', 'Gettysburg National Military Park', collection_id, 'quarter'),
+(2011, 'D', 'Gettysburg National Military Park', collection_id, 'quarter'),
+(2011, 'P', 'Glacier National Park', collection_id, 'quarter'),
+(2011, 'D', 'Glacier National Park', collection_id, 'quarter'),
+(2011, 'P', 'Olympic National Park', collection_id, 'quarter'),
+(2011, 'D', 'Olympic National Park', collection_id, 'quarter'),
+(2011, 'P', 'Vicksburg National Military Park', collection_id, 'quarter'),
+(2011, 'D', 'Vicksburg National Military Park', collection_id, 'quarter'),
+(2011, 'P', 'Chickasaw National Recreation Area', collection_id, 'quarter'),
+(2011, 'D', 'Chickasaw National Recreation Area', collection_id, 'quarter'),
+(2012, 'P', 'El Yunque National Forest', collection_id, 'quarter'),
+(2012, 'D', 'El Yunque National Forest', collection_id, 'quarter'),
+(2012, 'P', 'Chaco Culture National Historical Park', collection_id, 'quarter'),
+(2012, 'D', 'Chaco Culture National Historical Park', collection_id, 'quarter'),
+(2012, 'P', 'Acadia National Park', collection_id, 'quarter'),
+(2012, 'D', 'Acadia National Park', collection_id, 'quarter'),
+(2012, 'P', 'Hawaii Volcanoes National Park', collection_id, 'quarter'),
+(2012, 'D', 'Hawaii Volcanoes National Park', collection_id, 'quarter'),
+(2012, 'P', 'Denali National Park and Preserve', collection_id, 'quarter'),
+(2012, 'D', 'Denali National Park and Preserve', collection_id, 'quarter'),
+(2013, 'P', 'White Mountain National Park', collection_id, 'quarter'),
+(2013, 'D', 'White Mountain National Park', collection_id, 'quarter'),
+(2013, 'P', 'Perrys Victory and International Peace Memorial', collection_id, 'quarter'),
+(2013, 'D', 'Perrys Victory and International Peace Memorial', collection_id, 'quarter'),
+(2013, 'P', 'Great Basin National Park', collection_id, 'quarter'),
+(2013, 'D', 'Great Basin National Park', collection_id, 'quarter'),
+(2013, 'P', 'Fort McHenry National Monument and Historic Shrine', collection_id, 'quarter'),
+(2013, 'D', 'Fort McHenry National Monument and Historic Shrine', collection_id, 'quarter'),
+(2013, 'P', 'Mount Rushmore National Memorial', collection_id, 'quarter'),
+(2013, 'D', 'Mount Rushmore National Memorial', collection_id, 'quarter'),
+(2014, 'P', 'Great Smoky Mountains National Park', collection_id, 'quarter'),
+(2014, 'D', 'Great Smoky Mountains National Park', collection_id, 'quarter'),
+(2014, 'P', 'Shenandoah National Park', collection_id, 'quarter'),
+(2014, 'D', 'Shenandoah National Park', collection_id, 'quarter'),
+(2014, 'P', 'Arches National Park', collection_id, 'quarter'),
+(2014, 'D', 'Arches National Park', collection_id, 'quarter'),
+(2014, 'P', 'Great Sand Dunes National Park', collection_id, 'quarter'),
+(2014, 'D', 'Great Sand Dunes National Park', collection_id, 'quarter'),
+(2014, 'P', 'Everglades National Park', collection_id, 'quarter'),
+(2014, 'D', 'Everglades National Park', collection_id, 'quarter'),
+(2015, 'P', 'Homestead National Monument of America', collection_id, 'quarter'),
+(2015, 'D', 'Homestead National Monument of America', collection_id, 'quarter'),
+(2015, 'P', 'Kisatchie National Forest', collection_id, 'quarter'),
+(2015, 'D', 'Kisatchie National Forest', collection_id, 'quarter'),
+(2015, 'P', 'Blue Ridge Parkway', collection_id, 'quarter'),
+(2015, 'D', 'Blue Ridge Parkway', collection_id, 'quarter'),
+(2015, 'P', 'Bombay Hook National Wildlife Refuge', collection_id, 'quarter'),
+(2015, 'D', 'Bombay Hook National Wildlife Refuge', collection_id, 'quarter'),
+(2015, 'P', 'Saratoga National Historical Park', collection_id, 'quarter'),
+(2015, 'D', 'Saratoga National Historical Park', collection_id, 'quarter'),
+(2016, 'P', 'Shawnee National Forest', collection_id, 'quarter'),
+(2016, 'D', 'Shawnee National Forest', collection_id, 'quarter'),
+(2016, 'P', 'Cumberland Gap National Historical Park', collection_id, 'quarter'),
+(2016, 'D', 'Cumberland Gap National Historical Park', collection_id, 'quarter'),
+(2016, 'P', 'Harpers Ferry National Historical Park', collection_id, 'quarter'),
+(2016, 'D', 'Harpers Ferry National Historical Park', collection_id, 'quarter'),
+(2016, 'P', 'Theodore Roosevelt National Park', collection_id, 'quarter'),
+(2016, 'D', 'Theodore Roosevelt National Park', collection_id, 'quarter'),
+(2016, 'P', 'Fort Moultrie at Fort Sumter National Monument', collection_id, 'quarter'),
+(2016, 'D', 'Fort Moultrie at Fort Sumter National Monument', collection_id, 'quarter'),
+(2017, 'P', 'Effigy Mounds National Monument', collection_id, 'quarter'),
+(2017, 'D', 'Effigy Mounds National Monument', collection_id, 'quarter'),
+(2017, 'P', 'Frederick Douglass National Historic Site', collection_id, 'quarter'),
+(2017, 'D', 'Frederick Douglass National Historic Site', collection_id, 'quarter'),
+(2017, 'P', 'Ozark National Scenic Riverways', collection_id, 'quarter'),
+(2017, 'D', 'Ozark National Scenic Riverways', collection_id, 'quarter'),
+(2017, 'P', 'Ellis Island', collection_id, 'quarter'),
+(2017, 'D', 'Ellis Island', collection_id, 'quarter'),
+(2017, 'P', 'George Rogers Clark National Historical Park', collection_id, 'quarter'),
+(2017, 'D', 'George Rogers Clark National Historical Park', collection_id, 'quarter'),
+(2018, 'P', 'Pictured Rocks National Lakeshore', collection_id, 'quarter'),
+(2018, 'D', 'Pictured Rocks National Lakeshore', collection_id, 'quarter'),
+(2018, 'P', 'Apostle Islands National Lakeshore', collection_id, 'quarter'),
+(2018, 'D', 'Apostle Islands National Lakeshore', collection_id, 'quarter'),
+(2018, 'P', 'Voyageurs National Park', collection_id, 'quarter'),
+(2018, 'D', 'Voyageurs National Park', collection_id, 'quarter'),
+(2018, 'P', 'Cumberland Island National Seashore', collection_id, 'quarter'),
+(2018, 'D', 'Cumberland Island National Seashore', collection_id, 'quarter'),
+(2018, 'P', 'Block Island Nation Wildlife Refuge', collection_id, 'quarter'),
+(2018, 'D', 'Block Island Nation Wildlife Refuge', collection_id, 'quarter'),
+(2019, 'P', 'Lowell National Historical Park', collection_id, 'quarter'),
+(2019, 'D', 'Lowell National Historical Park', collection_id, 'quarter'),
+(2019, 'P', 'American Memorial Park', collection_id, 'quarter'),
+(2019, 'D', 'American Memorial Park', collection_id, 'quarter'),
+(2019, 'P', 'War in the Pacific National Historical Park', collection_id, 'quarter'),
+(2019, 'D', 'War in the Pacific National Historical Park', collection_id, 'quarter'),
+(2019, 'P', 'San Antonio Missions National Historical Park', collection_id, 'quarter'),
+(2019, 'D', 'San Antonio Missions National Historical Park', collection_id, 'quarter'),
+(2019, 'P', 'Frank Church River of No Return Wilderness', collection_id, 'quarter'),
+(2019, 'D', 'Frank Church River of No Return Wilderness', collection_id, 'quarter');
 
 --Generate Image Paths for Items
 UPDATE "items" SET "image_path"=REPLACE(CONCAT("items"."year", '-', "items"."name", '.jpeg'), ' ', '-')
