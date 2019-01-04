@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/collection_items/:userCollectionId', rejectUnauthenticated, (req, res) => {
     const { userCollectionId } = req.params;
     const query = 
-        `SELECT "collection_items".*, "items".*, "condition".* FROM "collection_items"
+        `SELECT "collection_items".*, "items".*, "condition"."grade", "condition"."description" FROM "collection_items"
         JOIN "items" ON "collection_items"."item_id"="items"."id"
         LEFT JOIN "condition" ON "collection_items"."condition_id"="condition"."id"
         WHERE "collection_items"."user_collection_id"=${userCollectionId}

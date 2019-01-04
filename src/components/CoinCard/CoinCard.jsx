@@ -56,7 +56,7 @@ class CoinCard extends Component {
                 <div className={classes.coin}>
                     <CardMedia
                         className={classes.media}
-                        image={`/images/${this.props.image}.jpeg`}
+                        image={`/images/${this.props.image}`}
                         title=""
                     />
                     <CardHeader
