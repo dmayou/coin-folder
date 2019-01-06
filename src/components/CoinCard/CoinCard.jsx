@@ -16,6 +16,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const styles = theme => ({
     card: {
         maxWidth: 400,
+        marginRight: theme.spacing.unit,
+        marginBottom: theme.spacing.unit,
     },
     coin: {
         display: 'flex',
@@ -49,17 +51,16 @@ class CoinCard extends Component {
     };
     render() {
         const { classes } = this.props;
-        console.log('classes:', classes);
         return (
             <Card className={classes.card}>
                 <div className={classes.coin}>
                     <CardMedia
                         className={classes.media}
-                        image={`/images/${this.props.image}.jpeg`}
+                        image={`/images/${this.props.image}`}
                         title=""
                     />
                     <CardHeader
-                        title="2018-P"
+                        title={`${this.props.year}-${this.props.mint}`}
                         subheader="In collection"
                     />
                 </div>

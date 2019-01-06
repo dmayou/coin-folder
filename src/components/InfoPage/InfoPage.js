@@ -1,55 +1,54 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import CoinCard from '../CoinCard/CoinCard';
 import Grid from '@material-ui/core/Grid';
+import FilterTabs from '../FilterTabs/FilterTabs';
 
-const styles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    [theme.breakpoints.down('xs')]: {
-      maxWidth: '90%',
-    },
-    [theme.breakpoints.up('sm')]: {
-      maxWidth: '50%',
-    },
-  },
-  headLine: {
-    marginLeft: theme.spacing.unit * 1.5,
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    marginTop: 20,
-    width: 300,
-    margin: 'auto',
-  },
-  dense: {
-    marginTop: 19,
-  },
-  menu: {
-    width: 200,
-  },
-  button: {
-    marginLeft: theme.spacing.unit,
-    marginTop: 25,
-  },
+class InfoPage extends Component {
+  state={
+    filter: 'all'
+  };
+  setFilter = (choice) => {
+    this.setState({
+      filter: choice,
+    });
+    this.fetchItems(choice);
+  }
+  fetchItems = (choice) => {
+    this.props.dispatch({ type: 'FETCH_USER_COLLECTION_ITEMS', payload: { id: 42, choice: choice } });
+  }
+  componentDidMount () {
+    this.fetchItems(this.state.filter);
+  }
+  render () {
+    let coinList = [];
+    if (this.props.collectionItems) {
+      coinList = this.props.collectionItems.map( (coin) => {
+        return (
+          <Grid key={coin.id} item xs={12} sm={6} lg={4}>
+            <CoinCard 
+              image={coin.image_path}
+              year={coin.year}
+              mint={coin.mint}
+            />
+          </Grid>
+        );
+        });
+    }
+    return (
+      <Grid container >
+        <FilterTabs onTabChange={this.setFilter}/>
+        <Grid item xs={12}>
+          <p>Info Page</p>
+        </Grid>
+        {coinList}
+      </Grid>
+    );
+  }
+}
+
+const mapStoreToProps = ( state ) => ({ 
+  collectionItems: state.collections.collectionItems 
 });
 
-const InfoPage = () => (
-  <Grid container >
-    <Grid item xs={12}>
-      <p>Info Page</p>
-    </Grid>
-    <Grid item xs={12} sm={6} lg={4}>
-      <CoinCard image="apostle"/>
-    </Grid>
-    <Grid item xs={12} sm={6} lg={4}>
-      <CoinCard image="roosevelt" />
-    </Grid>
-    <Grid item xs={12} sm={6} lg={4}>
-      <CoinCard image="roosevelt" />
-    </Grid>
-  </Grid>
-);
-
-export default InfoPage;
+export default connect(mapStoreToProps)(InfoPage);

@@ -17,12 +17,13 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import MainMenu from '../MainMenu/MainMenu';
-
-// import './App.css';
+import AdminPage from '../AdminPage/AdminPage';
 
 class App extends Component {
   componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
+    this.props.dispatch({ type: 'FETCH_USER' });
+    this.props.dispatch({ type: 'FETCH_COLLECTION_TYPE' });
+
   }
 
   render() {
@@ -52,6 +53,11 @@ class App extends Component {
               exact
               path="/info"
               component={InfoPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin"
+              component={AdminPage}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
