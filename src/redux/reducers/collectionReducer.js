@@ -9,6 +9,16 @@ const collectionItems = (state = [], action) => {
     }
 };
 
+const collectionType = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_COLLECTION_TYPE':
+            return action.payload.data;
+        default:
+            return state;
+    }
+};
+
 export default combineReducers({
     collectionItems,
+    collectionType,
 });

@@ -3,6 +3,17 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const pool = require('../modules/pool');
 const router = express.Router();
 
+router.get('/collection_type', rejectUnauthenticated, (req, res) => {
+    const query = 'SELECT * FROM "collection_type" ORDER BY "id" ASC;';
+    pool.query(query)
+        .then( (results) => {
+            res.send(results.rows);
+        }).catch( (err) => {
+            res.sendStatus(500);
+        });
+    }
+);
+
 router.get('/collection_items/:userCollectionId', rejectUnauthenticated, (req, res) => {
     const { userCollectionId } = req.params;
     const query = 

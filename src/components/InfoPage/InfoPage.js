@@ -10,8 +10,8 @@ class InfoPage extends Component {
   }
   render () {
     let coinList = [];
-    if (this.props.collectionItems.collectionItems) {
-      coinList = this.props.collectionItems.collectionItems.map( (coin) => {
+    if (this.props.collectionItems) {
+      coinList = this.props.collectionItems.map( (coin) => {
         return (
           <Grid key={coin.id} item xs={12} sm={6} lg={4}>
             <CoinCard 
@@ -36,6 +36,8 @@ class InfoPage extends Component {
   }
 }
 
-const mapStoreToProps = ({ collectionItems }) => ({ collectionItems });
+const mapStoreToProps = ( state ) => ({ 
+  collectionItems: state.collections.collectionItems 
+});
 
 export default connect(mapStoreToProps)(InfoPage);
