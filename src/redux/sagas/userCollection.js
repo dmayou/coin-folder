@@ -3,7 +3,8 @@ import axios from 'axios';
 
 function* fetchUserCollectionItems(action) {
     try {
-        const data = yield axios.get(`api/collection/collection_items/${action.payload}`);
+        const { id, choice } = action.payload;
+        const data = yield axios.get(`api/collection/collection_items/${id}/${choice}`);
         yield dispatch({ type: 'SET_USER_COLLECTION_ITEMS', payload: data });
     } catch (err) {
         console.log('Error fetching user collection items:', err)

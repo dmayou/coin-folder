@@ -35,6 +35,22 @@ class FilterTabs extends Component {
     };
     handleChange = (event, value) => {
         this.setState({ value });
+        let choice;
+        switch (value) {
+            case 0:
+                choice = 'all';
+                break;
+            case 1:
+                choice = 'found';
+                break;
+            case 2:
+                choice = 'needed';
+                break;
+            default:
+                console.log('filter tabs default choice error');
+        };
+        this.props.onTabChange(choice);
+            
     };
     render() {
         const { classes } = this.props;
@@ -45,10 +61,6 @@ class FilterTabs extends Component {
                         <LinkTab label="Found" href="page2" />
                         <LinkTab label="Needed" href="page3" />
                     </Tabs>
-
-                    {this.state.value === 0 && <TabContainer>All</TabContainer>}
-                    {this.state.value === 1 && <TabContainer>Found Only</TabContainer>}
-                    {this.state.value === 2 && <TabContainer>Needed Only</TabContainer>}
                 </div>
         );
     }

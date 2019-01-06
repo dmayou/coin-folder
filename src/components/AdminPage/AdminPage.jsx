@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 //TODO: Handle non-admin users who route here
 
 class AdminPage extends Component {
-    buildItems = () => this.props.dispatch({ type: 'BUILD_ITEMS_TABLE' });
+    buildItems = () => this.props.dispatch({ type: 'ADD_USER_COLLECTION_ITEMS', payload: 42 });
     render() {
         const collectionTypeList = this.props.collectionType.map( collection => {
                 return (
@@ -19,18 +19,11 @@ class AdminPage extends Component {
                 <ul>
                     {collectionTypeList}
                 </ul>
-                <p>Rebuilding the items table will make the contents of 
-                    the collection_items table invalid. <br/>To build items table:</p>
-                    <ol>
-                        <li>Back up any information of value in the collection_items table.</li>
-                        <li>In Postico, execute DROP TABLE "items";</li>
-                        <li>Click the button below to rebuild the table. <br/><strong>No confirmation</strong> is displayed.</li>
-                    </ol>
                 <Button
                     variant="contained"
                     color="primary"
                     onClick={this.buildItems}
-                >Build Items Table
+                >Add User Items
                 </Button>
             </div>
         );

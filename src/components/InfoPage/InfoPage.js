@@ -5,8 +5,20 @@ import Grid from '@material-ui/core/Grid';
 import FilterTabs from '../FilterTabs/FilterTabs';
 
 class InfoPage extends Component {
+  state={
+    filter: 'all'
+  };
+  setFilter = (choice) => {
+    this.setState({
+      filter: choice,
+    });
+    this.fetchItems(choice);
+  }
+  fetchItems = (choice) => {
+    this.props.dispatch({ type: 'FETCH_USER_COLLECTION_ITEMS', payload: { id: 42, choice: choice } });
+  }
   componentDidMount () {
-    this.props.dispatch({ type: 'FETCH_USER_COLLECTION_ITEMS', payload: 42 });
+    this.fetchItems(this.state.filter);
   }
   render () {
     let coinList = [];
@@ -23,10 +35,9 @@ class InfoPage extends Component {
         );
         });
     }
-    console.log('coinList:', coinList)
     return (
       <Grid container >
-        <FilterTabs />
+        <FilterTabs onTabChange={this.setFilter}/>
         <Grid item xs={12}>
           <p>Info Page</p>
         </Grid>
