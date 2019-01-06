@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core';
 import CoinCard from '../CoinCard/CoinCard';
 import Grid from '@material-ui/core/Grid';
 import FilterTabs from '../FilterTabs/FilterTabs';
+import SearchDrawer from '../SearchDrawer/SearchDrawer';
+
+const styles = theme => ({
+  content: {
+    [theme.breakpoints.down('xs')]: {
+      marginLeft: 0,
+    },
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: 240,
+    },
+  },
+});
 
 class InfoPage extends Component {
   state={
@@ -36,13 +49,18 @@ class InfoPage extends Component {
         });
     }
     return (
-      <Grid container >
-        <FilterTabs onTabChange={this.setFilter}/>
-        <Grid item xs={12}>
-          <p>Info Page</p>
-        </Grid>
-        {coinList}
-      </Grid>
+      <div>
+        <main className={this.props.classes.content}>
+          <Grid container>
+            <FilterTabs onTabChange={this.setFilter}/>
+            <Grid item xs={12}>
+              <p>Info Page</p>
+            </Grid>
+            {coinList}
+          </Grid>
+        </main>
+        <SearchDrawer/>
+      </div>
     );
   }
 }
@@ -51,4 +69,4 @@ const mapStoreToProps = ( state ) => ({
   collectionItems: state.collections.collectionItems 
 });
 
-export default connect(mapStoreToProps)(InfoPage);
+export default connect(mapStoreToProps)(withStyles(styles)(InfoPage));
