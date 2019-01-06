@@ -10,6 +10,14 @@ function* fetchUserCollectionItems(action) {
     }
 }
 
+function* buildItemsTable(action) {
+    try {
+
+    } catch (err) {
+        console.log('Error rebuilding items table.');
+    }
+}
+
 function* addUserCollectionItems(action) {
     try {
         yield axios.post(`api/collection/collection_items/${action.payload}`, null);
@@ -22,6 +30,7 @@ function* addUserCollectionItems(action) {
 function* userCollectionSaga() {
     yield takeEvery('ADD_USER_COLLECTION_ITEMS', addUserCollectionItems);
     yield takeLatest('FETCH_USER_COLLECTION_ITEMS', fetchUserCollectionItems);
+    yield takeLatest('BUILD_ITEMS_TABLE', buildItemsTable);
 }
 
 export default userCollectionSaga;
