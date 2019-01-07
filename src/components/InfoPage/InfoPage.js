@@ -21,6 +21,9 @@ const styles = theme => ({
     marginLeft: '24%',
     marginTop: '10%',
   },
+  buttonDiv: {
+    backgroundColor: 'white',
+  },
 });
 
 class InfoPage extends Component {
@@ -73,7 +76,7 @@ class InfoPage extends Component {
                 showSearch={!this.state.mobileOpen}
               />
             </Grid>
-            <Grid xs={2}>
+            <Grid className={classes.buttonDiv} xs={2}>
               <IconButton
                 className={classes.button}
                 size="large"

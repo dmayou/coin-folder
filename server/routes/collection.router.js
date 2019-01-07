@@ -45,6 +45,22 @@ router.get('/collection_items/:userCollectionId/:filter', rejectUnauthenticated,
     }
 );
 
+router.get('/collection_stats/:userCollectionId/', rejectUnauthenticated, (req, res) => {
+    const { userCollectionId } = req.params;
+    const query = 
+        `SELECT MIN("items"."year"), MAX("items"."year"), COUNT(*), SUM("found"::int) FROM "collection_items"
+        JOIN "items" ON "items"."id"="collection_items"."item_id"
+        WHERE "user_collection_id"=${userCollectionId};`;
+    pool.query(query)
+        .then((results) => {
+            res.send(results.rows);
+        }).catch((err) => {
+            res.sendStatus(500);
+        });
+    }
+);
+    
+
 // Posts collection_items rows for a given collection_type.id
 // by copying rows from 'items'
 router.post('/collection_items/:userCollectionId', rejectUnauthenticated, (req, res) => {
