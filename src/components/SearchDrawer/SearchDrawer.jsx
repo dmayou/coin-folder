@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -52,9 +53,12 @@ const styles = theme => ({
     }
 });
 
-class ResponsiveDrawer extends React.Component {
+class SearchDrawer extends Component {
     handleDrawerToggle = () => {
         this.setState(state => ({ mobileOpen: !state.mobileOpen }));
+    };
+    handleSliderChange = () => (values) => {
+        this.props.dispatch({ type: 'SET_YEARS', payload: values })
     };
     render() {
         const { classes, theme } = this.props;
@@ -67,7 +71,11 @@ class ResponsiveDrawer extends React.Component {
                     >Search
                 </Typography>
                 <div display="inline-block">
-                    <RangeSlider />
+                    <RangeSlider
+                        onChange={this.handleSliderChange}
+                        startYear={this.props.search.startYear}
+                        endYear={this.props.search.endYear}
+                    />
                 </div>
                 <div className={classes.toolbar} />
                 <Divider />
@@ -128,7 +136,7 @@ class ResponsiveDrawer extends React.Component {
     }
 }
 
-ResponsiveDrawer.propTypes = {
+SearchDrawer.propTypes = {
     classes: PropTypes.object.isRequired,
     // Injected by the documentation to work in an iframe.
     // You won't need it on your project.
@@ -136,4 +144,6 @@ ResponsiveDrawer.propTypes = {
     theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(ResponsiveDrawer);
+const mapStateToProps = ({ search }) => ({ search });
+
+export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(SearchDrawer));

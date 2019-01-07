@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
+import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core';
-import Slider, { Range } from 'rc-slider';
+import { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import 'rc-tooltip/assets/bootstrap.css';
+
+import 'typeface-roboto';
 
 const styles = theme => ({
     inline: {
         display: 'flex',
+    },
+    text: {
+        margin: theme.spacing.unit,
     },
     slider: {
         maxWidth: '60%',
@@ -16,17 +22,22 @@ const styles = theme => ({
 
 class RangeSlider extends Component {
     render() {
+        const { classes } = this.props;
         return (
             <div className={this.props.classes.inline}>
-                1999
+                <Typography className={classes.text}>{this.props.startYear}</Typography>
                 <Range 
-                   className={this.props.classes.slider}
+                    allowCross={false}
+                    className={this.props.classes.slider}
+                    min={1999}
+                    max={2008}
+                    defaultValue={[1999, 2008]}
+                    onChange={this.props.onChange(this.value)}
                 />
-                2008
+                <Typography className={classes.text}>{this.props.endYear}</Typography>
             </div>
         );
     }
 }
 
 export default withStyles(styles)(RangeSlider);
-// export default RangeSlider;
