@@ -12,6 +12,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import { withStyles } from '@material-ui/core/styles';
 
+import RangeSlider from '../RangeSlider/RangeSlider';
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -55,6 +57,7 @@ class ResponsiveDrawer extends React.Component {
 
         const drawer = (
             <div>
+                <RangeSlider />
                 <div className={classes.toolbar} />
                 <Divider />
                 <List>
