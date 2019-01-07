@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import CoinCard from '../CoinCard/CoinCard';
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import Search from '@material-ui/icons/Search';
 import FilterTabs from '../FilterTabs/FilterTabs';
 import SearchDrawer from '../SearchDrawer/SearchDrawer';
 
@@ -15,17 +17,29 @@ const styles = theme => ({
       marginLeft: 240,
     },
   },
+  button: {
+    marginLeft: '24%',
+    marginTop: '10%',
+  },
 });
 
 class InfoPage extends Component {
   state={
-    filter: 'all'
+    filter: 'all',
+    mobileOpen: false,
   };
   setFilter = (choice) => {
     this.setState({
+      ...this.state,
       filter: choice,
     });
     this.fetchItems(choice);
+  }
+  openSearch = () => {
+    this.setState({
+      ...this.state,
+      mobileOpen: !this.state.mobileOpen,
+    });
   }
   fetchItems = (choice) => {
     this.props.dispatch({ type: 'FETCH_USER_COLLECTION_ITEMS', payload: { id: 42, choice: choice } });
@@ -34,6 +48,7 @@ class InfoPage extends Component {
     this.fetchItems(this.state.filter);
   }
   render () {
+    const { classes } = this.props;
     let coinList = [];
     if (this.props.collectionItems) {
       coinList = this.props.collectionItems.map( (coin) => {
@@ -50,16 +65,28 @@ class InfoPage extends Component {
     }
     return (
       <div>
-        <main className={this.props.classes.content}>
+        <main className={classes.content}>
           <Grid container>
-            <FilterTabs onTabChange={this.setFilter}/>
-            <Grid item xs={12}>
-              <p>Info Page</p>
+            <Grid item xs={10}>
+              <FilterTabs 
+                onTabChange={this.setFilter}
+                onSearch={this.openSearch}
+                showSearch={!this.state.mobileOpen}
+              />
+            </Grid>
+            <Grid xs={2}>
+              <IconButton
+                className={classes.button}
+                size="large"
+                aria-label="search"
+              >
+                <Search fontSize="large" />
+              </IconButton>
             </Grid>
             {coinList}
           </Grid>
         </main>
-        <SearchDrawer/>
+        <SearchDrawer open={this.state.mobileOpen}/>
       </div>
     );
   }

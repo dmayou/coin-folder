@@ -7,7 +7,6 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Check from '@material-ui/icons/Check';
 import TripOrigin from '@material-ui/icons/TripOrigin';
-import Search from '@material-ui/icons/Search';
 
 function TabContainer(props) {
     return (
@@ -38,11 +37,11 @@ class FilterTabs extends Component {
     };
     handleChange = (event, value) => {
         this.setState({ value });
-        let choice;
+            let choice;
         switch (value) {
             case 0:
                 choice = 'all';
-                break;
+                    break;
             case 1:
                 choice = 'found';
                 break;
@@ -50,7 +49,7 @@ class FilterTabs extends Component {
                 choice = 'needed';
                 break;
             default:
-                console.log('filter tabs default choice error');
+                    console.log('filter tabs default choice error');
         };
         this.props.onTabChange(choice);
     };
@@ -62,7 +61,6 @@ class FilterTabs extends Component {
                         <LinkTab label="Show All" href="page1" />
                         <LinkTab label="Found" href="page2" icon={<Check/>}/>
                         <LinkTab label="Needed" href="page3" icon={<TripOrigin/>}/>
-                        <LinkTab label="Search" href="page3" icon={<Search/>}/>
                     </Tabs>
                 </div>
         );
