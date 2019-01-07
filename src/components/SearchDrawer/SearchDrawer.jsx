@@ -47,8 +47,10 @@ const styles = theme => ({
     },
     heading: {
         padding:theme.spacing.unit,
+        margin: 'auto',
     },
     formGroup: {
+        // display: 'inline-block',
         margin: theme.spacing.unit,
     },
 });
@@ -61,6 +63,10 @@ class SearchDrawer extends Component {
         this.props.dispatch({ type: 'SET_YEARS', payload: values })
     };
     handleSwitchChange = (name) => (event) => {
+        this.props.dispatch({ 
+            type: 'SET_MINT',
+            payload: {mint: name, value: event.target.checked} 
+        });
         // this.setState({ [name]: event.target.checked });
     };
     render() {
@@ -70,8 +76,13 @@ class SearchDrawer extends Component {
             <div>
                 <Typography 
                     className={classes.heading} 
-                    variant='h5'
+                    variant='h4'
                     >Search
+                </Typography>
+                <Typography
+                    className={classes.heading}
+                    variant='h6'
+                >Year
                 </Typography>
                 <div display="inline-block">
                     <RangeSlider
@@ -80,19 +91,81 @@ class SearchDrawer extends Component {
                         endYear={this.props.search.endYear}
                     />
                 </div>
+                <Divider />
+                <Typography 
+                    variant={'h6'}
+                    className={classes.heading}
+                >
+                    Mint
+                </Typography>
                 <FormControlLabel 
                     className={classes.formGroup}
                     control=
                     {<Switch 
                         color="primary"
-                        checked={true}
-                        onChange={this.handleSwitchChange('mintD')} 
+                        checked={this.props.search.mintP}
+                        onChange={this.handleSwitchChange('mintP')} 
                         value="mintP" 
                     />}
                     label="P" 
+                    labelPlacement="top"
                 />
-                
-            </div>
+                <FormControlLabel
+                    className={classes.formGroup}
+                    control=
+                    {<Switch
+                        color="primary"
+                        checked={this.props.search.mintD}
+                        onChange={this.handleSwitchChange('mintD')}
+                        value="mintD"
+                    />}
+                    label="D"
+                    labelPlacement="top"
+                />
+                <FormControlLabel
+                    className={classes.formGroup}
+                    control=
+                    {<Switch
+                        color="primary"
+                        checked={this.props.search.mintS}
+                        onChange={this.handleSwitchChange('mintS')}
+                        value="mintS"
+                    />}
+                    labelPlacement="top"
+                    label="S"
+                />
+                <Divider />
+                <Typography
+                    variant={'h6'}
+                    className={classes.heading}
+                >
+                    Status
+                </Typography>
+                <FormControlLabel
+                    className={classes.formGroup}
+                    control=
+                    {<Switch
+                        color="primary"
+                        checked={this.props.search.found}
+                        onChange={this.handleSwitchChange('found')}
+                        value="Found"
+                    />}
+                    label="Found"
+                    labelPlacement="top"
+                />
+                <FormControlLabel
+                    className={classes.formGroup}
+                    control=
+                    {<Switch
+                        color="primary"
+                        checked={this.props.search.needed}
+                        onChange={this.handleSwitchChange('needed')}
+                        value="Needed"
+                    />}
+                    label="Needed"
+                    labelPlacement="top"
+                />
+                </div>
         );
 
         return (

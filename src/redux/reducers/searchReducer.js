@@ -3,6 +3,11 @@ const initState = {
     maxYear: 2008,
     startYear: 1999,
     endYear: 2008,
+    mintP: true,
+    mintD: true,
+    mintS: true,
+    found: true,
+    needed: true,
 }
 
 const search = (state = initState, action) => {
@@ -13,6 +18,11 @@ const search = (state = initState, action) => {
                 startYear: action.payload[0],
                 endYear: action.payload[1],
             };
+        case 'SET_MINT':
+            return {
+                ...state,
+                [action.payload.mint]: action.payload.value,
+            }
         default:
             return state;
     }
