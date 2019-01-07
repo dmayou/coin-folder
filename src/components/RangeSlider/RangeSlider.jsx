@@ -13,12 +13,28 @@ const styles = theme => ({
     },
     text: {
         margin: theme.spacing.unit,
+        marginTop: theme.spacing.unit - 3,
     },
     slider: {
         maxWidth: '60%',
         margin: theme.spacing.unit,
+        marginRight: 0,
     },
 });
+
+const handleStyle = {
+    borderColor: '#3f50b5', // default mui primary
+    height: 12,
+    width: 11,
+    marginLeft: -10,
+    marginTop: -4,
+    backgroundColor: 'white',
+};
+
+const trackStyle = {
+    backgroundColor: '#3f50b5', // default mui primary
+    height: 4,
+};
 
 class RangeSlider extends Component {
     render() {
@@ -28,7 +44,11 @@ class RangeSlider extends Component {
                 <Typography className={classes.text}>{this.props.startYear}</Typography>
                 <Range 
                     allowCross={false}
-                    className={this.props.classes.slider}
+                    className={classes.slider}
+                    handleStyle={[
+                        handleStyle, handleStyle // one object for each handle
+                    ]}
+                    trackStyle={[ trackStyle ]}
                     min={1999}
                     max={2008}
                     defaultValue={[1999, 2008]}

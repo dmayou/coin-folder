@@ -4,14 +4,11 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
+import Switch from '@material-ui/core/Switch';
+
 import { withStyles } from '@material-ui/core/styles';
 
 import RangeSlider from '../RangeSlider/RangeSlider';
@@ -50,7 +47,10 @@ const styles = theme => ({
     },
     heading: {
         padding:theme.spacing.unit,
-    }
+    },
+    formGroup: {
+        margin: theme.spacing.unit,
+    },
 });
 
 class SearchDrawer extends Component {
@@ -59,6 +59,9 @@ class SearchDrawer extends Component {
     };
     handleSliderChange = () => (values) => {
         this.props.dispatch({ type: 'SET_YEARS', payload: values })
+    };
+    handleSwitchChange = (name) => (event) => {
+        // this.setState({ [name]: event.target.checked });
     };
     render() {
         const { classes, theme } = this.props;
@@ -77,25 +80,18 @@ class SearchDrawer extends Component {
                         endYear={this.props.search.endYear}
                     />
                 </div>
-                <div className={classes.toolbar} />
-                <Divider />
-                <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
-                </List>
-                <Divider />
-                <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
-                </List>
+                <FormControlLabel 
+                    className={classes.formGroup}
+                    control=
+                    {<Switch 
+                        color="primary"
+                        checked={true}
+                        onChange={this.handleSwitchChange('mintD')} 
+                        value="mintP" 
+                    />}
+                    label="P" 
+                />
+                
             </div>
         );
 
