@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -46,6 +47,9 @@ const styles = theme => ({
         flexGrow: 1,
         padding: theme.spacing.unit * 3,
     },
+    heading: {
+        padding:theme.spacing.unit,
+    }
 });
 
 class ResponsiveDrawer extends React.Component {
@@ -57,7 +61,14 @@ class ResponsiveDrawer extends React.Component {
 
         const drawer = (
             <div>
-                <RangeSlider />
+                <Typography 
+                    className={classes.heading} 
+                    variant='h5'
+                    >Search
+                </Typography>
+                <div display="inline-block">
+                    <RangeSlider />
+                </div>
                 <div className={classes.toolbar} />
                 <Divider />
                 <List>
