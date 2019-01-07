@@ -56,9 +56,6 @@ const styles = theme => ({
 });
 
 class SearchDrawer extends Component {
-    handleDrawerToggle = () => {
-        this.setState(state => ({ mobileOpen: !state.mobileOpen }));
-    };
     handleSliderChange = () => (values) => {
         this.props.dispatch({ type: 'SET_YEARS', payload: values })
     };
@@ -179,7 +176,7 @@ class SearchDrawer extends Component {
                             variant="temporary"
                             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
                             open={this.props.open}
-                            onClose={this.handleDrawerToggle}
+                            onClose={this.props.onClose}
                             classes={{
                                 paper: classes.drawerPaper,
                             }}

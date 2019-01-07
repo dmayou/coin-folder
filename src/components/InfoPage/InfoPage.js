@@ -34,8 +34,8 @@ class InfoPage extends Component {
       filter: choice,
     });
     this.fetchItems(choice);
-  }
-  openSearch = () => {
+  };
+  toggleSearchDrawer = () => {
     this.setState({
       ...this.state,
       mobileOpen: !this.state.mobileOpen,
@@ -70,7 +70,6 @@ class InfoPage extends Component {
             <Grid item xs={10}>
               <FilterTabs 
                 onTabChange={this.setFilter}
-                onSearch={this.openSearch}
                 showSearch={!this.state.mobileOpen}
               />
             </Grid>
@@ -79,6 +78,7 @@ class InfoPage extends Component {
                 className={classes.button}
                 size="large"
                 aria-label="search"
+                onClick={this.toggleSearchDrawer}
               >
                 <Search fontSize="large" />
               </IconButton>
@@ -86,7 +86,10 @@ class InfoPage extends Component {
             {coinList}
           </Grid>
         </main>
-        <SearchDrawer open={this.state.mobileOpen}/>
+        <SearchDrawer 
+          open={this.state.mobileOpen}
+          onClose={this.toggleSearchDrawer}
+        />
       </div>
     );
   }
