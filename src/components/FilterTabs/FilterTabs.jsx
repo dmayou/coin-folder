@@ -49,7 +49,7 @@ class FilterTabs extends Component {
                 choice = 'needed';
                 break;
             default:
-                    console.log('filter tabs default choice error');
+                console.log('filter tabs default choice error');
         };
         this.props.onTabChange(choice);
     };

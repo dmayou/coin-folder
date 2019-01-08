@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core';
+import { withStyles, withTheme } from '@material-ui/core';
 import CoinCard from '../CoinCard/CoinCard';
 import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import Search from '@material-ui/icons/Search';
+import { compose } from 'recompose';
 import FilterTabs from '../FilterTabs/FilterTabs';
 import SearchDrawer from '../SearchDrawer/SearchDrawer';
 
@@ -17,7 +19,7 @@ const styles = theme => ({
       marginLeft: 240,
     },
   },
-  button: {
+  searchButton: {
     marginLeft: '24%',
     marginTop: '10%',
   },
@@ -78,14 +80,16 @@ class InfoPage extends Component {
               />
             </Grid>
             <Grid item className={classes.buttonDiv} xs={2}>
-              <IconButton
-                className={classes.button}
-                size="large"
-                aria-label="search"
-                onClick={this.toggleSearchDrawer}
-              >
-                <Search fontSize="large" />
-              </IconButton>
+              <Hidden smUp>
+                <IconButton
+                  className={classes.searchButton}
+                  size="large"
+                  aria-label="search"
+                  onClick={this.toggleSearchDrawer}
+                >
+                  <Search fontSize="large" />
+                </IconButton>
+              </Hidden>
             </Grid>
             {coinList}
           </Grid>
@@ -103,4 +107,4 @@ const mapStoreToProps = ( state ) => ({
   collectionItems: state.collections.collectionItems 
 });
 
-export default connect(mapStoreToProps)(withStyles(styles)(InfoPage));
+export default connect(mapStoreToProps)(compose(withTheme(), withStyles(styles))(InfoPage));
