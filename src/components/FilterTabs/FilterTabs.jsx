@@ -32,26 +32,30 @@ const styles = theme => ({
 });
 
 class FilterTabs extends Component {
-    state = {
-        value: 0,
-    };
     handleChange = (event, value) => {
-        this.setState({ value });
-            let choice;
         switch (value) {
-            case 0:
-                choice = 'all';
-                    break;
-            case 1:
-                choice = 'found';
+            case 0: // all
+                this.props.dispatch({ 
+                    type: 'SET_FOUND_NEEDED', 
+                    payload: [true, true]
+                });
+                break;
+            case 1: // found
+                this.props.dispatch({
+                    type: 'SET_FOUND_NEEDED',
+                    payload: [true, false]
+                });
                 break;
             case 2:
-                choice = 'needed';
+                this.props.dispatch({
+                    type: 'SET_FOUND_NEEDED',
+                    payload: [false, true]
+                });
                 break;
             default:
                 console.log('filter tabs default choice error');
         };
-        this.props.onTabChange(choice);
+        // this.props.onTabChange(choice);
     };
     activeTab = () => {
         const { found, needed } = this.props.search;

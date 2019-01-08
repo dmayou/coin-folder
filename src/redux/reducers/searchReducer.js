@@ -21,6 +21,12 @@ const search = (state = initState, action) => {
                 ...state,
                 [action.payload.mint]: action.payload.value,
             }
+        case 'SET_FOUND_NEEDED':
+            return {
+                ...state,
+                found: action.payload[0],
+                needed: action.payload[1],
+            }
         default:
             return state;
     }
