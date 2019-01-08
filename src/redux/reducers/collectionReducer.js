@@ -18,7 +18,18 @@ const collectionType = (state = [], action) => {
     }
 };
 
+const collectionStats = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_COLLECTION_STATS':
+            console.log('in reducer:', action.payload.data);
+            return action.payload.data;
+        default:
+            return state;
+    }
+};
+
 export default combineReducers({
     collectionItems,
     collectionType,
+    collectionStats,
 });

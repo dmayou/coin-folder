@@ -50,13 +50,12 @@ const styles = theme => ({
         margin: 'auto',
     },
     formGroup: {
-        // display: 'inline-block',
         margin: theme.spacing.unit,
     },
 });
 
 class SearchDrawer extends Component {
-    handleSliderChange = () => (values) => {
+    handleSliderChange = (event) => (values) => {
         this.props.dispatch({ type: 'SET_YEARS', payload: values })
     };
     handleSwitchChange = (name) => (event) => {
@@ -64,11 +63,10 @@ class SearchDrawer extends Component {
             type: 'SET_MINT',
             payload: {mint: name, value: event.target.checked} 
         });
-        // this.setState({ [name]: event.target.checked });
     };
     render() {
-        const { classes, theme } = this.props;
-
+        const { classes, theme, search } = this.props;
+        const { collectionStats } = this.props.collections;
         const drawer = (
             <div>
                 <Typography 
@@ -83,9 +81,13 @@ class SearchDrawer extends Component {
                 </Typography>
                 <div display="inline-block">
                     <RangeSlider
-                        onChange={this.handleSliderChange}
-                        startYear={this.props.search.startYear}
-                        endYear={this.props.search.endYear}
+                        handleChange={this.handleSliderChange}
+                        // startYear={this.props.search.startYear || this.props.collections.collectionStats.min}
+                        // endYear={this.props.search.endYear || this.props.collections.collectionStats.max}
+                        startYear={search.startYear}
+                        endYear={search.endYear}
+                        min={collectionStats.min}
+                        max={collectionStats.max}
                     />
                 </div>
                 <Divider />
@@ -210,6 +212,6 @@ SearchDrawer.propTypes = {
     theme: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ search }) => ({ search });
+const mapStateToProps = ({ search, collections }) => ({ search, collections });
 
 export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(SearchDrawer));

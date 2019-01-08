@@ -49,10 +49,12 @@ class RangeSlider extends Component {
                         handleStyle, handleStyle // one object for each handle
                     ]}
                     trackStyle={[ trackStyle ]}
-                    min={1999}
-                    max={2008}
-                    defaultValue={[1999, 2008]}
-                    onChange={this.props.onChange(this.value)}
+                    // min={this.props.min}
+                    min={2010}
+                    // max={this.props.max}
+                    max={2018}
+                    defaultValue={[2010, 2018]}
+                    onChange={this.props.handleChange(this.value)}
                 />
                 <Typography className={classes.text}>{this.props.endYear}</Typography>
             </div>

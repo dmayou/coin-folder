@@ -53,7 +53,8 @@ router.get('/collection_stats/:userCollectionId/', rejectUnauthenticated, (req, 
         WHERE "user_collection_id"=${userCollectionId};`;
     pool.query(query)
         .then((results) => {
-            res.send(results.rows);
+            console.log('results:', results.rows);
+            res.send(results.rows[0]);
         }).catch((err) => {
             res.sendStatus(500);
         });
