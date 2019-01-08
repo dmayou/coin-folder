@@ -20,7 +20,6 @@ const styles = theme => ({
     },
   },
   searchButton: {
-    marginLeft: '24%',
     marginTop: '10%',
   },
   buttonDiv: {
