@@ -12,6 +12,7 @@ import Switch from '@material-ui/core/Switch';
 import { withStyles } from '@material-ui/core/styles';
 
 import RangeSlider from '../RangeSlider/RangeSlider';
+import { Button } from '@material-ui/core';
 
 const drawerWidth = 240;
 
@@ -37,17 +38,21 @@ const styles = theme => ({
             display: 'none',
         },
     },
+    allButton: {
+        margin: 0,
+        maxWidth: 30,
+    },
+    yearLine: {
+        display: 'flex',
+        justifyContent: 'flexEnd',
+    },
     toolbar: theme.mixins.toolbar,
     drawerPaper: {
         width: drawerWidth,
     },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing.unit * 3,
-    },
     heading: {
         padding:theme.spacing.unit,
-        margin: 'auto',
+        // margin: 'auto',
     },
     formGroup: {
         margin: theme.spacing.unit,
@@ -56,13 +61,16 @@ const styles = theme => ({
 
 class SearchDrawer extends Component {
     handleSliderChange = (event) => (values) => {
-        this.props.dispatch({ type: 'SET_YEARS', payload: values })
+        this.props.dispatch({ type: 'SET_YEARS', payload: values });
     };
     handleSwitchChange = (name) => (event) => {
         this.props.dispatch({ 
             type: 'SET_MINT',
             payload: {mint: name, value: event.target.checked} 
         });
+    };
+    handleAllClick = (startYear, endYear) => () => {
+        this.props.dispatch({ type: 'SET_YEARS', payload: [startYear, endYear] });
     };
     render() {
         const { classes, theme, search } = this.props;
@@ -74,16 +82,22 @@ class SearchDrawer extends Component {
                     variant='h4'
                     >Search
                 </Typography>
+                <div className={classes.yearLine}>
                 <Typography
                     className={classes.heading}
                     variant='h6'
                 >Year
                 </Typography>
+                <Button
+                    className={classes.allButton}
+                    onClick={this.handleAllClick(collectionStats.min, collectionStats.max)}
+                    size='small'
+                >All
+                </Button>
+                </div>
                 <div display="inline-block">
                     <RangeSlider
                         handleChange={this.handleSliderChange}
-                        // startYear={this.props.search.startYear || this.props.collections.collectionStats.min}
-                        // endYear={this.props.search.endYear || this.props.collections.collectionStats.max}
                         startYear={search.startYear}
                         endYear={search.endYear}
                         min={collectionStats.min}

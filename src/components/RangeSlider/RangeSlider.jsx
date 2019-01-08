@@ -39,9 +39,11 @@ const trackStyle = {
 class RangeSlider extends Component {
     render() {
         const { classes } = this.props;
+        console.log('slider render. props:', this.props);
         return (
             <div className={this.props.classes.inline}>
                 <Typography className={classes.text}>{this.props.startYear}</Typography>
+                {this.props.min && this.props.max && // slider won't recover if rendered with undefined values
                 <Range 
                     allowCross={false}
                     className={classes.slider}
@@ -49,13 +51,12 @@ class RangeSlider extends Component {
                         handleStyle, handleStyle // one object for each handle
                     ]}
                     trackStyle={[ trackStyle ]}
-                    // min={this.props.min}
-                    min={2010}
-                    // max={this.props.max}
-                    max={2018}
-                    defaultValue={[2010, 2018]}
+                    min={this.props.min}
+                    max={this.props.max}
+                    value={[this.props.startYear, this.props.endYear]}
+                    defaultValue={[this.props.min, this.props.max]}
                     onChange={this.props.handleChange(this.value)}
-                />
+                />}
                 <Typography className={classes.text}>{this.props.endYear}</Typography>
             </div>
         );
