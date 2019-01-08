@@ -41,6 +41,10 @@ const styles = theme => ({
     allButton: {
         margin: 0,
         maxWidth: 30,
+        // the following two settings keep the all button away
+        // from the slider to prevent inadvertent presses
+        paddingTop: 15,
+        height: 25,
     },
     yearLine: {
         display: 'flex',
@@ -60,7 +64,8 @@ const styles = theme => ({
 
 class SearchDrawer extends Component {
     handleSliderChange = (event) => (values) => {
-        this.props.dispatch({ type: 'SET_YEARS', payload: values });
+        this.updateYears(...values);
+
     };
     handleSwitchChange = (name) => (event) => {
         this.props.dispatch({ 
