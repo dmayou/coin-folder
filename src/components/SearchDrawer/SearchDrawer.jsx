@@ -8,11 +8,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import Switch from '@material-ui/core/Switch';
-
+import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-
 import RangeSlider from '../RangeSlider/RangeSlider';
-import { Button } from '@material-ui/core';
 
 const drawerWidth = 240;
 
@@ -41,10 +39,13 @@ const styles = theme => ({
     allButton: {
         margin: 0,
         maxWidth: 30,
-        // the following two settings keep the all button away
-        // from the slider to prevent inadvertent presses
-        paddingTop: 15,
+        // the following two settings keep the 'all' button away
+        // from the slider to prevent inadvertent button presses
+        paddingTop: 17,
         height: 25,
+    },
+    applyButton: {
+        margin: theme.spacing.unit,
     },
     yearLine: {
         display: 'flex',
@@ -63,9 +64,17 @@ const styles = theme => ({
 });
 
 class SearchDrawer extends Component {
+    state = {
+        controlChanged: false,
+    }
+    enableApply = () => {
+        this.setState({
+            controlChanged: true,
+        });
+    }
     handleSliderChange = (event) => (values) => {
         this.updateYears(...values);
-
+        this.enableApply();
     };
     handleSwitchChange = (name) => (event) => {
         this.props.dispatch({ 
@@ -73,15 +82,19 @@ class SearchDrawer extends Component {
             payload: {mint: name, value: event.target.checked} 
         });
         this.updateCount();
+        this.enableApply();
     };
     handleAllClick = (startYear, endYear) => () => {
         this.updateYears(startYear, endYear);
+        this.enableApply();
     };
     updateCount = () => {
         // setTimeout moves dispatch to end of event queue to ensure that 
-        // set search (SET_MINT, SET_YEAR) have completed
+        // set search (SET_MINT, SET_YEAR) dispatches have completed
         setTimeout(
-            ()=>this.props.dispatch({ type: 'FETCH_COLLECTION_COUNT', payload: {id: 42, searchParams: this.props.search} }),
+            () => this.props.dispatch({ 
+                type: 'FETCH_COLLECTION_COUNT', 
+                payload: {id: 42, searchParams: this.props.search} }),
             0);
     };
     updateYears = (startYear, endYear) => {
@@ -201,6 +214,12 @@ class SearchDrawer extends Component {
                     <Typography className={classes.heading}>
                         {this.props.collections.collectionCount} matches
                     </Typography>
+                    <Button 
+                        variant="contained"
+                        className={classes.applyButton}
+                        disabled={!this.state.controlChanged}
+                    >Apply
+                    </Button>
                 </div>
                 </div>
         );

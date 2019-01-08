@@ -3,8 +3,8 @@ import axios from 'axios';
 
 function* fetchUserCollectionItems(action) {
     try {
-        const { id, choice } = action.payload;
-        const data = yield axios.get(`api/collection/collection_items/${id}/${choice}`);
+        const { id, searchParams } = action.payload;
+        const data = yield axios.get(`api/collection/collection_items/${id}/${JSON.stringify(searchParams)}`);
         yield dispatch({ type: 'SET_USER_COLLECTION_ITEMS', payload: data });
     } catch (err) {
         console.log('Error fetching user collection items:', err)
@@ -49,8 +49,9 @@ function* fetchCollectionStats(action) {
 }
 function* fetchCollectionCount(action) {
     try {
+        const { id, searchParams } = action.payload;
         const data = yield axios.get(
-            `api/collection/collection_count/${action.payload.id}/${JSON.stringify(action.payload.searchParams)}`);
+            `api/collection/collection_count/${id}/${JSON.stringify(searchParams)}`);
         yield dispatch({ type: 'SET_COLLECTION_COUNT', payload: data });
     } catch (err) {
         console.log('Error fetching collection stats.');

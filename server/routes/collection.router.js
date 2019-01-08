@@ -15,27 +15,16 @@ router.get('/collection_type', rejectUnauthenticated, (req, res) => {
     }
 );
 
-router.get('/collection_items/:userCollectionId/:filter', rejectUnauthenticated, (req, res) => {
-    const { filter, userCollectionId } = req.params;
-    let filterClause = '';
-    switch (filter) {
-        case 'all':
-            filterClause = '1=1';
-            break;
-        case 'found':
-            filterClause = '"collection_items"."found"=TRUE';
-            break;
-        case 'needed':
-            filterClause = '"collection_items"."found"=FALSE';
-            break;
-        default:
-            console.log('invalid filter parameter in collection_items route');
-    }
+router.get('/collection_items/:userCollectionId/:searchParams', rejectUnauthenticated, (req, res) => {
+    const { userCollectionId, searchParams } = req.params;
+    console.log('search params:', req.params);
+    const queryWhere = buildCollectionQuery(JSON.parse(searchParams));
+    console.log('queryWhere', queryWhere);
     const query = 
         `SELECT "collection_items".*, "items".*, "condition"."grade", "condition"."description" FROM "collection_items"
         JOIN "items" ON "collection_items"."item_id"="items"."id"
         LEFT JOIN "condition" ON "collection_items"."condition_id"="condition"."id"
-        WHERE "collection_items"."user_collection_id"=${userCollectionId} AND ${filterClause}
+        WHERE "collection_items"."user_collection_id"=${userCollectionId} ${queryWhere}
         ORDER BY "items"."year" ASC, "collection_items"."item_id" ASC;`;
     pool.query(query)
         .then( (results) => {
@@ -62,8 +51,7 @@ router.get('/collection_stats/:userCollectionId', rejectUnauthenticated, (req, r
 );
 
 router.get('/collection_count/:userCollectionId/:searchParams', rejectUnauthenticated, (req, res) => {
-    const { userCollectionId } = req.params;
-    const { searchParams } = req.params;
+    const { userCollectionId, searchParams } = req.params;
     console.log('search params:', req.params);
     const queryWhere = buildCollectionQuery(JSON.parse(searchParams));
     console.log('queryWhere', queryWhere);
