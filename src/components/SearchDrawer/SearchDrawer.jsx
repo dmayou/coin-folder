@@ -64,17 +64,18 @@ const styles = theme => ({
 });
 
 class SearchDrawer extends Component {
-    state = {
-        controlChanged: false,
-    }
-    enableApply = () => {
-        this.setState({
-            controlChanged: true,
-        });
+    updateDisplayItems = () => {
+        // setTimeout moves dispatch to end of the event queue to 
+        // ensure that the the search reducer has been updated
+        setTimeout( () => this.props.dispatch({
+                type: 'FETCH_USER_COLLECTION_ITEMS',
+                payload: { id: 42, searchParams: this.props.search }
+            }),
+        0);
     }
     handleSliderChange = (event) => (values) => {
         this.updateYears(...values);
-        this.enableApply();
+        this.updateDisplayItems();
     };
     handleSwitchChange = (name) => (event) => {
         this.props.dispatch({ 
@@ -82,11 +83,11 @@ class SearchDrawer extends Component {
             payload: {mint: name, value: event.target.checked} 
         });
         this.updateCount();
-        this.enableApply();
+        this.updateDisplayItems();
     };
     handleAllClick = (startYear, endYear) => () => {
         this.updateYears(startYear, endYear);
-        this.enableApply();
+        this.updateDisplayItems();
     };
     updateCount = () => {
         // setTimeout moves dispatch to end of event queue to ensure that 
@@ -210,17 +211,11 @@ class SearchDrawer extends Component {
                     label="Needed"
                     labelPlacement="top"
                 />
-                <div>
-                    <Typography className={classes.heading}>
-                        {this.props.collections.collectionCount} matches
-                    </Typography>
-                    <Button 
-                        variant="contained"
-                        className={classes.applyButton}
-                        disabled={!this.state.controlChanged}
-                    >Apply
-                    </Button>
-                </div>
+                    <div>
+                        <Typography className={classes.heading}>
+                            {this.props.collections.collectionCount} matches
+                        </Typography>
+                    </div>
                 </div>
         );
 
