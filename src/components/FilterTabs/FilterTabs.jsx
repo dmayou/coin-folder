@@ -57,12 +57,16 @@ class FilterTabs extends Component {
         };
         // setTimeout moves dispatch to end of the event queue to 
         // ensure that the the search reducer has been updated
-        setTimeout(() => this.props.dispatch({
+        setTimeout(() => {
+            this.props.dispatch({
                 type: 'FETCH_USER_COLLECTION_ITEMS',
                 payload: { id: 42, searchParams: this.props.search }
-            }),
-            0
-        );
+            });
+            this.props.dispatch({
+                type: 'FETCH_COLLECTION_COUNT',
+                payload: { id: 42, searchParams: this.props.search }
+            });
+        }, 0);
     };
     activeTab = () => {
         const { found, needed } = this.props.search;
