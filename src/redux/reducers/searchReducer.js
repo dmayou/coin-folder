@@ -1,6 +1,6 @@
 let initState = {
-    startYear: 2010,
-    endYear: 2019,
+    startYear: 0,
+    endYear: 0,
     mintP: true,
     mintD: true,
     mintS: true,

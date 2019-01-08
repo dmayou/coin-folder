@@ -39,11 +39,19 @@ function* addUserCollectionItems(action) {
 
 function* fetchCollectionStats(action) {
     try {
-        console.log('stats route', action.payload);
-        const data = yield axios.get(
-            `api/collection/collection_stats/${action.payload.id}/${action.payload.queryWhere}`);
-        console.log('data:', data);
+        const data = yield axios.get(`api/collection/collection_stats/${action.payload}`);
         yield dispatch({ type: 'SET_COLLECTION_STATS', payload: data });
+        console.log('fetch years', data.data);
+        yield dispatch({ type: 'SET_YEARS', payload: [data.data.min, data.data.max] });
+    } catch (err) {
+        console.log('Error fetching collection stats.');
+    }
+}
+function* fetchCollectionCount(action) {
+    try {
+        const data = yield axios.get(
+            `api/collection/collection_count/${action.payload.id}/${JSON.stringify(action.payload.searchParams)}`);
+        yield dispatch({ type: 'SET_COLLECTION_COUNT', payload: data });
     } catch (err) {
         console.log('Error fetching collection stats.');
     }
@@ -55,6 +63,7 @@ function* userCollectionSaga() {
     yield takeLatest('FETCH_COLLECTION_TYPE', fetchCollectionType);
     yield takeLatest('BUILD_ITEMS_TABLE', buildItemsTable);
     yield takeLatest('FETCH_COLLECTION_STATS', fetchCollectionStats);
+    yield takeLatest('FETCH_COLLECTION_COUNT', fetchCollectionCount);
 }
 
 export default userCollectionSaga;

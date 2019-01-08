@@ -52,7 +52,6 @@ const styles = theme => ({
     },
     heading: {
         padding:theme.spacing.unit,
-        // margin: 'auto',
     },
     formGroup: {
         margin: theme.spacing.unit,
@@ -68,10 +67,25 @@ class SearchDrawer extends Component {
             type: 'SET_MINT',
             payload: {mint: name, value: event.target.checked} 
         });
+        this.updateCount();
     };
     handleAllClick = (startYear, endYear) => () => {
-        this.props.dispatch({ type: 'SET_YEARS', payload: [startYear, endYear] });
+        this.updateYears(startYear, endYear);
     };
+    updateCount = () => {
+        // setTimeout moves dispatch to end of event queue to ensure that 
+        // set search (SET_MINT, SET_YEAR) have completed
+        setTimeout(
+            ()=>this.props.dispatch({ type: 'FETCH_COLLECTION_COUNT', payload: {id: 42, searchParams: this.props.search} }),
+            0);
+    };
+    updateYears = (startYear, endYear) => {
+        this.props.dispatch({ type: 'SET_YEARS', payload: [startYear, endYear] });
+        this.updateCount();
+    }
+    componentDidMount = () => {
+        this.updateCount();
+    }
     render() {
         const { classes, theme, search } = this.props;
         const { collectionStats } = this.props.collections;
@@ -100,7 +114,7 @@ class SearchDrawer extends Component {
                         handleChange={this.handleSliderChange}
                         startYear={search.startYear}
                         endYear={search.endYear}
-                        min={collectionStats.min}
+                        min={this.props.collections.collectionStats.min}
                         max={collectionStats.max}
                     />
                 </div>
@@ -178,6 +192,11 @@ class SearchDrawer extends Component {
                     label="Needed"
                     labelPlacement="top"
                 />
+                <div>
+                    <Typography className={classes.heading}>
+                        {this.props.collections.collectionCount} matches
+                    </Typography>
+                </div>
                 </div>
         );
 

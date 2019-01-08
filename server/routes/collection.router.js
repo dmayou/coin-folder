@@ -2,6 +2,7 @@ const express = require('express');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
 const router = express.Router();
+const buildCollectionQuery = require('../modules/buildCollectionQuery');
 
 router.get('/collection_type', rejectUnauthenticated, (req, res) => {
     const query = 'SELECT * FROM "collection_type" ORDER BY "id" ASC;';
@@ -45,23 +46,39 @@ router.get('/collection_items/:userCollectionId/:filter', rejectUnauthenticated,
     }
 );
 
-router.get('/collection_stats/:userCollectionId/:queryWhere', rejectUnauthenticated, (req, res) => {
+router.get('/collection_stats/:userCollectionId', rejectUnauthenticated, (req, res) => {
     const { userCollectionId } = req.params;
-    const { queryWhere } = req.params;
-    console.log('queryWhere:', req.body, req.params, userCollectionId);
     const query = 
         `SELECT MIN("items"."year"), MAX("items"."year"), COUNT(*), SUM("found"::int) FROM "collection_items"
         JOIN "items" ON "items"."id"="collection_items"."item_id"
-        WHERE "user_collection_id"=${userCollectionId} ${queryWhere};`;
+        WHERE "user_collection_id"=${userCollectionId};`;
     pool.query(query)
         .then((results) => {
-            console.log('results:', results.rows);
             res.send(results.rows[0]);
         }).catch((err) => {
             res.sendStatus(500);
         });
     }
 );
+
+router.get('/collection_count/:userCollectionId/:searchParams', rejectUnauthenticated, (req, res) => {
+    const { userCollectionId } = req.params;
+    const { searchParams } = req.params;
+    console.log('search params:', req.params);
+    const queryWhere = buildCollectionQuery(JSON.parse(searchParams));
+    console.log('queryWhere', queryWhere);
+    const query =
+        `SELECT MIN("items"."year"), MAX("items"."year"), COUNT(*), SUM("found"::int) FROM "collection_items"
+        JOIN "items" ON "items"."id"="collection_items"."item_id"
+        WHERE "user_collection_id"=${userCollectionId} ${queryWhere};`;
+    pool.query(query)
+        .then((results) => {
+            res.send(results.rows[0]);
+        }).catch((err) => {
+            res.sendStatus(500);
+        }
+    );
+})
     
 
 // Posts collection_items rows for a given collection_type.id
