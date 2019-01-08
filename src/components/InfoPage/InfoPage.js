@@ -9,6 +9,7 @@ import Search from '@material-ui/icons/Search';
 import { compose } from 'recompose';
 import FilterTabs from '../FilterTabs/FilterTabs';
 import SearchDrawer from '../SearchDrawer/SearchDrawer';
+import UpButton from '../ScrollUpButton/ScrollUpButton';
 
 const styles = theme => ({
   content: {
@@ -100,6 +101,7 @@ class InfoPage extends Component {
           open={this.state.mobileOpen}
           onClose={this.toggleSearchDrawer}
         />
+        <UpButton />
       </div>
     );
   }
