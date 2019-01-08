@@ -53,11 +53,23 @@ class FilterTabs extends Component {
         };
         this.props.onTabChange(choice);
     };
+    activeTab = () => {
+        const { found, needed } = this.props.search;
+        if (found && needed) { // i.e. All
+            return 0; // show all tab
+        } else if (found) {
+            return 1; // found tab
+        } else if (needed) {
+            return 2; // needed tab
+        } else {
+            return -1; // not a valid tab
+        }
+    }
     render() {
         const { classes } = this.props;
         return (
                 <div className={classes.root}>
-                    <Tabs variant="fullWidth" value={this.state.value} onChange={this.handleChange}>
+                    <Tabs variant="fullWidth" value={this.activeTab()} onChange={this.handleChange}>
                         <LinkTab label="Show All" href="page1" />
                         <LinkTab label="Found" href="page2" icon={<Check/>}/>
                         <LinkTab label="Needed" href="page3" icon={<TripOrigin/>}/>
@@ -71,4 +83,6 @@ FilterTabs.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default connect()(withStyles(styles)(FilterTabs));
+const mapStateToProps = ({ search }) => ({ search })
+
+export default connect(mapStateToProps)(withStyles(styles)(FilterTabs));
