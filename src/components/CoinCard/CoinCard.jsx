@@ -15,7 +15,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const styles = theme => ({
     card: {
-        width: 400,
+        width: 360,
         margin: theme.spacing.unit,
     },
     coin: {
