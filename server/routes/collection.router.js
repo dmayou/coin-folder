@@ -45,12 +45,14 @@ router.get('/collection_items/:userCollectionId/:filter', rejectUnauthenticated,
     }
 );
 
-router.get('/collection_stats/:userCollectionId/', rejectUnauthenticated, (req, res) => {
+router.get('/collection_stats/:userCollectionId/:queryWhere', rejectUnauthenticated, (req, res) => {
     const { userCollectionId } = req.params;
+    const { queryWhere } = req.params;
+    console.log('queryWhere:', req.body, req.params, userCollectionId);
     const query = 
         `SELECT MIN("items"."year"), MAX("items"."year"), COUNT(*), SUM("found"::int) FROM "collection_items"
         JOIN "items" ON "items"."id"="collection_items"."item_id"
-        WHERE "user_collection_id"=${userCollectionId};`;
+        WHERE "user_collection_id"=${userCollectionId} ${queryWhere};`;
     pool.query(query)
         .then((results) => {
             console.log('results:', results.rows);

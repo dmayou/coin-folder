@@ -39,7 +39,9 @@ function* addUserCollectionItems(action) {
 
 function* fetchCollectionStats(action) {
     try {
-        const data = yield axios.get(`api/collection/collection_stats/${action.payload}`);
+        console.log('stats route', action.payload);
+        const data = yield axios.get(
+            `api/collection/collection_stats/${action.payload.id}/${action.payload.queryWhere}`);
         console.log('data:', data);
         yield dispatch({ type: 'SET_COLLECTION_STATS', payload: data });
     } catch (err) {

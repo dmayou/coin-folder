@@ -48,7 +48,7 @@ class InfoPage extends Component {
   }
   fetchItems = (choice) => {
     this.props.dispatch({ type: 'FETCH_USER_COLLECTION_ITEMS', payload: { id: 42, choice: choice } });
-    this.props.dispatch({ type: 'FETCH_COLLECTION_STATS', payload: 42 });
+    this.props.dispatch({ type: 'FETCH_COLLECTION_STATS', payload: {id: 42, queryWhere: 'AND 1=1'} });
   }
   componentDidMount () {
     this.fetchItems(this.state.filter);
@@ -81,14 +81,14 @@ class InfoPage extends Component {
             </Grid>
             <Grid item className={classes.buttonDiv} xs={2}>
               <Hidden smUp>
-                <IconButton
-                  className={classes.searchButton}
-                  size="large"
-                  aria-label="search"
-                  onClick={this.toggleSearchDrawer}
-                >
-                  <Search fontSize="large" />
-                </IconButton>
+              <IconButton
+                className={classes.searchButton}
+                size="large"
+                aria-label="search"
+                onClick={this.toggleSearchDrawer}
+              >
+                <Search fontSize="large" />
+              </IconButton>
               </Hidden>
             </Grid>
             {coinList}
