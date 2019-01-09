@@ -13,6 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MailOutline from '@material-ui/icons/MailOutline';
+import EditCoin from '../EditCoin/EditCoin';
 
 const styles = theme => ({
     card: {
@@ -60,10 +61,24 @@ const styles = theme => ({
 });
 
 class CoinCard extends Component {
-    state = { expanded: false };
+    state = { 
+        expanded: false,
+        showEdit: false,
+    };
     handleExpandClick = () => {
         this.setState(state => ({ expanded: !state.expanded }));
     };
+    handleFoundClick = (coinId) => () => {
+        this.setState({
+            showEdit: true,
+        });
+    };
+    handleFoundClose = () => {
+        console.log('in handleClose');
+        this.setState({
+            showEdit: false,
+        });
+    }
     otherUsersNeed = (id) => {
         // this routine will eventually get a count from the database of other users
         // who have this coin in their collection, but found=false
@@ -91,7 +106,9 @@ class CoinCard extends Component {
             );
         } else {
             return (
-                <Button>
+                <Button
+                    onClick={this.handleFoundClick(this.props.coinId)}
+                >
                     Found it?
                 </Button>
             );
@@ -138,6 +155,10 @@ class CoinCard extends Component {
                     </div>
                     </CardContent>
                 </Collapse>
+                <EditCoin
+                    show={this.state.showEdit}
+                    handleClose={this.handleFoundClose}
+                />
             </Card>
         );
     }
