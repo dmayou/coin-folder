@@ -25,7 +25,6 @@ class App extends Component {
     this.props.dispatch({ type: 'FETCH_COLLECTION_TYPE' });
 
   }
-
   render() {
     return (
       <Router>

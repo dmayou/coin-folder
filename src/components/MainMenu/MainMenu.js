@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Menu from '@material-ui/core/Menu';
+import Divider from "@material-ui/core/Divider";
 import MenuItem from '@material-ui/core/MenuItem';
 
 class MainMenu extends Component {
@@ -39,10 +40,11 @@ class MainMenu extends Component {
                     {user.id ?
                         <MenuItem 
                             onClick={this.handleClose('addCollection')}
-                            >Add a Collections
+                            >Add Collections
                         </MenuItem>
                     :
                     ''}
+                    <Divider />
                     {user.id ?
                         <MenuItem onClick={this.handleClose('profile')}>My Profile</MenuItem>
                     :
