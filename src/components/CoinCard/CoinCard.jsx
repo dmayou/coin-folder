@@ -40,7 +40,6 @@ const styles = theme => ({
     expandOpen: {
         transform: 'rotate(180deg)',
     },
-    
 });
 
 class CoinCard extends Component {
@@ -60,11 +59,11 @@ class CoinCard extends Component {
                     />
                     <CardHeader
                         title={`${this.props.year}-${this.props.mint}`}
-                        subheader="In collection"
+                        subheader={this.props.name}
                     />
                 </div>
                     <CardActions className={classes.actions}>
-                        <Button>Edit</Button>
+                        <Button>Found it!</Button>
                         <IconButton
                             className={classnames(classes.expand, {
                                 [classes.expandOpen]: this.state.expanded,
