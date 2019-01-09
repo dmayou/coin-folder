@@ -35,6 +35,10 @@ const styles = theme => ({
         padding: 0,
         height: 35,
     },
+    expandContent: {
+        padding: theme.spacing.unit,
+        height: '5em',
+    },
     expand: {
         transform: 'rotate(0deg)',
         marginLeft: 'auto',
@@ -126,10 +130,12 @@ class CoinCard extends Component {
                         </IconButton>
                     </CardActions>
                 <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-                    <CardContent>
+                    <CardContent className={classes.expandContent}>
+                        <div className={classes.text}>
                         <Typography>{this.props.grade && `Condition is ${this.props.grade}`}</Typography>
                         <Typography>{this.props.dateFound && `Found on ${this.props.dateFound}`}</Typography>
                         <Typography>{this.props.locationFound && `Found at ${this.props.locationFound}`}</Typography>
+                    </div>
                     </CardContent>
                 </Collapse>
             </Card>
