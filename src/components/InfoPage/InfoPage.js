@@ -65,8 +65,10 @@ class InfoPage extends Component {
           <Grid key={coin.id} item xs={12} sm={6} lg={4}>
             <CoinCard 
               image={coin.image_path}
+              name={coin.name}
               year={coin.year}
               mint={coin.mint}
+              found={coin.found}
             />
           </Grid>
         );
