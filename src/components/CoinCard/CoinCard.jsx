@@ -12,11 +12,15 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MailOutline from '@material-ui/icons/MailOutline';
 
 const styles = theme => ({
     card: {
-        width: 360,
+        // width: 360,
+        width: '95%',
         margin: theme.spacing.unit,
+        marginTop: theme.spacing.unit / 2,
+        marginBottom: theme.spacing.unit / 2,
     },
     coin: {
         display: 'flex',
@@ -30,6 +34,7 @@ const styles = theme => ({
         display: 'flex',
         justifyContent: 'flex-end',
         padding: 0,
+        height: 35,
     },
     expand: {
         transform: 'rotate(0deg)',
@@ -42,8 +47,13 @@ const styles = theme => ({
         transform: 'rotate(180deg)',
     },
     text: {
-        margin: theme.spacing.unit,
-    }
+        marginLeft: theme.spacing.unit,
+        marginBottom: theme.spacing.unit,
+    },
+    emailButton: {
+        size: 'small',
+        margin: 0,
+    },
 });
 
 class CoinCard extends Component {
@@ -60,14 +70,26 @@ class CoinCard extends Component {
         if (found) {
             const numOtherUsers = this.otherUsersNeed(coinId);
             return (
-                <Typography className={this.props.classes.text}>
-                    In collection - {numOtherUsers} other {(numOtherUsers === 1) ? 'user needs':'users need'} this coin
-                </Typography>
+                <div>
+                    <Typography className={this.props.classes.text}>
+                        In collection - {(numOtherUsers === 0) ? 'No' : numOtherUsers} other {(numOtherUsers === 1) ? 'user needs':'users need'} this
+                    {(numOtherUsers === 0) ?
+                            ''
+                            :
+                            <IconButton
+                                aria-label="Email user"
+                                className={this.props.classes.emailButton}
+                            >
+                                <MailOutline />
+                            </IconButton>
+                        }
+                    </Typography>
+                </div>
             );
         } else {
             return (
                 <Button>
-                    Found it!
+                    Found it?
                 </Button>
             );
         }
@@ -103,7 +125,6 @@ class CoinCard extends Component {
                 <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
                     <CardContent>
                         <Typography>Condition: good</Typography>
-                        <Typography>{this.otherUsersNeed(this.props.id)} other users need this coin</Typography>
                     </CardContent>
                 </Collapse>
             </Card>
