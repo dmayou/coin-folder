@@ -22,7 +22,7 @@ const styles = theme => ({
         display: 'flex',
     },
     media: {
-        width: 80,
+        minWidth: 80,
         height: 80,
         margin: theme.spacing.unit,
     },
