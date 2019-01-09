@@ -70,6 +70,9 @@ class InfoPage extends Component {
               year={coin.year}
               mint={coin.mint}
               found={coin.found}
+              dateFound={coin.date_found}
+              locationFound={coin.location_found}
+              grade={coin.grade}
             />
           </Grid>
         );

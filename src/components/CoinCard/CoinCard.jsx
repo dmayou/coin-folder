@@ -16,7 +16,6 @@ import MailOutline from '@material-ui/icons/MailOutline';
 
 const styles = theme => ({
     card: {
-        // width: 360,
         width: '95%',
         margin: theme.spacing.unit,
         marginTop: theme.spacing.unit / 2,
@@ -73,16 +72,16 @@ class CoinCard extends Component {
                 <div>
                     <Typography className={this.props.classes.text}>
                         In collection - {(numOtherUsers === 0) ? 'No' : numOtherUsers} other {(numOtherUsers === 1) ? 'user needs':'users need'} this
-                    {(numOtherUsers === 0) ?
-                            ''
-                            :
-                            <IconButton
-                                aria-label="Email user"
-                                className={this.props.classes.emailButton}
-                            >
-                                <MailOutline />
-                            </IconButton>
-                        }
+                    {(numOtherUsers === 0) ? // only show e-mail button if there is at least 1 user
+                        ''
+                        :
+                        <IconButton
+                            aria-label="Email user"
+                            className={this.props.classes.emailButton}
+                        >
+                            <MailOutline />
+                        </IconButton>
+                    }
                     </Typography>
                 </div>
             );
@@ -93,6 +92,10 @@ class CoinCard extends Component {
                 </Button>
             );
         }
+    }
+    formatDate = (dateFromDb) => {
+        // return new Intl.DateTimeFormat('en-US').format(Date());
+        // return Date(dateFromDb).toLocaleDateString('en-US');
     }
     render() {
         const { classes } = this.props;
@@ -124,7 +127,9 @@ class CoinCard extends Component {
                     </CardActions>
                 <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                        <Typography>Condition: good</Typography>
+                        <Typography>{this.props.grade && `Condition is ${this.props.grade}`}</Typography>
+                        <Typography>{this.props.dateFound && `Found on ${this.props.dateFound}`}</Typography>
+                        <Typography>{this.props.locationFound && `Found at ${this.props.locationFound}`}</Typography>
                     </CardContent>
                 </Collapse>
             </Card>
