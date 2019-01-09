@@ -63,7 +63,8 @@ class InfoPage extends Component {
       coinList = this.props.collectionItems.map( (coin) => {
         return (
           <Grid key={coin.id} item xs={12} sm={6} lg={4}>
-            <CoinCard 
+            <CoinCard
+              id={coin.id}
               image={coin.image_path}
               name={coin.name}
               year={coin.year}

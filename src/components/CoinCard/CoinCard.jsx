@@ -29,6 +29,7 @@ const styles = theme => ({
     actions: {
         display: 'flex',
         justifyContent: 'flex-end',
+        padding: 0,
     },
     expand: {
         transform: 'rotate(0deg)',
@@ -40,6 +41,9 @@ const styles = theme => ({
     expandOpen: {
         transform: 'rotate(180deg)',
     },
+    text: {
+        margin: theme.spacing.unit,
+    }
 });
 
 class CoinCard extends Component {
@@ -47,6 +51,27 @@ class CoinCard extends Component {
     handleExpandClick = () => {
         this.setState(state => ({ expanded: !state.expanded }));
     };
+    otherUsersNeed = (id) => {
+        // this routine will eventually get a count from the database of other users
+        // who have this coin in their collection, but found=false
+        return 4;
+    }
+    otherUsersMessage = (found, coinId) => {
+        if (found) {
+            const numOtherUsers = this.otherUsersNeed(coinId);
+            return (
+                <Typography className={this.props.classes.text}>
+                    In collection - {numOtherUsers} other {(numOtherUsers === 1) ? 'user needs':'users need'} this coin
+                </Typography>
+            );
+        } else {
+            return (
+                <Button>
+                    Found it!
+                </Button>
+            );
+        }
+    }
     render() {
         const { classes } = this.props;
         return (
@@ -63,7 +88,7 @@ class CoinCard extends Component {
                     />
                 </div>
                     <CardActions className={classes.actions}>
-                        <Button>Found it!</Button>
+                        {this.otherUsersMessage(this.props.found, this.props.coinId)}
                         <IconButton
                             className={classnames(classes.expand, {
                                 [classes.expandOpen]: this.state.expanded,
@@ -78,7 +103,7 @@ class CoinCard extends Component {
                 <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
                     <CardContent>
                         <Typography>Condition: good</Typography>
-                        <Typography>4 other users need this coin</Typography>
+                        <Typography>{this.otherUsersNeed(this.props.id)} other users need this coin</Typography>
                     </CardContent>
                 </Collapse>
             </Card>
