@@ -27,6 +27,16 @@ const search = (state = initState, action) => {
                 found: action.payload[0],
                 needed: action.payload[1],
             }
+        case 'SHOW_ALL':
+            return {
+                startYear: action.payload[0],
+                endYear: action.payload[1],
+                mintP: true,
+                mintD: true,
+                mintS: true,
+                found: true,
+                needed: true,
+            }
         default:
             return state;
     }

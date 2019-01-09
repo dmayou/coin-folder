@@ -44,7 +44,7 @@ const styles = theme => ({
         paddingTop: 17,
         height: 25,
     },
-    applyButton: {
+    showAllButton: {
         margin: theme.spacing.unit,
     },
     yearLine: {
@@ -89,6 +89,14 @@ class SearchDrawer extends Component {
         this.updateYears(startYear, endYear);
         this.updateDisplayItems();
     };
+    handleShowAllClick = (startYear, endYear) => () => {
+        this.props.dispatch({ 
+            type: 'SHOW_ALL',
+            payload: [startYear, endYear],
+         });
+        this.updateCount();
+        this.updateDisplayItems();
+    }
     updateCount = () => {
         // setTimeout moves dispatch to end of event queue to ensure that 
         // set search (SET_MINT, SET_YEAR) dispatches have completed
@@ -215,6 +223,11 @@ class SearchDrawer extends Component {
                         <Typography className={classes.heading}>
                             {this.props.collections.collectionCount} matches
                         </Typography>
+                        <Button 
+                            className={classes.showAllButton}
+                        onClick={this.handleShowAllClick(collectionStats.min, collectionStats.max)}
+                        >Show all
+                        </Button>
                     </div>
                 </div>
         );
