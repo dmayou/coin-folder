@@ -74,9 +74,17 @@ class CoinCard extends Component {
             showEdit: true,
         });
     };
-    handleFoundClose = (event) => {
+    handleFoundClose = (id)=> (event) => {
         this.setState({
             showEdit: false,
+        });
+        this.props.dispatch({ 
+            type: 'UPDATE_COIN', 
+            payload: {
+                id: id,
+                data: this.props.coin,
+                searchParams: this.props.search,
+            }
         });
     };
     otherUsersNeed = (id) => {
@@ -154,7 +162,7 @@ class CoinCard extends Component {
                 </Collapse>
                 <EditCoin
                     show={this.state.showEdit}
-                    handleClose={this.handleFoundClose}
+                    handleClose={this.handleFoundClose(this.props.coinId)}
                     title={`${yearMint} ${this.props.name} ${this.props.denomination}`}
                 />
             </Card>
@@ -162,4 +170,6 @@ class CoinCard extends Component {
     }
 }
 
-export default connect()(withStyles(styles)(CoinCard));
+const mapStateToProps = ({ coin, search }) => ({ coin, search });
+
+export default connect(mapStateToProps)(withStyles(styles)(CoinCard));

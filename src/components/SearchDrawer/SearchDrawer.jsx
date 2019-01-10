@@ -221,7 +221,9 @@ class SearchDrawer extends Component {
                 />
                     <div>
                         <Typography className={classes.heading}>
-                            {this.props.collections.collectionCount} matches
+                            <span id="matches">
+                                {this.props.collections.collectionCount} matches
+                            </span>
                         </Typography>
                         <Button 
                             className={classes.showAllButton}
