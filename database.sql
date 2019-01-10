@@ -14,13 +14,15 @@ CREATE TABLE "user" (
 CREATE TABLE "collection_type" (
     "id" SERIAL PRIMARY KEY,
     "name" VARCHAR(60) NOT NULL
+    "image_path" VARCHAR(255),
+    "description" VARCHAR(120)
 );
 
-INSERT INTO "collection_type" ("name")
+INSERT INTO "collection_type" ("name", "image_path", "description")
 VALUES
-('50 State Quarters'),
-('D.C. and U.S. Territories Quarters'),
-('America the Beautiful Quarters');
+('50 State Quarters', 'Collection-State-Quarters.jpeg', ''),
+('D.C. and U.S. Territories Quarters', 'Collection-Territory-Quarters.jpeg', ''),
+('America the Beautiful Quarters', 'Collection-America-Quarters.jpeg', '');
 
 CREATE TABLE "items" (
     "id" SERIAL PRIMARY KEY,
