@@ -55,6 +55,7 @@ class InfoPage extends Component {
   }
   componentDidMount () {
     this.fetchItems(this.state.filter);
+    this.props.dispatch({ type: 'FETCH_CONDITIONS' });
   }
   render () {
     const { classes } = this.props;
@@ -83,24 +84,24 @@ class InfoPage extends Component {
       <div>
         <main className={classes.content}>
           <Grid container>
-            <Grid item xs={10}>
+            <Grid item xs={10} sm={12}>
               <FilterTabs 
                 onTabChange={this.setFilter}
                 showSearch={!this.state.mobileOpen}
               />
             </Grid>
-            <Grid item className={classes.buttonDiv} xs={2}>
-              <Hidden smUp>
-              <IconButton
-                className={classes.searchButton}
-                size="large"
-                aria-label="search"
-                onClick={this.toggleSearchDrawer}
-              >
-                <Search fontSize="large" />
-              </IconButton>
-              </Hidden>
-            </Grid>
+            <Hidden smUp>
+              <Grid item className={classes.buttonDiv} xs={2}>
+                <IconButton
+                  className={classes.searchButton}
+                  size="large"
+                  aria-label="search"
+                  onClick={this.toggleSearchDrawer}
+                >
+                  <Search fontSize="large" />
+                </IconButton>
+              </Grid>
+            </Hidden>
             {coinList}
           </Grid>
         </main>

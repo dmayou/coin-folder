@@ -10,9 +10,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import SelectCondition from '../SelectCondition/SelectCondition';
 
 class EditCoin extends Component {
-    componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_CONDITIONS' });
-    }
+    handleChange = (name) => (event) => {
+        this.props.dispatch({ 
+            type: 'SET_EDIT_VALUE', 
+            payload: {[name]: event.target.value} 
+        });
+    } 
     render() {
         return (
             <div>
@@ -32,12 +35,15 @@ class EditCoin extends Component {
                             label="Date Found"
                             type="date"
                             value={this.props.coin.date_found}
+                            onChange={this.handleChange('date_found')}
                             fullWidth
                         />
                         <TextField
                             margin="dense"
                             id="name"
                             label="Found at"
+                            value={this.props.coin.location_found}
+                            onChange={this.handleChange('location_found')}
                             fullWidth
                         />
                     </DialogContent>

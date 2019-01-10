@@ -1,8 +1,8 @@
 const initialState = {
     date_found: new Date().toISOString().substring(0, 10), // may lack timezone awareness
-    location_found: null,
+    location_found: '',
     found: true,
-    condition_id: null,
+    condition_id: 0, // not legal in database, but needed for SelectCondition component
 }
 
 const coin = (state = initialState, action) => {
@@ -13,6 +13,16 @@ const coin = (state = initialState, action) => {
                 location_found: action.payload.location_found,
                 found: true,
                 condition_id: action.payload.condition_id,
+            };
+        case 'SET_CONDITION_ID':
+            return {
+                ...state,
+                condition_id: action.payload,
+            };
+        case 'SET_EDIT_VALUE':
+            return {
+                ...state,
+                ...action.payload,
             };
         default:
             return state;

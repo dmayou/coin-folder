@@ -74,16 +74,15 @@ class CoinCard extends Component {
         });
     };
     handleFoundClose = (event) => {
-        console.log('in handleClose', event.target.value);
         this.setState({
             showEdit: false,
         });
-    }
+    };
     otherUsersNeed = (id) => {
         // this routine will eventually get a count from the database of other users
         // who have this coin in their collection, but found=false
         return 4;
-    }
+    };
     otherUsersMessage = (found, coinId) => {
         if (found) {
             const numOtherUsers = this.otherUsersNeed(coinId);
@@ -91,7 +90,7 @@ class CoinCard extends Component {
                 <div>
                     <Typography className={this.props.classes.text}>
                         In collection - {(numOtherUsers === 0) ? 'No' : numOtherUsers} other {(numOtherUsers === 1) ? 'user needs':'users need'} this
-                    {(numOtherUsers === 0) ? // only show e-mail button if there is at least 1 user
+                    {(numOtherUsers === 0) ? // only show e-mail button if there is at least 1  other user
                         ''
                         :
                         <IconButton

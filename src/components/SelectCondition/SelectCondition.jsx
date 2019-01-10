@@ -20,17 +20,16 @@ const styles = theme => ({
 
 class SelectCondition extends Component {
     state = {
-        age: '',
-        name: 'hai',
-        labelWidth: 0,
+        conditionId: 0,
     };
     handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+        // this.setState({ conditionId: event.target.value });
+        this.props.dispatch({ type: 'SET_CONDITION_ID', payload: event.target.value })
     };
     render() {
         const conditionList = this.props.conditions.map( (condition) => {
             return (
-                <MenuItem key={condition.id}>
+                <MenuItem key={condition.id} value={condition.id}>
                     {condition.grade}
                 </MenuItem>
             );
@@ -41,11 +40,11 @@ class SelectCondition extends Component {
                 <FormControl className={classes.formControl}>
                     <InputLabel>Condition</InputLabel>
                     <Select
-                        value={this.state.age}
+                        value={this.props.coin.condition_id}
                         onChange={this.handleChange}
                     >
-                        <MenuItem value="">
-                            <em>None</em>
+                        <MenuItem value={0} disabled>
+                            <em>Select a condition</em>
                         </MenuItem>
                         {conditionList}
                     </Select>
@@ -55,6 +54,6 @@ class SelectCondition extends Component {
     }
 }
 
-const mapStateToProps = ({ conditions }) => ({ conditions });
+const mapStateToProps = ({ coin, conditions }) => ({ coin, conditions });
 
 export default connect(mapStateToProps)(withStyles(styles)(SelectCondition));
