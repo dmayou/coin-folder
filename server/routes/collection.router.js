@@ -15,6 +15,21 @@ router.get('/collection_type', rejectUnauthenticated, (req, res) => {
     }
 );
 
+router.get('/user_collections', rejectUnauthenticated, (req, res) => {
+    const query = 
+        `SELECT "user_collections"."id" AS "coll_id", * FROM "user_collections"
+        JOIN "collection_type" ON "collection_type"."id"="user_collections"."collection_id"
+        WHERE "user_collections"."user_id"=${req.user.id}
+        ORDER BY "collection_type"."id" ASC;`;
+    pool.query(query)
+        .then((results) => {
+            res.send(results.rows);
+        }).catch((err) => {
+            res.sendStatus(500);
+        });
+}
+);
+
 router.get('/collection_items/:userCollectionId/:searchParams', rejectUnauthenticated, (req, res) => {
     const { userCollectionId, searchParams } = req.params;
     const queryWhere = buildCollectionQuery(JSON.parse(searchParams));
