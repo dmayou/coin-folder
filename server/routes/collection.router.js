@@ -21,7 +21,7 @@ router.get('/collection_items/:userCollectionId/:searchParams', rejectUnauthenti
     const query = 
         `SELECT 
             "ci"."id" AS "ci_id", "user_collection_id", "item_id", "found", 
-                to_char("date_found", 'Mon D, YYYY') AS "date_found",
+                to_char("date_found", 'Mon DD, YYYY') AS "date_found",
                 "location_found", "will_trade",
             "items".*, "condition"."grade", 
             "condition"."description" 
