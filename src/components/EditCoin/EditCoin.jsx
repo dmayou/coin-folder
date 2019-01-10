@@ -15,7 +15,7 @@ class EditCoin extends Component {
             type: 'SET_EDIT_VALUE', 
             payload: {[name]: event.target.value} 
         });
-    } 
+    };
     render() {
         return (
             <div>

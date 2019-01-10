@@ -69,6 +69,7 @@ class CoinCard extends Component {
         this.setState(state => ({ expanded: !state.expanded }));
     };
     handleFoundClick = (coinId) => () => {
+        this.props.dispatch({ type: 'INIT_COIN_FOUND' });
         this.setState({
             showEdit: true,
         });
