@@ -7,8 +7,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import SelectCondition from '../SelectCondition/SelectCondition';
 
 class EditCoin extends Component {
+    componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_CONDITIONS' });
+    }
     render() {
         return (
             <div>
@@ -21,27 +25,21 @@ class EditCoin extends Component {
                         <DialogContentText>
                             What's the coin grade?<br/> When and where did you find it?
                         </DialogContentText>
-                            <TextField
-                                margin="dense"
-                                id="name"
-                                label="Date Found"
-                                type="date"
-                                value={this.props.coin.date_found}
-                                fullWidth
-                            />
-                            <TextField
-                                margin="dense"
-                                id="name"
-                                label="Found at"
-                                fullWidth
-                            />
-                            <TextField
-                                margin="dense"
-                                id="name"
-                                label="Condition/Grade"
-                                type="email"
-                                fullWidth
-                            />
+                        <SelectCondition />
+                        <TextField
+                            margin="dense"
+                            id="name"
+                            label="Date Found"
+                            type="date"
+                            value={this.props.coin.date_found}
+                            fullWidth
+                        />
+                        <TextField
+                            margin="dense"
+                            id="name"
+                            label="Found at"
+                            fullWidth
+                        />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.props.handleClose} color="primary">
