@@ -68,6 +68,7 @@ class InfoPage extends Component {
               image={coin.image_path}
               name={coin.name}
               year={coin.year}
+              denomination={coin.denomination}
               mint={coin.mint}
               found={coin.found}
               dateFound={coin.date_found}

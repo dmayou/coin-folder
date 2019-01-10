@@ -1,4 +1,5 @@
 import React,  { Component } from 'react';
+import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -8,27 +9,33 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 class EditCoin extends Component {
-    // handleClickOpen = () => {
-    //     this.setState({ open: true });
-    // };
-    // handleClose = () => {
-    //     this.setState({ open: false });
-    // };
     render() {
         return (
             <div>
                 <Dialog
                     open={this.props.show}
-                    onClose={this.props.handleClose}
                     aria-labelledby="form-dialog-title"
                 >
-                <DialogTitle id="form-dialog-title">About This Coin</DialogTitle>
+                <DialogTitle id="form-dialog-title">{`You found a ${this.props.title}!`}</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            What's the coin grade? When and where did you find it?
+                            What's the coin grade?<br/> When and where did you find it?
                         </DialogContentText>
                             <TextField
-                                autoFocus
+                                margin="dense"
+                                id="name"
+                                label="Date Found"
+                                type="date"
+                                // value={this.props.coin.date_found}
+                                fullWidth
+                            />
+                            <TextField
+                                margin="dense"
+                                id="name"
+                                label="Email Address"
+                                fullWidth
+                            />
+                            <TextField
                                 margin="dense"
                                 id="name"
                                 label="Email Address"
@@ -50,4 +57,6 @@ class EditCoin extends Component {
     }
 }
 
-export default EditCoin;
+const mapStateToProps = ({ coin }) => ({ coin });
+
+export default connect(mapStateToProps)(EditCoin);

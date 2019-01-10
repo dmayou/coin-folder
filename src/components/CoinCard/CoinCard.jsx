@@ -73,8 +73,8 @@ class CoinCard extends Component {
             showEdit: true,
         });
     };
-    handleFoundClose = () => {
-        console.log('in handleClose');
+    handleFoundClose = (event) => {
+        console.log('in handleClose', event.target.value);
         this.setState({
             showEdit: false,
         });
@@ -114,12 +114,9 @@ class CoinCard extends Component {
             );
         }
     }
-    formatDate = (dateFromDb) => {
-        // return new Intl.DateTimeFormat('en-US').format(Date());
-        // return Date(dateFromDb).toLocaleDateString('en-US');
-    }
     render() {
         const { classes } = this.props;
+        const yearMint = `${this.props.year}-${this.props.mint}`;
         return (
             <Card className={classes.card}>
                 <div className={classes.coin}>
@@ -129,7 +126,7 @@ class CoinCard extends Component {
                         title=""
                     />
                     <CardHeader
-                        title={`${this.props.year}-${this.props.mint}`}
+                        title={yearMint}
                         subheader={this.props.name}
                     />
                 </div>
@@ -158,6 +155,7 @@ class CoinCard extends Component {
                 <EditCoin
                     show={this.state.showEdit}
                     handleClose={this.handleFoundClose}
+                    title={`${yearMint} ${this.props.name} ${this.props.denomination}`}
                 />
             </Card>
         );
