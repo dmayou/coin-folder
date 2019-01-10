@@ -26,19 +26,19 @@ class EditCoin extends Component {
                                 id="name"
                                 label="Date Found"
                                 type="date"
-                                // value={this.props.coin.date_found}
+                                value={this.props.coin.date_found}
                                 fullWidth
                             />
                             <TextField
                                 margin="dense"
                                 id="name"
-                                label="Email Address"
+                                label="Found at"
                                 fullWidth
                             />
                             <TextField
                                 margin="dense"
                                 id="name"
-                                label="Email Address"
+                                label="Condition/Grade"
                                 type="email"
                                 fullWidth
                             />

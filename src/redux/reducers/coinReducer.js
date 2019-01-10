@@ -1,6 +1,5 @@
 const initialState = {
-    // date_found: (new Date()).toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' }),
-    date_found: null,
+    date_found: new Date().toISOString().substring(0, 10), // may lack timezone awareness
     location_found: null,
     found: true,
     condition_id: null,
