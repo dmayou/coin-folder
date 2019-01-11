@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withStyles, withTheme } from '@material-ui/core';
 import CoinCard from '../CoinCard/CoinCard';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import Search from '@material-ui/icons/Search';
@@ -22,6 +23,10 @@ const styles = theme => ({
   },
   searchButton: {
     marginTop: '10%',
+  },
+  text: {
+    margin: theme.spacing.unit,
+    textAlign: 'center',
   },
   buttonDiv: {
     backgroundColor: 'white',
@@ -82,6 +87,9 @@ class InfoPage extends Component {
           </Grid>
         );
         });
+     if (coinList.length === 0) {
+       coinList[0] = <Typography className={classes.text}>Your selection has no matches.</Typography>
+     }   
     }
     return (
       <div>
