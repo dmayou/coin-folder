@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
     card: {
-        minWidth: 275,
+        minWidth: 350,
         margin: theme.spacing.unit,
     },
     title: {

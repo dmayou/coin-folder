@@ -69,7 +69,10 @@ class SearchDrawer extends Component {
         // ensure that the the search reducer has been updated
         setTimeout( () => this.props.dispatch({
                 type: 'FETCH_USER_COLLECTION_ITEMS',
-                payload: { id: 42, searchParams: this.props.search }
+                payload: { 
+                    id: this.props.collections.selected, 
+                    searchParams: this.props.search 
+                }
             }),
         0);
     }
@@ -103,7 +106,10 @@ class SearchDrawer extends Component {
         setTimeout(
             () => this.props.dispatch({ 
                 type: 'FETCH_COLLECTION_COUNT', 
-                payload: {id: 42, searchParams: this.props.search} }),
+                payload: {
+                    id: this.props.collections.selected, 
+                    searchParams: this.props.search}
+                }),
             0);
     };
     updateYears = (startYear, endYear) => {

@@ -49,9 +49,12 @@ class InfoPage extends Component {
   fetchItems = (choice) => {
     this.props.dispatch({ 
       type: 'FETCH_USER_COLLECTION_ITEMS', 
-      payload: { id: 42, searchParams: this.props.search} 
+      payload: { id: this.props.selected, searchParams: this.props.search} 
     });
-    this.props.dispatch({ type: 'FETCH_COLLECTION_STATS', payload: 42 });
+    this.props.dispatch({ 
+      type: 'FETCH_COLLECTION_STATS', 
+      payload: this.props.selected 
+    });
   }
   componentDidMount () {
     this.fetchItems(this.state.filter);
@@ -116,6 +119,7 @@ class InfoPage extends Component {
 }
 
 const mapStoreToProps = ( state ) => ({ 
+  selected: state.collections.selected,
   collectionItems: state.collections.collectionItems,
   search: state.search, 
 });

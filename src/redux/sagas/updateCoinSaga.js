@@ -6,7 +6,10 @@ function* updateCoin(action) {
         yield axios.put(`api/coin/${action.payload.id}`, action.payload.data);
         yield dispatch({
             type: 'FETCH_USER_COLLECTION_ITEMS',
-            payload: { id: 42, searchParams: action.payload.searchParams }
+            payload: { 
+                id: action.payload.selectedCollection, 
+                searchParams: action.payload.searchParams 
+            }
         });;
     } catch (err) {
         console.log('Error updating coin.');

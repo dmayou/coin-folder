@@ -60,11 +60,17 @@ class FilterTabs extends Component {
         setTimeout(() => {
             this.props.dispatch({
                 type: 'FETCH_USER_COLLECTION_ITEMS',
-                payload: { id: 42, searchParams: this.props.search }
+                payload: { 
+                    id: this.props.collections.selected, 
+                    searchParams: this.props.search 
+                }
             });
             this.props.dispatch({
                 type: 'FETCH_COLLECTION_COUNT',
-                payload: { id: 42, searchParams: this.props.search }
+                payload: { 
+                    id: this.props.collections.selected, 
+                    searchParams: this.props.search 
+                }
             });
         }, 0);
     };
@@ -98,6 +104,6 @@ FilterTabs.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ search }) => ({ search })
+const mapStateToProps = ({ search, collections }) => ({ search, collections })
 
 export default connect(mapStateToProps)(withStyles(styles)(FilterTabs));

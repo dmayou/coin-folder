@@ -84,6 +84,7 @@ class CoinCard extends Component {
                 id: id,
                 data: this.props.coin,
                 searchParams: this.props.search,
+                collectionID: this.props.collections.selected,
             }
         });
     };
@@ -170,6 +171,6 @@ class CoinCard extends Component {
     }
 }
 
-const mapStateToProps = ({ coin, search }) => ({ coin, search });
+const mapStateToProps = ({ coin, search, collections }) => ({ coin, search, collections });
 
 export default connect(mapStateToProps)(withStyles(styles)(CoinCard));

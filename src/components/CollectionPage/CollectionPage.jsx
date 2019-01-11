@@ -7,13 +7,14 @@ class CollectionPage extends Component {
         this.props.dispatch({ type: 'SET_SELECTED_COLLECTION', payload: id })
     };
     render() {
-        const CollectionList = this.props.collections.collectionType.map((collection) => {
+        const CollectionList = this.props.collections.userCollections.map((collection) => {
+            console.log('collection in map:', collection);
             return (
                 <CollectionCard
-                    key={collection.id}
+                    key={collection.coll_id}
                     name={collection.name}
                     image={collection.image_path}
-                    handleClick={this.handleClick(collection.col_id)}
+                    handleClick={this.handleClick(collection.coll_id)}
                 />
             );
         });

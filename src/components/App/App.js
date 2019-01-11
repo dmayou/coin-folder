@@ -24,6 +24,7 @@ class App extends Component {
   componentDidMount () {
     this.props.dispatch({ type: 'FETCH_USER' });
     this.props.dispatch({ type: 'FETCH_COLLECTION_TYPE' });
+    this.props.dispatch({ type: 'FETCH_USER_COLLECTIONS' });
   }
   render() {
     return (
