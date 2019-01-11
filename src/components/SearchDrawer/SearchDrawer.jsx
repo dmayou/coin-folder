@@ -13,7 +13,6 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import { withStyles } from '@material-ui/core/styles';
 import RangeSlider from '../RangeSlider/RangeSlider';
-import { Icon } from '@material-ui/core';
 
 const drawerWidth = 240;
 

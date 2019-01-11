@@ -32,7 +32,7 @@ class MainMenu extends Component {
                     ''}
                     {user.id ?
                         <MenuItem 
-                            onClick={this.handleClose('collections')}
+                            onClick={this.handleClose('/home')}
                             >My Collections
                         </MenuItem>
                     :
