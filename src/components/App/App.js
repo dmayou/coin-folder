@@ -30,7 +30,8 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Nav />
+          <Nav margin=
+            {(this.props.collections.selected === null) ? 0 : 240}/>
           <Switch>
             <Redirect exact from="/" to="/home" />
             <Route

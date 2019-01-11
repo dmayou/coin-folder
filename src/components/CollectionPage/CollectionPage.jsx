@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CollectionCard from '../CollectionCard/CollectionCard';
+import { withStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
+
+const styles = theme => ({
+    headline: {
+        margin: theme.spacing.unit,
+    },
+});
 
 class CollectionPage extends Component {
     handleClick = (id) => () => {
@@ -8,7 +16,6 @@ class CollectionPage extends Component {
     };
     render() {
         const CollectionList = this.props.collections.userCollections.map((collection) => {
-            console.log('collection in map:', collection);
             return (
                 <CollectionCard
                     key={collection.coll_id}
@@ -20,7 +27,8 @@ class CollectionPage extends Component {
         });
         return(
             <div>
-            {CollectionList}
+                <Typography className={this.props.classes.headline} variant={'h4'}>Select A Collection</Typography>
+                {CollectionList}
             </div>
         );
     }
@@ -28,4 +36,4 @@ class CollectionPage extends Component {
 
 const mapStateToProps = ({ collections }) => ({ collections });
 
-export default connect(mapStateToProps)(CollectionPage);
+export default connect(mapStateToProps)(withStyles(styles)(CollectionPage));

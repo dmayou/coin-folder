@@ -96,7 +96,7 @@ class InfoPage extends Component {
         <main className={classes.content}>
           <Grid container>
             <Grid item xs={10} sm={12}>
-              <FilterTabs 
+              <FilterTabs
                 onTabChange={this.setFilter}
                 showSearch={!this.state.mobileOpen}
               />
