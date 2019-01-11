@@ -90,6 +90,7 @@ router.get('/collection_count/:userCollectionId/:searchParams', rejectUnauthenti
 // by copying rows from 'items'
 router.post('/collection_items/:userCollectionId', rejectUnauthenticated, (req, res) => {
     const { userCollectionId } = req.params;
+    //TODO: Need to protect route with user.id in query
     const query =
         `INSERT INTO "collection_items" ("user_collection_id", "item_id")
         SELECT "user_collections"."id" AS "user_collection_id", "items"."id" FROM "items"
