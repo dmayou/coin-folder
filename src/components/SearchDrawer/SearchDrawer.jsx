@@ -233,7 +233,7 @@ class SearchDrawer extends Component {
                     label="Needed"
                     labelPlacement="top"
                 />
-                    <div display="flex">
+                    <div>
                         <Typography className={classes.heading}>
                             <span id="matches">
                                 {this.props.collections.collectionCount} matches
@@ -245,7 +245,7 @@ class SearchDrawer extends Component {
                         onClick={this.handleShowAllClick(collectionStats.min, collectionStats.max)}
                         >Show all
                         </Button>
-                        <Hidden smUp implementation="css">
+                        <Hidden smUp>
                             <IconButton 
                                 className={classes.chevronButton}
                                 onClick={this.props.onClose}
