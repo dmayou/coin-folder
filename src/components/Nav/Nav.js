@@ -34,8 +34,8 @@ const Nav = (props) => {
   const { classes } = props;
   return (
     <div 
-      className={classes.root} 
-      style={{ ...props.style, marginLeft: props.margin }}> {/*To not get hidden behind SearchDrawer*/}
+      className={classes.root}
+    > 
       <AppBar position="static">
       <Toolbar>
         <IconButton 
@@ -55,8 +55,8 @@ const Nav = (props) => {
   );
 };
 
-const mapStateToProps = ({ user }) => (
-  { user }
+const mapStateToProps = ({ user, selected }) => (
+  { user, selected }
 );
 
-export default connect(mapStateToProps)(withStyles(styles)(Nav));
+export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(Nav));

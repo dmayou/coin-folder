@@ -31,7 +31,6 @@ const styles = theme => ({
 
 function CollectionCard(props) {
     const { classes } = props;
-    console.log('collection image:', props.image);
     return (
         <Card className={classes.card}>
             <CardContent className={classes.cardContent}>

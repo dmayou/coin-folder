@@ -62,7 +62,6 @@ function* fetchCollectionCount(action) {
         const data = yield axios.get(
             `api/collection/collection_count/${id}/${JSON.stringify(searchParams)}`);
         yield dispatch({ type: 'SET_COLLECTION_COUNT', payload: data });
-        yield dispatch({ type: 'FLASH_COUNT' });
     } catch (err) {
         console.log('Error fetching collection stats.');
     }
