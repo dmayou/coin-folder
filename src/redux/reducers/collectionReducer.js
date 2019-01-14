@@ -31,6 +31,8 @@ const selected = (state = null, action) => {
     switch (action.type) {
         case 'SET_SELECTED_COLLECTION':
             return action.payload;
+        case 'CLEAR_SELECTED_COLLECTION':
+            return null;
         default:
             return state;
     }

@@ -8,6 +8,10 @@ const styles = theme => ({
     headline: {
         margin: theme.spacing.unit,
     },
+    text: {
+        margin: theme.spacing.unit,
+        textAlign: 'left',
+    },
 });
 
 class CollectionPage extends Component {
@@ -15,7 +19,8 @@ class CollectionPage extends Component {
         this.props.dispatch({ type: 'SET_SELECTED_COLLECTION', payload: id })
     };
     render() {
-        const CollectionList = this.props.collections.userCollections.map((collection) => {
+        const { classes } = this.props;
+        let collectionList = this.props.collections.userCollections.map((collection) => {
             return (
                 <CollectionCard
                     key={collection.coll_id}
@@ -24,12 +29,21 @@ class CollectionPage extends Component {
                     description={collection.description}
                     handleClick={this.handleClick(collection.coll_id)}
                 />
+                
             );
         });
+        if (collectionList.length === 0) {
+            collectionList[0] = 
+                <Typography 
+                    className={classes.text}
+                    >You haven't selected any collections yet. <br/>
+                    Choose Add Collections from the main menu.
+                </Typography>
+        }  
         return(
             <div>
                 <Typography className={this.props.classes.headline} variant={'h4'}>Select A Collection</Typography>
-                {CollectionList}
+                {collectionList}
             </div>
         );
     }

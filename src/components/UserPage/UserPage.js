@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { withStyles, withTheme } from '@material-ui/styles';
+import { withStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import LandingCard from '../LandingCard/LandingCard';
@@ -13,7 +13,7 @@ const styles = theme => ({
 });
 
 class UserPage extends Component {
-  handleClick = (link) => (event) => {
+  handleClick = (link) => () => {
   this.props.history.push(link);
   };
   render () {
