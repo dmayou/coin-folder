@@ -21,6 +21,7 @@ class CollectionPage extends Component {
                     key={collection.coll_id}
                     name={collection.name}
                     image={collection.image_path}
+                    description={collection.description}
                     handleClick={this.handleClick(collection.coll_id)}
                 />
             );

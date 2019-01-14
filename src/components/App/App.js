@@ -50,7 +50,7 @@ class App extends Component {
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
-            <ProtectedRoute
+            {/* <ProtectedRoute
               exact
               path="/info"
               component={
@@ -59,15 +59,16 @@ class App extends Component {
               :
                 CollectionPage
               }
-            />
-            {/* <ProtectedRoute
+            /> */}
+            <ProtectedRoute
               exact
               path='/info'
               render={(collectionSelected) ? 
                 () => <InfoPage marginLeft={0} /> 
                 : 
                 () => <CollectionPage marginLeft={0}/>}
-            /><ProtectedRoute */}
+            />
+            <ProtectedRoute
               exact
               path="/admin"
               component={AdminPage}

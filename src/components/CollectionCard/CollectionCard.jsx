@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
@@ -19,9 +20,14 @@ const styles = theme => ({
         fontSize: 14,
     },
     media: {
-        minWidth: 80,
-        maxWidth: '65%',
-        height: 100,
+        // minWidth: '65%',
+        // maxWidth: '65%',
+        minWidth: 120,
+        height: 130,
+        margin: theme.spacing.unit,
+    },
+    description: {
+        display: 'inline-block',
         margin: theme.spacing.unit,
     },
     pos: {
@@ -38,11 +44,22 @@ function CollectionCard(props) {
                     {props.name}
                 </Typography>
             </CardContent>
-            <CardMedia
-                className={classes.media}
-                image={`/images/${props.image}`}
-                title=""
-            />
+            <Grid container>
+            <Grid item xs={7}>
+                <CardMedia
+                    className={classes.media}
+                    image={`/images/${props.image}`}
+                />
+            </Grid>
+            <Grid item xs={5}>
+                <CardContent>
+                    <Typography inline
+                        className={classes.description}
+                    >{props.description}
+                    </Typography>
+                </CardContent>
+            </Grid>
+            </Grid>
             <CardActions>
                 <Button 
                     size="small"

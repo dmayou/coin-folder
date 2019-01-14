@@ -20,9 +20,9 @@ CREATE TABLE "collection_type" (
 
 INSERT INTO "collection_type" ("name", "image_path", "description")
 VALUES
-('50 State Quarters', 'Collection-State-Quarters.jpeg', ''),
-('D.C. and U.S. Territories Quarters', 'Collection-Territory-Quarters.jpeg', ''),
-('America the Beautiful Quarters', 'Collection-America-Quarters.jpeg', '');
+('50 State Quarters', 'Collection-State-Quarters.jpeg', '100 coins covering 1999 to 2008'),
+('D.C. and U.S. Territories Quarters', 'Collection-Territory-Quarters.jpeg', '12 coins from 2009'),
+('America the Beautiful Quarters', 'Collection-America-Quarters.jpeg', '100 coins covering 2010 to 2019');
 
 CREATE TABLE "items" (
     "id" SERIAL PRIMARY KEY,
