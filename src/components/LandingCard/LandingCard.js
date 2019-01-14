@@ -20,8 +20,8 @@ const styles = theme => ({
         fontSize: 14,
     },
     media: {
-        minWidth: 120,
-        height: 130,
+        minWidth: 100,
+        height: 80,
         margin: theme.spacing.unit,
     },
     description: {
@@ -32,7 +32,7 @@ const styles = theme => ({
     },
 });
 
-function CollectionCard(props) {
+function LandingCard(props) {
     const { classes } = props;
     return (
         <Card className={classes.card}>
@@ -42,13 +42,13 @@ function CollectionCard(props) {
                 </Typography>
             </CardContent>
             <Grid container>
-                <Grid item xs={7}>
+                <Grid item xs={5}>
                     <CardMedia
                         className={classes.media}
                         image={`/images/${props.image}`}
                     />
                 </Grid>
-                <Grid item xs={5}>
+                <Grid item xs={7}>
                     <CardContent>
                         <Typography inline
                             className={classes.description}
@@ -68,4 +68,4 @@ function CollectionCard(props) {
     );
 }
 
-export default withStyles(styles)(CollectionCard);
+export default withStyles(styles)(LandingCard);
