@@ -30,6 +30,23 @@ router.get('/user_collections/', rejectUnauthenticated, (req, res) => {
 }
 );
 
+router.get('/user_can_add', rejectUnauthenticated, (req, res) => {
+    const query =
+        `SELECT * FROM "collection_type" 
+        WHERE "collection_type"."id" NOT IN (
+	        SELECT "collection_type"."id" FROM "collection_type"
+	        JOIN "user_collections" ON "user_collections"."collection_id"="collection_type"."id"
+	        WHERE "user_collections"."user_id"=$1
+        )
+        ORDER BY "collection_type"."id";`;
+    pool.query(query, [req.user.id])
+        .then((results) => {
+            res.send(results.rows);
+        }).catch((err) => {
+            res.sendStatus(500);
+        });
+});
+
 router.get('/collection_items/:userCollectionId/:searchParams', rejectUnauthenticated, (req, res) => {
     const { userCollectionId, searchParams } = req.params;
     const queryWhere = buildCollectionQuery(JSON.parse(searchParams));
@@ -83,8 +100,7 @@ router.get('/collection_count/:userCollectionId/:searchParams', rejectUnauthenti
             res.sendStatus(500);
         }
     );
-})
-    
+}); 
 
 // Posts collection_items rows for a given collection_type.id
 // by copying rows from 'items'
