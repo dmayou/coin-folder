@@ -9,6 +9,8 @@ import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import { withStyles } from '@material-ui/core/styles';
 import RangeSlider from '../RangeSlider/RangeSlider';
 
@@ -37,6 +39,7 @@ const styles = theme => ({
         },
     },
     allButton: {
+        display: 'inline-block',
         margin: 0,
         maxWidth: 30,
         // the following two settings keep the 'all' button away
@@ -46,6 +49,10 @@ const styles = theme => ({
     },
     showAllButton: {
         margin: theme.spacing.unit,
+    },
+    chevronButton: {
+        display: 'inline-block',
+        float: 'right',
     },
     yearLine: {
         display: 'flex',
@@ -231,11 +238,19 @@ class SearchDrawer extends Component {
                                 {this.props.collections.collectionCount} matches
                             </span>
                         </Typography>
+
                         <Button 
                             className={classes.showAllButton}
                         onClick={this.handleShowAllClick(collectionStats.min, collectionStats.max)}
                         >Show all
                         </Button>
+                        <Hidden smUp>
+                            <IconButton 
+                                className={classes.chevronButton}
+                                onClick={this.props.onClose}
+                            ><ChevronLeft />
+                            </IconButton>
+                        </Hidden>
                     </div>
                 </div>
         );

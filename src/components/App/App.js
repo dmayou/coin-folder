@@ -27,6 +27,7 @@ class App extends Component {
     this.props.dispatch({ type: 'FETCH_USER_COLLECTIONS' });
   }
   render() {
+    const collectionSelected = !(this.props.collections.selected === null);
     return (
       <Router>
         <div>
@@ -49,15 +50,23 @@ class App extends Component {
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
-            <ProtectedRoute
+            {/* <ProtectedRoute
               exact
               path="/info"
               component={
-                (this.props.collections.selected === null) ?
-                CollectionPage
-              :
+                collectionSelected ?
                 InfoPage
+              :
+                CollectionPage
               }
+            /> */}
+            <ProtectedRoute
+              exact
+              path='/info'
+              render={(collectionSelected) ? 
+                () => <InfoPage marginLeft={0} /> 
+                : 
+                () => <CollectionPage marginLeft={0}/>}
             />
             <ProtectedRoute
               exact

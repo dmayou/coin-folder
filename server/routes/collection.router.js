@@ -57,8 +57,8 @@ router.get('/collection_items/:userCollectionId/:searchParams', rejectUnauthenti
 router.get('/collection_stats/:userCollectionId', rejectUnauthenticated, (req, res) => {
     const { userCollectionId } = req.params;
     const query = 
-        `SELECT MIN("items"."year"), MAX("items"."year"), COUNT(*), SUM("found"::int) FROM "collection_items"
-        JOIN "items" ON "items"."id"="collection_items"."item_id"
+        `SELECT MIN("items"."year"), MAX("items"."year"), COUNT(*), SUM("found"::int) FROM "collection_items" AS "ci"
+        JOIN "items" ON "items"."id"="ci"."item_id"
         WHERE "user_collection_id"=${userCollectionId};`;
     pool.query(query)
         .then((results) => {
@@ -73,10 +73,10 @@ router.get('/collection_count/:userCollectionId/:searchParams', rejectUnauthenti
     const { userCollectionId, searchParams } = req.params;
     const queryWhere = buildCollectionQuery(JSON.parse(searchParams));
     const query =
-        `SELECT MIN("items"."year"), MAX("items"."year"), COUNT(*), SUM("found"::int) FROM "collection_items"
-        JOIN "items" ON "items"."id"="collection_items"."item_id"
-        WHERE "user_collection_id"=${userCollectionId} ${queryWhere};`;
-    pool.query(query)
+        `SELECT MIN("items"."year"), MAX("items"."year"), COUNT(*), SUM("found"::int) FROM "collection_items" AS "ci"
+        JOIN "items" ON "items"."id"="ci"."item_id"
+        WHERE "user_collection_id"=$1 ${queryWhere};`;
+    pool.query(query, [userCollectionId])
         .then((results) => {
             res.send(results.rows[0]);
         }).catch((err) => {
@@ -90,6 +90,7 @@ router.get('/collection_count/:userCollectionId/:searchParams', rejectUnauthenti
 // by copying rows from 'items'
 router.post('/collection_items/:userCollectionId', rejectUnauthenticated, (req, res) => {
     const { userCollectionId } = req.params;
+    //TODO: Need to protect route with user.id in query
     const query =
         `INSERT INTO "collection_items" ("user_collection_id", "item_id")
         SELECT "user_collections"."id" AS "user_collection_id", "items"."id" FROM "items"

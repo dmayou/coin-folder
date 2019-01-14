@@ -11,6 +11,9 @@ class MainMenu extends Component {
         if (link.includes('/')) { // needed for Menu onClose
             this.props.history.push(link);
         }
+        if (link === 'logOut') {
+            this.props.dispatch({ type: 'LOGOUT' });
+        }
     };
     render() {
         const { anchorEl } = this.props.menu;
@@ -32,7 +35,7 @@ class MainMenu extends Component {
                     ''}
                     {user.id ?
                         <MenuItem 
-                            onClick={this.handleClose('collections')}
+                            onClick={this.handleClose('/home')}
                             >My Collections
                         </MenuItem>
                     :

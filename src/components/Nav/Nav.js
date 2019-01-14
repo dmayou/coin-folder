@@ -11,9 +11,15 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import 'typeface-roboto';
 
-const styles = {
+const styles = theme => ({
   root: {
     flexGrow: 1,
+    [theme.breakpoints.down('xs')]: {
+      marginLeft: 0,
+    },
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: 240,
+    },
   },
   grow: {
     flexGrow: 1,
@@ -22,12 +28,14 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
-};
+});
 
 const Nav = (props) => {
   const { classes } = props;
   return (
-    <div className={classes.root}>
+    <div 
+      className={classes.root}
+    > 
       <AppBar position="static">
       <Toolbar>
         <IconButton 
@@ -47,8 +55,8 @@ const Nav = (props) => {
   );
 };
 
-const mapStateToProps = ({ user }) => (
-  { user }
+const mapStateToProps = ({ user, selected }) => (
+  { user, selected }
 );
 
-export default connect(mapStateToProps)(withStyles(styles)(Nav));
+export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(Nav));
