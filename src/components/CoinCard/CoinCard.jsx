@@ -13,10 +13,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MailOutline from '@material-ui/icons/MailOutline';
+import EditCoin from '../EditCoin/EditCoin';
 
 const styles = theme => ({
     card: {
-        // width: 360,
         width: '95%',
         margin: theme.spacing.unit,
         marginTop: theme.spacing.unit / 2,
@@ -35,6 +35,10 @@ const styles = theme => ({
         justifyContent: 'flex-end',
         padding: 0,
         height: 35,
+    },
+    expandContent: {
+        padding: theme.spacing.unit,
+        height: '5em',
     },
     expand: {
         transform: 'rotate(0deg)',
@@ -57,15 +61,38 @@ const styles = theme => ({
 });
 
 class CoinCard extends Component {
-    state = { expanded: false };
+    state = { 
+        expanded: false,
+        showEdit: false,
+    };
     handleExpandClick = () => {
         this.setState(state => ({ expanded: !state.expanded }));
+    };
+    handleFoundClick = (coinId) => () => {
+        this.props.dispatch({ type: 'INIT_COIN_FOUND' });
+        this.setState({
+            showEdit: true,
+        });
+    };
+    handleFoundClose = (id)=> (event) => {
+        this.setState({
+            showEdit: false,
+        });
+        this.props.dispatch({ 
+            type: 'UPDATE_COIN', 
+            payload: {
+                id: id,
+                data: this.props.coin,
+                searchParams: this.props.search,
+                collectionID: this.props.collections.selected,
+            }
+        });
     };
     otherUsersNeed = (id) => {
         // this routine will eventually get a count from the database of other users
         // who have this coin in their collection, but found=false
         return 4;
-    }
+    };
     otherUsersMessage = (found, coinId) => {
         if (found) {
             const numOtherUsers = this.otherUsersNeed(coinId);
@@ -73,22 +100,24 @@ class CoinCard extends Component {
                 <div>
                     <Typography className={this.props.classes.text}>
                         In collection - {(numOtherUsers === 0) ? 'No' : numOtherUsers} other {(numOtherUsers === 1) ? 'user needs':'users need'} this
-                    {(numOtherUsers === 0) ?
-                            ''
-                            :
-                            <IconButton
-                                aria-label="Email user"
-                                className={this.props.classes.emailButton}
-                            >
-                                <MailOutline />
-                            </IconButton>
-                        }
+                    {(numOtherUsers === 0) ? // only show e-mail button if there is at least 1  other user
+                        ''
+                        :
+                        <IconButton
+                            aria-label="Email user"
+                            className={this.props.classes.emailButton}
+                        >
+                            <MailOutline />
+                        </IconButton>
+                    }
                     </Typography>
                 </div>
             );
         } else {
             return (
-                <Button>
+                <Button
+                    onClick={this.handleFoundClick(this.props.coinId)}
+                >
                     Found it?
                 </Button>
             );
@@ -96,6 +125,7 @@ class CoinCard extends Component {
     }
     render() {
         const { classes } = this.props;
+        const yearMint = `${this.props.year}-${this.props.mint}`;
         return (
             <Card className={classes.card}>
                 <div className={classes.coin}>
@@ -105,7 +135,7 @@ class CoinCard extends Component {
                         title=""
                     />
                     <CardHeader
-                        title={`${this.props.year}-${this.props.mint}`}
+                        title={yearMint}
                         subheader={this.props.name}
                     />
                 </div>
@@ -123,13 +153,24 @@ class CoinCard extends Component {
                         </IconButton>
                     </CardActions>
                 <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-                    <CardContent>
-                        <Typography>Condition: good</Typography>
+                    <CardContent className={classes.expandContent}>
+                        <div className={classes.text}>
+                        <Typography>{this.props.grade && `Condition is ${this.props.grade}`}</Typography>
+                        <Typography>{this.props.dateFound && `Found on ${this.props.dateFound}`}</Typography>
+                        <Typography>{this.props.locationFound && `Found at ${this.props.locationFound}`}</Typography>
+                    </div>
                     </CardContent>
                 </Collapse>
+                <EditCoin
+                    show={this.state.showEdit}
+                    handleClose={this.handleFoundClose(this.props.coinId)}
+                    title={`${yearMint} ${this.props.name} ${this.props.denomination}`}
+                />
             </Card>
         );
     }
 }
 
-export default connect()(withStyles(styles)(CoinCard));
+const mapStateToProps = ({ coin, search, collections }) => ({ coin, search, collections });
+
+export default connect(mapStateToProps)(withStyles(styles)(CoinCard));

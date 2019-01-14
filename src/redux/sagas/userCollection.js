@@ -20,6 +20,15 @@ function* fetchCollectionType(action) {
     }
 }
 
+function* fetchUserCollections(action) {
+    try {
+        const data = yield axios.get(`api/collection/user_collections`);
+        yield dispatch({ type: 'SET_USER_COLLECTIONS', payload: data });
+    } catch (err) {
+        console.log('Error fetching user_collections.');
+    }
+}
+
 function* buildItemsTable(action) {
     try {
         yield console.log('in buildItemsTable');
@@ -53,6 +62,7 @@ function* fetchCollectionCount(action) {
         const data = yield axios.get(
             `api/collection/collection_count/${id}/${JSON.stringify(searchParams)}`);
         yield dispatch({ type: 'SET_COLLECTION_COUNT', payload: data });
+        yield dispatch({ type: 'FLASH_COUNT' });
     } catch (err) {
         console.log('Error fetching collection stats.');
     }
@@ -65,6 +75,7 @@ function* userCollectionSaga() {
     yield takeLatest('BUILD_ITEMS_TABLE', buildItemsTable);
     yield takeLatest('FETCH_COLLECTION_STATS', fetchCollectionStats);
     yield takeLatest('FETCH_COLLECTION_COUNT', fetchCollectionCount);
+    yield takeLatest('FETCH_USER_COLLECTIONS', fetchUserCollections);
 }
 
 export default userCollectionSaga;

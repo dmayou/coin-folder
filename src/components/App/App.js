@@ -16,6 +16,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
+import CollectionPage from '../CollectionPage/CollectionPage';
 import MainMenu from '../MainMenu/MainMenu';
 import AdminPage from '../AdminPage/AdminPage';
 
@@ -23,7 +24,7 @@ class App extends Component {
   componentDidMount () {
     this.props.dispatch({ type: 'FETCH_USER' });
     this.props.dispatch({ type: 'FETCH_COLLECTION_TYPE' });
-
+    this.props.dispatch({ type: 'FETCH_USER_COLLECTIONS' });
   }
   render() {
     return (
@@ -51,7 +52,12 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/info"
-              component={InfoPage}
+              component={
+                (this.props.collections.selected === null) ?
+                CollectionPage
+              :
+                InfoPage
+              }
             />
             <ProtectedRoute
               exact
@@ -68,4 +74,6 @@ class App extends Component {
   )}
 }
 
-export default connect()(App);
+const mapStateToProps = ({ collections }) => ({ collections })
+
+export default connect(mapStateToProps)(App);

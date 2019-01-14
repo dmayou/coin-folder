@@ -18,6 +18,24 @@ const collectionType = (state = [], action) => {
     }
 };
 
+const userCollections = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_USER_COLLECTIONS':
+            return action.payload.data;
+        default:
+            return state;
+    }
+};
+
+const selected = (state = null, action) => {
+    switch (action.type) {
+        case 'SET_SELECTED_COLLECTION':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 const collectionStats = (state = {}, action) => {
     switch (action.type) {
         case 'SET_COLLECTION_STATS':
@@ -39,6 +57,8 @@ const collectionCount = (state = 0, action) => {
 export default combineReducers({
     collectionItems,
     collectionType,
+    userCollections,
     collectionStats,
     collectionCount,
+    selected,
 });

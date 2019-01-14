@@ -24,9 +24,10 @@ const buildFound = (found, needed) => {
     } else if (searchingForNone) {
         return 'FALSE';
     } else {
+        // GET routes aliase collection_items table as ci
         return (`(FALSE
-            ${found ? ` OR "collection_items"."found"=TRUE` : ''}
-            ${needed ? ` OR "collection_items"."found"=FALSE` : ''}
+            ${found ? ` OR "ci"."found"=TRUE` : ''}
+            ${needed ? ` OR "ci"."found"=FALSE` : ''}
             )`
         );
     }
@@ -34,7 +35,6 @@ const buildFound = (found, needed) => {
 
 const buildCollectionQuery = (search) => {
     const { startYear, endYear, mintP, mintD, mintS, found, needed } = search;
-    console.log('search object:', search);
     return (
         `AND
         ${buildYear(startYear, endYear)}

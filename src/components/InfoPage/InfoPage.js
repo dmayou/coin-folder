@@ -49,12 +49,16 @@ class InfoPage extends Component {
   fetchItems = (choice) => {
     this.props.dispatch({ 
       type: 'FETCH_USER_COLLECTION_ITEMS', 
-      payload: { id: 42, searchParams: this.props.search} 
+      payload: { id: this.props.selected, searchParams: this.props.search} 
     });
-    this.props.dispatch({ type: 'FETCH_COLLECTION_STATS', payload: 42 });
+    this.props.dispatch({ 
+      type: 'FETCH_COLLECTION_STATS', 
+      payload: this.props.selected 
+    });
   }
   componentDidMount () {
     this.fetchItems(this.state.filter);
+    this.props.dispatch({ type: 'FETCH_CONDITIONS' });
   }
   render () {
     const { classes } = this.props;
@@ -64,12 +68,16 @@ class InfoPage extends Component {
         return (
           <Grid key={coin.id} item xs={12} sm={6} lg={4}>
             <CoinCard
-              coinId={coin.id}
+              coinId={coin.ci_id}
               image={coin.image_path}
               name={coin.name}
               year={coin.year}
+              denomination={coin.denomination}
               mint={coin.mint}
               found={coin.found}
+              dateFound={coin.date_found}
+              locationFound={coin.location_found}
+              grade={coin.grade}
             />
           </Grid>
         );
@@ -79,24 +87,24 @@ class InfoPage extends Component {
       <div>
         <main className={classes.content}>
           <Grid container>
-            <Grid item xs={10}>
+            <Grid item xs={10} sm={12}>
               <FilterTabs 
                 onTabChange={this.setFilter}
                 showSearch={!this.state.mobileOpen}
               />
             </Grid>
-            <Grid item className={classes.buttonDiv} xs={2}>
-              <Hidden smUp>
-              <IconButton
-                className={classes.searchButton}
-                size="large"
-                aria-label="search"
-                onClick={this.toggleSearchDrawer}
-              >
-                <Search fontSize="large" />
-              </IconButton>
-              </Hidden>
-            </Grid>
+            <Hidden smUp>
+              <Grid item className={classes.buttonDiv} xs={2}>
+                <IconButton
+                  className={classes.searchButton}
+                  size="large"
+                  aria-label="search"
+                  onClick={this.toggleSearchDrawer}
+                >
+                  <Search fontSize="large" />
+                </IconButton>
+              </Grid>
+            </Hidden>
             {coinList}
           </Grid>
         </main>
@@ -111,6 +119,7 @@ class InfoPage extends Component {
 }
 
 const mapStoreToProps = ( state ) => ({ 
+  selected: state.collections.selected,
   collectionItems: state.collections.collectionItems,
   search: state.search, 
 });

@@ -15,17 +15,36 @@ router.get('/collection_type', rejectUnauthenticated, (req, res) => {
     }
 );
 
+router.get('/user_collections/', rejectUnauthenticated, (req, res) => {
+    const query = 
+        `SELECT "user_collections"."id" AS "coll_id", * FROM "user_collections"
+        JOIN "collection_type" ON "collection_type"."id"="user_collections"."collection_id"
+        WHERE "user_collections"."user_id"=$1
+        ORDER BY "collection_type"."id" ASC;`;
+    pool.query(query, [req.user.id])
+        .then((results) => {
+            res.send(results.rows);
+        }).catch((err) => {
+            res.sendStatus(500);
+        });
+}
+);
+
 router.get('/collection_items/:userCollectionId/:searchParams', rejectUnauthenticated, (req, res) => {
     const { userCollectionId, searchParams } = req.params;
-    console.log('search params:', req.params);
     const queryWhere = buildCollectionQuery(JSON.parse(searchParams));
-    console.log('queryWhere', queryWhere);
     const query = 
-        `SELECT "collection_items".*, "items".*, "condition"."grade", "condition"."description" FROM "collection_items"
-        JOIN "items" ON "collection_items"."item_id"="items"."id"
-        LEFT JOIN "condition" ON "collection_items"."condition_id"="condition"."id"
-        WHERE "collection_items"."user_collection_id"=${userCollectionId} ${queryWhere}
-        ORDER BY "items"."year" ASC, "collection_items"."item_id" ASC;`;
+        `SELECT 
+            "ci"."id" AS "ci_id", "user_collection_id", "item_id", "found", 
+                to_char("date_found", 'Mon DD, YYYY') AS "date_found",
+                "location_found", "will_trade",
+            "items".*, "condition"."grade", 
+            "condition"."description" 
+            FROM "collection_items" AS "ci"
+        JOIN "items" ON "ci"."item_id"="items"."id"
+        LEFT JOIN "condition" ON "ci"."condition_id"="condition"."id"
+        WHERE "ci"."user_collection_id"=${userCollectionId} ${queryWhere}
+        ORDER BY "items"."year" ASC, "ci"."item_id" ASC;`;
     pool.query(query)
         .then( (results) => {
             res.send(results.rows);
@@ -52,9 +71,7 @@ router.get('/collection_stats/:userCollectionId', rejectUnauthenticated, (req, r
 
 router.get('/collection_count/:userCollectionId/:searchParams', rejectUnauthenticated, (req, res) => {
     const { userCollectionId, searchParams } = req.params;
-    console.log('search params:', req.params);
     const queryWhere = buildCollectionQuery(JSON.parse(searchParams));
-    console.log('queryWhere', queryWhere);
     const query =
         `SELECT MIN("items"."year"), MAX("items"."year"), COUNT(*), SUM("found"::int) FROM "collection_items"
         JOIN "items" ON "items"."id"="collection_items"."item_id"
@@ -73,7 +90,6 @@ router.get('/collection_count/:userCollectionId/:searchParams', rejectUnauthenti
 // by copying rows from 'items'
 router.post('/collection_items/:userCollectionId', rejectUnauthenticated, (req, res) => {
     const { userCollectionId } = req.params;
-    console.log('collection_items POST. userCollectionID=', userCollectionId);
     const query =
         `INSERT INTO "collection_items" ("user_collection_id", "item_id")
         SELECT "user_collections"."id" AS "user_collection_id", "items"."id" FROM "items"
