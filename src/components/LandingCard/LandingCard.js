@@ -20,14 +20,11 @@ const styles = theme => ({
         fontSize: 14,
     },
     media: {
-        // minWidth: '65%',
-        // maxWidth: '65%',
         minWidth: 120,
         height: 130,
         margin: theme.spacing.unit,
     },
     description: {
-        // display: 'inline-block',
         margin: theme.spacing.unit,
     },
     pos: {
@@ -45,23 +42,23 @@ function CollectionCard(props) {
                 </Typography>
             </CardContent>
             <Grid container>
-            <Grid item xs={7}>
-                <CardMedia
-                    className={classes.media}
-                    image={`/images/${props.image}`}
-                />
-            </Grid>
-            <Grid item xs={5}>
-                <CardContent>
-                    <Typography inline
-                        className={classes.description}
-                    >{props.description}
-                    </Typography>
-                </CardContent>
-            </Grid>
+                <Grid item xs={7}>
+                    <CardMedia
+                        className={classes.media}
+                        image={`/images/${props.image}`}
+                    />
+                </Grid>
+                <Grid item xs={5}>
+                    <CardContent>
+                        <Typography inline
+                            className={classes.description}
+                        >{props.description}
+                        </Typography>
+                    </CardContent>
+                </Grid>
             </Grid>
             <CardActions>
-                <Button 
+                <Button
                     size="small"
                     onClick={props.handleClick}
                 >Select
