@@ -27,7 +27,6 @@ const styles = theme => ({
         margin: theme.spacing.unit,
     },
     description: {
-        // display: 'inline-block',
         margin: theme.spacing.unit,
     },
     pos: {

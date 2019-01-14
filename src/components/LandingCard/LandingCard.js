@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -32,40 +32,42 @@ const styles = theme => ({
     },
 });
 
-function LandingCard(props) {
-    const { classes } = props;
-    return (
-        <Card className={classes.card}>
-            <CardContent className={classes.cardContent}>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    {props.name}
-                </Typography>
-            </CardContent>
-            <Grid container>
-                <Grid item xs={5}>
-                    <CardMedia
-                        className={classes.media}
-                        image={`/images/${props.image}`}
-                    />
+class LandingCard extends Component {
+    render() {
+        const { classes } = this.props;
+        return(
+            <Card className={classes.card}>
+                <CardContent className={classes.cardContent}>
+                    <Typography className={classes.title} color="textSecondary" gutterBottom>
+                        {this.props.name}
+                    </Typography>
+                </CardContent>
+                <Grid container>
+                    <Grid item xs={5}>
+                        <CardMedia
+                            className={classes.media}
+                            image={`/images/${this.props.image}`}
+                        />
+                    </Grid>
+                    <Grid item xs={7}>
+                        <CardContent>
+                            <Typography inline
+                                className={classes.description}
+                            >{this.props.description}
+                            </Typography>
+                        </CardContent>
+                    </Grid>
                 </Grid>
-                <Grid item xs={7}>
-                    <CardContent>
-                        <Typography inline
-                            className={classes.description}
-                        >{props.description}
-                        </Typography>
-                    </CardContent>
-                </Grid>
-            </Grid>
-            <CardActions>
-                <Button
-                    size="small"
-                    onClick={props.handleClick}
-                >Select
-                </Button>
-            </CardActions>
-        </Card>
-    );
+                <CardActions>
+                    <Button
+                        size="small"
+                        onClick={this.props.handleClick}
+                    >Select
+                    </Button>
+                </CardActions>
+            </Card>
+        );
+    }
 }
 
 export default withStyles(styles)(LandingCard);
