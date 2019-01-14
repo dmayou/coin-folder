@@ -7,21 +7,21 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import LandingCard from '../LandingCard/LandingCard';
 
 const styles = theme => ({
-  heading: {
+  headline: {
     // margin: theme.spacing.unit,
   },
 });
 
 class UserPage extends Component {
   handleClick = (link) => () => {
-  this.props.history.push(link);
+    this.props.history.push(link);
   };
   render () {
     const { classes, user } = this.props;
     return (
       <div>
         <Typography 
-          className={classes.heading} 
+          className={classes.headline} 
           variant={'h4'}
         >Welcome, {user.username}
         </Typography>
@@ -43,7 +43,7 @@ class UserPage extends Component {
           name="Add a Collection"
           image=""
           description="Expand your collections."
-          handleClick={this.handleClick('/add_collections')}
+          handleClick={this.handleClick('/add_collection')}
         />
       </div>
     );

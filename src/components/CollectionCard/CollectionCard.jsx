@@ -63,7 +63,7 @@ function CollectionCard(props) {
                 <Button 
                     size="small"
                     onClick={props.handleClick}
-                >Select
+                >{props.action}
                 </Button>
             </CardActions>
         </Card>

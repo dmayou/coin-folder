@@ -30,7 +30,7 @@ router.get('/user_collections/', rejectUnauthenticated, (req, res) => {
 }
 );
 
-router.get('/user_can_add', rejectUnauthenticated, (req, res) => {
+router.get('/can_add_collections', rejectUnauthenticated, (req, res) => {
     const query =
         `SELECT * FROM "collection_type" 
         WHERE "collection_type"."id" NOT IN (

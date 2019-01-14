@@ -29,6 +29,16 @@ function* fetchUserCollections(action) {
     }
 }
 
+function* fetchCanAddCollections(action) {
+    console.log('in canAddCollections');
+    try {
+        const data = yield axios.get(`api/collection/can_add_collections`);
+        yield dispatch({ type: 'SET_CAN_ADD_COLLECTIONS', payload: data });
+    } catch (err) {
+        console.log('Error fetching can_add_collections.');
+    }
+}
+
 function* buildItemsTable(action) {
     try {
         yield console.log('in buildItemsTable');
@@ -75,6 +85,7 @@ function* userCollectionSaga() {
     yield takeLatest('FETCH_COLLECTION_STATS', fetchCollectionStats);
     yield takeLatest('FETCH_COLLECTION_COUNT', fetchCollectionCount);
     yield takeLatest('FETCH_USER_COLLECTIONS', fetchUserCollections);
+    yield takeLatest('FETCH_CAN_ADD_COLLECTION', fetchCanAddCollections);
 }
 
 export default userCollectionSaga;
