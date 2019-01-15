@@ -47,9 +47,10 @@ function* buildItemsTable(action) {
     }
 }
 
-function* addUserCollectionItems(action) {
+function* addUserCollection(action) {
+    console.log('addUser. id:', action.payload);
     try {
-        yield axios.post(`api/collection/collection_items/${action.payload}`, null);
+        yield axios.post(`api/collection/collection_items/${action.payload}`);
         yield dispatch({ type: 'FETCH_USER_COLLECTION_ITEMS' });
     } catch (err) {
         console.log('Error adding user collection items:', err);
@@ -78,7 +79,7 @@ function* fetchCollectionCount(action) {
 }
 
 function* userCollectionSaga() {
-    yield takeEvery('ADD_USER_COLLECTION_ITEMS', addUserCollectionItems);
+    yield takeEvery('ADD_USER_COLLECTION', addUserCollection);
     yield takeLatest('FETCH_USER_COLLECTION_ITEMS', fetchUserCollectionItems);
     yield takeLatest('FETCH_COLLECTION_TYPE', fetchCollectionType);
     yield takeLatest('BUILD_ITEMS_TABLE', buildItemsTable);

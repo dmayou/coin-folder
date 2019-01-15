@@ -16,7 +16,8 @@ const styles = theme => ({
 
 class AddCollectionPage extends Component {
     handleClick = (id) => () => {
-        this.props.dispatch({ type: 'SET_SELECTED_COLLECTION', payload: id })
+        console.log('handleClick. id:', id);
+        this.props.dispatch({ type: 'ADD_USER_COLLECTION', payload: id })
     };
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_CAN_ADD_COLLECTION' })
@@ -29,9 +30,9 @@ class AddCollectionPage extends Component {
                     key={collection.id}
                     name={collection.name}
                     image={collection.image_path}
-                    action={'Select'}
+                    action={'Start Collecting!'}
                     description={collection.description}
-                    handleClick={this.handleClick(collection.coll_id)}
+                    handleClick={this.handleClick(collection.id)}
                 />
 
             );
