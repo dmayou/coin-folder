@@ -30,6 +30,23 @@ router.get('/user_collections/', rejectUnauthenticated, (req, res) => {
 }
 );
 
+router.get('/can_add_collections', rejectUnauthenticated, (req, res) => {
+    const query =
+        `SELECT * FROM "collection_type" 
+        WHERE "collection_type"."id" NOT IN (
+	        SELECT "collection_type"."id" FROM "collection_type"
+	        JOIN "user_collections" ON "user_collections"."collection_id"="collection_type"."id"
+	        WHERE "user_collections"."user_id"=$1
+        )
+        ORDER BY "collection_type"."id";`;
+    pool.query(query, [req.user.id])
+        .then((results) => {
+            res.send(results.rows);
+        }).catch((err) => {
+            res.sendStatus(500);
+        });
+});
+
 router.get('/collection_items/:userCollectionId/:searchParams', rejectUnauthenticated, (req, res) => {
     const { userCollectionId, searchParams } = req.params;
     const queryWhere = buildCollectionQuery(JSON.parse(searchParams));
@@ -83,21 +100,39 @@ router.get('/collection_count/:userCollectionId/:searchParams', rejectUnauthenti
             res.sendStatus(500);
         }
     );
-})
-    
+}); 
 
-// Posts collection_items rows for a given collection_type.id
+// Makes user_collections row and 
+// posts collection_items rows for a given collection_type.id
 // by copying rows from 'items'
-router.post('/collection_items/:userCollectionId', rejectUnauthenticated, (req, res) => {
-    const { userCollectionId } = req.params;
-    //TODO: Need to protect route with user.id in query
+router.post('/collection_items/:collectionId', rejectUnauthenticated, (req, res) => {
+    
+    const { collectionId } = req.params;
+    // query makes new user_collection, then inserts items 
+    // matching collection_id into collection_items
     const query =
-        `INSERT INTO "collection_items" ("user_collection_id", "item_id")
-        SELECT "user_collections"."id" AS "user_collection_id", "items"."id" FROM "items"
-        JOIN "user_collections" ON "user_collections"."id"=${userCollectionId}
-        WHERE "items"."collection_id"="user_collections"."collection_id"
-        ORDER BY "items"."id";`;
-    pool.query(query)
+        `WITH "new_collection" AS (
+            INSERT INTO "user_collections"("user_id", "collection_id")
+	        VALUES($1, $2)
+	        RETURNING "user_collections"."id" AS "new_id"
+        )
+        INSERT INTO "collection_items"("user_collection_id", "item_id")
+            SELECT(SELECT "new_id" FROM "new_collection") AS "user_collection_id",
+                "items"."id" AS "item_id" FROM "items"
+            JOIN "user_collections" 
+                ON "user_collections"."collection_id" = "items"."collection_id"
+            WHERE "items"."collection_id" = "user_collections"."collection_id"
+                AND "items"."collection_id" = $3
+                AND "user_collections"."user_id" = $4
+            ORDER BY "items"."id";`;
+        console.log('in POST. query:', query);
+        console.log('req.user.id, collectionId', req.user.id, collectionId);
+        // `INSERT INTO "collection_items" ("user_collection_id", "item_id")
+        // SELECT "user_collections"."id" AS "user_collection_id", "items"."id" FROM "items"
+        // JOIN "user_collections" ON "user_collections"."id"=${userCollectionId}
+        // WHERE "items"."collection_id"="user_collections"."collection_id"
+        // ORDER BY "items"."id";`;
+    pool.query(query, [req.user.id, collectionId, collectionId, req.user.id])
         .then( (results) => {
             res.sendStatus(201);
         }).catch( (err) => {

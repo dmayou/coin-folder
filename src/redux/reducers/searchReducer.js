@@ -10,32 +10,19 @@ let initState = {
 
 const search = (state = initState, action) => {
     switch (action.type) {
+        case 'SET_SEARCH_CHOICES':
+            return action.payload.search;
         case 'SET_YEARS':
             return {
                 ...state,
                 startYear: action.payload[0],
                 endYear: action.payload[1],
             }
-        case 'SET_MINT':
-            return {
-                ...state,
-                [action.payload.mint]: action.payload.value,
-            }
-        case 'SET_FOUND_NEEDED':
-            return {
-                ...state,
-                found: action.payload[0],
-                needed: action.payload[1],
-            }
         case 'SHOW_ALL':
             return {
-                startYear: action.payload[0],
-                endYear: action.payload[1],
-                mintP: true,
-                mintD: true,
-                mintS: true,
-                found: true,
-                needed: true,
+                ...initState,
+                startYear: action.payload.startYear,
+                endYear: action.payload.endYear,
             }
         default:
             return state;

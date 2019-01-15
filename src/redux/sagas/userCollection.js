@@ -29,6 +29,16 @@ function* fetchUserCollections(action) {
     }
 }
 
+function* fetchCanAddCollections(action) {
+    console.log('in canAddCollections');
+    try {
+        const data = yield axios.get(`api/collection/can_add_collections`);
+        yield dispatch({ type: 'SET_CAN_ADD_COLLECTIONS', payload: data });
+    } catch (err) {
+        console.log('Error fetching can_add_collections.');
+    }
+}
+
 function* buildItemsTable(action) {
     try {
         yield console.log('in buildItemsTable');
@@ -37,9 +47,10 @@ function* buildItemsTable(action) {
     }
 }
 
-function* addUserCollectionItems(action) {
+function* addUserCollection(action) {
+    console.log('addUser. id:', action.payload);
     try {
-        yield axios.post(`api/collection/collection_items/${action.payload}`, null);
+        yield axios.post(`api/collection/collection_items/${action.payload}`);
         yield dispatch({ type: 'FETCH_USER_COLLECTION_ITEMS' });
     } catch (err) {
         console.log('Error adding user collection items:', err);
@@ -68,13 +79,14 @@ function* fetchCollectionCount(action) {
 }
 
 function* userCollectionSaga() {
-    yield takeEvery('ADD_USER_COLLECTION_ITEMS', addUserCollectionItems);
+    yield takeEvery('ADD_USER_COLLECTION', addUserCollection);
     yield takeLatest('FETCH_USER_COLLECTION_ITEMS', fetchUserCollectionItems);
     yield takeLatest('FETCH_COLLECTION_TYPE', fetchCollectionType);
     yield takeLatest('BUILD_ITEMS_TABLE', buildItemsTable);
     yield takeLatest('FETCH_COLLECTION_STATS', fetchCollectionStats);
     yield takeLatest('FETCH_COLLECTION_COUNT', fetchCollectionCount);
     yield takeLatest('FETCH_USER_COLLECTIONS', fetchUserCollections);
+    yield takeLatest('FETCH_CAN_ADD_COLLECTION', fetchCanAddCollections);
 }
 
 export default userCollectionSaga;

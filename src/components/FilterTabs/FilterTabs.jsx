@@ -36,43 +36,46 @@ class FilterTabs extends Component {
         switch (value) {
             case 0: // all
                 this.props.dispatch({ 
-                    type: 'SET_FOUND_NEEDED', 
-                    payload: [true, true]
+                    type: 'UPDATE_SEARCH_CHOICES',
+                    payload: {
+                        search: {
+                            ...this.props.search,
+                            found: true,
+                            needed: true,
+                        },
+                        selected: this.props.collections.selected,
+                    }
                 });
                 break;
             case 1: // found
                 this.props.dispatch({
-                    type: 'SET_FOUND_NEEDED',
-                    payload: [true, false]
+                    type: 'UPDATE_SEARCH_CHOICES',
+                    payload: {
+                        search: {
+                            ...this.props.search,
+                            found: true,
+                            needed: false,
+                        },
+                        selected: this.props.collections.selected,
+                    }
                 });
                 break;
             case 2:
                 this.props.dispatch({
-                    type: 'SET_FOUND_NEEDED',
-                    payload: [false, true]
+                    type: 'UPDATE_SEARCH_CHOICES',
+                    payload: {
+                        search: {
+                            ...this.props.search,
+                            found: false,
+                            needed: true,
+                        },
+                        selected: this.props.collections.selected,
+                    }
                 });
                 break;
             default:
                 console.log('filter tabs default choice error');
         };
-        // setTimeout moves dispatch to end of the event queue to 
-        // ensure that the the search reducer has been updated
-        setTimeout(() => {
-            this.props.dispatch({
-                type: 'FETCH_USER_COLLECTION_ITEMS',
-                payload: { 
-                    id: this.props.collections.selected, 
-                    searchParams: this.props.search 
-                }
-            });
-            this.props.dispatch({
-                type: 'FETCH_COLLECTION_COUNT',
-                payload: { 
-                    id: this.props.collections.selected, 
-                    searchParams: this.props.search 
-                }
-            });
-        }, 0);
     };
     activeTab = () => {
         const { found, needed } = this.props.search;

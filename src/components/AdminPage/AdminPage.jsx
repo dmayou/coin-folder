@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 //TODO: Handle non-admin users who route here
 
 class AdminPage extends Component {
-    buildItems = () => this.props.dispatch({ type: 'ADD_USER_COLLECTION_ITEMS', payload: 42 });
     render() {
         const collectionTypeList = this.props.collectionType.map( collection => {
                 return (

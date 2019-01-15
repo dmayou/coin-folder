@@ -27,7 +27,6 @@ const styles = theme => ({
         margin: theme.spacing.unit,
     },
     description: {
-        display: 'inline-block',
         margin: theme.spacing.unit,
     },
     pos: {
@@ -64,7 +63,7 @@ function CollectionCard(props) {
                 <Button 
                     size="small"
                     onClick={props.handleClick}
-                >Select
+                >{props.action}
                 </Button>
             </CardActions>
         </Card>

@@ -5,6 +5,7 @@ import userSaga from './userSaga';
 import userCollectionSaga from './userCollection';
 import conditionSaga from './conditionSaga';
 import updateCoinSaga from './updateCoinSaga';
+import updateSearchSaga from './updateSearchSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -21,5 +22,6 @@ export default function* rootSaga() {
     userCollectionSaga(),
     conditionSaga(),
     updateCoinSaga(),
+    updateSearchSaga(),
   ]);
 }

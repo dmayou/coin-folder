@@ -19,6 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import CollectionPage from '../CollectionPage/CollectionPage';
 import MainMenu from '../MainMenu/MainMenu';
 import AdminPage from '../AdminPage/AdminPage';
+import AddCollectionPage from '../AddCollectionPage/AddCollectionPage';
 
 class App extends Component {
   componentDidMount () {
@@ -47,6 +48,11 @@ class App extends Component {
               exact
               path="/home"
               component={UserPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/add_collection"
+              component={AddCollectionPage}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
