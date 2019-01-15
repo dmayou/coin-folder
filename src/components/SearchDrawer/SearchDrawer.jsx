@@ -99,8 +99,6 @@ class SearchDrawer extends Component {
                 selected: this.props.collections.selected,
             }
         });
-        // this.updateCount();
-        // this.updateDisplayItems();
     };
     handleAllClick = (startYear, endYear) => () => {
         this.updateYears(startYear, endYear);
@@ -108,11 +106,18 @@ class SearchDrawer extends Component {
     };
     handleShowAllClick = (startYear, endYear) => () => {
         this.props.dispatch({ 
-            type: 'SHOW_ALL',
-            payload: [startYear, endYear],
+            type: 'UPDATE_SEARCH_ALL',
+            payload: {
+                search: {
+                    ...this.props.search,
+                    startYear: startYear,
+                    endYear: endYear,
+                },
+                selected: this.props.collections.selected,
+            }
          });
-        this.updateCount();
-        this.updateDisplayItems();
+        // this.updateCount();
+        // this.updateDisplayItems();
     }
     updateCount = () => {
         // setTimeout moves dispatch to end of event queue to ensure that 

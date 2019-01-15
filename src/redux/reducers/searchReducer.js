@@ -21,8 +21,8 @@ const search = (state = initState, action) => {
         case 'SHOW_ALL':
             return {
                 ...initState,
-                startYear: action.payload[0],
-                endYear: action.payload[1],
+                startYear: action.payload.startYear,
+                endYear: action.payload.endYear,
             }
         default:
             return state;
