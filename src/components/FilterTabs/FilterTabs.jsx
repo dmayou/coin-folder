@@ -38,9 +38,12 @@ class FilterTabs extends Component {
                 this.props.dispatch({ 
                     type: 'UPDATE_SEARCH_CHOICES',
                     payload: {
-                        ...this.props.search,
-                        found: true,
-                        needed: true,
+                        search: {
+                            ...this.props.search,
+                            found: true,
+                            needed: true,
+                        },
+                        selected: this.props.selected,
                     }
                 });
                 break;
@@ -48,9 +51,12 @@ class FilterTabs extends Component {
                 this.props.dispatch({
                     type: 'UPDATE_SEARCH_CHOICES',
                     payload: {
-                        ...this.props.search,
-                        found: true,
-                        needed: false,
+                        search: {
+                            ...this.props.search,
+                            found: true,
+                            needed: false,
+                        },
+                        selected: this.props.selected,
                     }
                 });
                 break;
@@ -58,9 +64,12 @@ class FilterTabs extends Component {
                 this.props.dispatch({
                     type: 'UPDATE_SEARCH_CHOICES',
                     payload: {
-                        ...this.props.search,
-                        found: false,
-                        needed: true,
+                        search: {
+                            ...this.props.search,
+                            found: false,
+                            needed: true,
+                        },
+                        selected: this.props.selected,
                     }
                 });
                 break;
@@ -116,6 +125,6 @@ FilterTabs.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ search, collections }) => ({ search, collections })
+const mapStateToProps = ({ search, collections, selected }) => ({ search, collections, selected })
 
 export default connect(mapStateToProps)(withStyles(styles)(FilterTabs));
