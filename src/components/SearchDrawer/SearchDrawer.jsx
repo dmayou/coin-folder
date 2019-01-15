@@ -90,17 +90,17 @@ class SearchDrawer extends Component {
     handleSwitchChange = (name) => (event) => {
         console.log(`Switch ${name}:`, event.target.checked);
         this.props.dispatch({
-            type: 'SET_SEARCH_CHOICES',
+            type: 'UPDATE_SEARCH_CHOICES',
             payload: {
                 search: {
                     ...this.props.search,
                     [name]: event.target.checked,
                 },
-                selected: this.props.selected,
+                selected: this.props.collections.selected,
             }
         });
-        this.updateCount();
-        this.updateDisplayItems();
+        // this.updateCount();
+        // this.updateDisplayItems();
     };
     handleAllClick = (startYear, endYear) => () => {
         this.updateYears(startYear, endYear);
@@ -135,7 +135,7 @@ class SearchDrawer extends Component {
                     startYear: startYear,
                     endYear: endYear,
                 },
-                selected: this.props.selected,
+                selected: this.props.collections.selected,
             }
         });
         this.updateCount();
