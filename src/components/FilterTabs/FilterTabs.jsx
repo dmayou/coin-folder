@@ -36,7 +36,7 @@ class FilterTabs extends Component {
         switch (value) {
             case 0: // all
                 this.props.dispatch({ 
-                    type: 'UPDATE_SEARCH_CHOICES',
+                    type: 'SET_SEARCH_CHOICES',
                     payload: {
                         search: {
                             ...this.props.search,
@@ -49,7 +49,7 @@ class FilterTabs extends Component {
                 break;
             case 1: // found
                 this.props.dispatch({
-                    type: 'UPDATE_SEARCH_CHOICES',
+                    type: 'SET_SEARCH_CHOICES',
                     payload: {
                         search: {
                             ...this.props.search,
@@ -62,7 +62,7 @@ class FilterTabs extends Component {
                 break;
             case 2:
                 this.props.dispatch({
-                    type: 'UPDATE_SEARCH_CHOICES',
+                    type: 'SET_SEARCH_CHOICES',
                     payload: {
                         search: {
                             ...this.props.search,

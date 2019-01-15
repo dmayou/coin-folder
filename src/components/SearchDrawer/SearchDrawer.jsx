@@ -90,7 +90,7 @@ class SearchDrawer extends Component {
     handleSwitchChange = (name) => (event) => {
         console.log(`Switch ${name}:`, event.target.checked);
         this.props.dispatch({
-            type: 'UPDATE_SEARCH_CHOICES',
+            type: 'SET_SEARCH_CHOICES',
             payload: {
                 search: {
                     ...this.props.search,
@@ -128,7 +128,7 @@ class SearchDrawer extends Component {
     };
     updateYears = (startYear, endYear) => {
         this.props.dispatch({ 
-            type: 'UPDATE_SEARCH_CHOICES',
+            type: 'SET_SEARCH_CHOICES',
             payload: {
                 search: {
                     ...this.props.search,
