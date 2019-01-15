@@ -36,6 +36,7 @@ class CollectionPage extends Component {
         if (collectionList.length === 0) {
             collectionList[0] = 
                 <Typography 
+                    key={0} // React needs unique key
                     className={classes.text}
                     >You haven't selected any collections yet. <br/>
                     Choose Add Collections from the main menu.
