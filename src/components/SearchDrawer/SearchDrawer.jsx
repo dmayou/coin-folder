@@ -71,21 +71,8 @@ const styles = theme => ({
 });
 
 class SearchDrawer extends Component {
-    updateDisplayItems = () => {
-        // setTimeout moves dispatch to end of the event queue to 
-        // ensure that the the search reducer has been updated
-        setTimeout( () => this.props.dispatch({
-                type: 'FETCH_USER_COLLECTION_ITEMS',
-                payload: { 
-                    id: this.props.collections.selected, 
-                    searchParams: this.props.search 
-                }
-            }),
-        0);
-    }
     handleSliderChange = (event) => (values) => {
         this.updateYears(...values);
-        this.updateDisplayItems();
     };
     handleSwitchChange = (name) => (event) => {
         console.log(`Switch ${name}:`, event.target.checked);
@@ -102,7 +89,6 @@ class SearchDrawer extends Component {
     };
     handleAllClick = (startYear, endYear) => () => {
         this.updateYears(startYear, endYear);
-        this.updateDisplayItems();
     };
     handleShowAllClick = (startYear, endYear) => () => {
         this.props.dispatch({ 
@@ -116,24 +102,19 @@ class SearchDrawer extends Component {
                 selected: this.props.collections.selected,
             }
          });
-        // this.updateCount();
-        // this.updateDisplayItems();
-    }
+    };
     updateCount = () => {
-        // setTimeout moves dispatch to end of event queue to ensure that 
-        // set search (SET_MINT, SET_YEAR) dispatches have completed
-        setTimeout(
-            () => this.props.dispatch({ 
-                type: 'FETCH_COLLECTION_COUNT', 
-                payload: {
-                    id: this.props.collections.selected, 
-                    searchParams: this.props.search}
-                }),
-            0);
+        this.props.dispatch({ 
+            type: 'FETCH_COLLECTION_COUNT', 
+            payload: {
+                id: this.props.collections.selected, 
+                searchParams: this.props.search
+            }
+        });
     };
     updateYears = (startYear, endYear) => {
         this.props.dispatch({ 
-            type: 'SET_SEARCH_CHOICES',
+            type: 'UPDATE_SEARCH_CHOICES',
             payload: {
                 search: {
                     ...this.props.search,
@@ -143,7 +124,6 @@ class SearchDrawer extends Component {
                 selected: this.props.collections.selected,
             }
         });
-        this.updateCount();
     }
     componentDidMount = () => {
         this.updateCount();
