@@ -36,20 +36,32 @@ class FilterTabs extends Component {
         switch (value) {
             case 0: // all
                 this.props.dispatch({ 
-                    type: 'SET_FOUND_NEEDED', 
-                    payload: [true, true]
+                    type: 'UPDATE_SEARCH_CHOICES',
+                    payload: {
+                        ...this.props.search,
+                        found: true,
+                        needed: true,
+                    }
                 });
                 break;
             case 1: // found
                 this.props.dispatch({
-                    type: 'SET_FOUND_NEEDED',
-                    payload: [true, false]
+                    type: 'UPDATE_SEARCH_CHOICES',
+                    payload: {
+                        ...this.props.search,
+                        found: true,
+                        needed: false,
+                    }
                 });
                 break;
             case 2:
                 this.props.dispatch({
-                    type: 'SET_FOUND_NEEDED',
-                    payload: [false, true]
+                    type: 'UPDATE_SEARCH_CHOICES',
+                    payload: {
+                        ...this.props.search,
+                        found: false,
+                        needed: true,
+                    }
                 });
                 break;
             default:

@@ -10,6 +10,8 @@ let initState = {
 
 const search = (state = initState, action) => {
     switch (action.type) {
+        case 'UPDATE_SEARCH_CHOICES':
+            return action.payload;
         case 'SET_YEARS':
             return {
                 ...state,
