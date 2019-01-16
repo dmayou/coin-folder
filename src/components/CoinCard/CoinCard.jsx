@@ -88,9 +88,7 @@ class CoinCard extends Component {
         });
     };
     otherUsersNeed = (itemId) => {
-        // this routine will eventually get a count from the database of other users
-        // who have this coin in their collection, but found=false
-        return 4;
+        return this.props.collections.userItemCounts[itemId];
     };
     otherUsersMessage = (found, itemId) => {
         if (found) {

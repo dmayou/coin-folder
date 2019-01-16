@@ -103,7 +103,7 @@ router.get('/collection_count/:userCollectionId/:searchParams', rejectUnauthenti
 });
 
 // returns row for each item and count of other users who are collecting item, but haven't found it
-router.get('/other_user_count', rejectUnauthenticated, (req, res) => {
+router.get('/user_item_counts', rejectUnauthenticated, (req, res) => {
     const query = 
         `SELECT item_id, COUNT(user_id) FROM "collection_items"
         JOIN "user_collections" ON "user_collections"."id"="collection_items"."user_collection_id"

@@ -65,6 +65,15 @@ const collectionCount = (state = 0, action) => {
     }
 };
 
+const userItemCounts = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_USER_ITEM_COUNTS':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     collectionItems,
     collectionType,
@@ -72,5 +81,6 @@ export default combineReducers({
     canAddCollections,
     collectionStats,
     collectionCount,
+    userItemCounts,
     selected,
 });

@@ -64,6 +64,7 @@ class InfoPage extends Component {
   componentDidMount () {
     this.fetchItems(this.state.filter);
     this.props.dispatch({ type: 'FETCH_CONDITIONS' });
+    this.props.dispatch({ type: 'FETCH_USER_ITEM_COUNTS' });
   }
   render () {
     const { classes } = this.props;
