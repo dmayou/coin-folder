@@ -51,8 +51,7 @@ const styles = theme => ({
         transform: 'rotate(180deg)',
     },
     text: {
-        marginLeft: theme.spacing.unit,
-        marginBottom: theme.spacing.unit,
+        margin: theme.spacing.unit,
     },
     emailButton: {
         size: 'small',
@@ -88,14 +87,14 @@ class CoinCard extends Component {
             }
         });
     };
-    otherUsersNeed = (id) => {
+    otherUsersNeed = (itemId) => {
         // this routine will eventually get a count from the database of other users
         // who have this coin in their collection, but found=false
         return 4;
     };
-    otherUsersMessage = (found, coinId) => {
+    otherUsersMessage = (found, itemId) => {
         if (found) {
-            const numOtherUsers = this.otherUsersNeed(coinId);
+            const numOtherUsers = this.otherUsersNeed(itemId);
             return (
                 <div>
                     <Typography className={this.props.classes.text}>
@@ -140,7 +139,7 @@ class CoinCard extends Component {
                     />
                 </div>
                     <CardActions className={classes.actions}>
-                        {this.otherUsersMessage(this.props.found, this.props.coinId)}
+                        {this.otherUsersMessage(this.props.found, this.props.itemId)}
                         <IconButton
                             className={classnames(classes.expand, {
                                 [classes.expandOpen]: this.state.expanded,

@@ -100,7 +100,23 @@ router.get('/collection_count/:userCollectionId/:searchParams', rejectUnauthenti
             res.sendStatus(500);
         }
     );
-}); 
+});
+
+// returns row for each item and count of other users who are collecting item, but haven't found it
+router.get('/other_user_count', rejectUnauthenticated, (req, res) => {
+    const query = 
+        `SELECT item_id, COUNT(user_id) FROM "collection_items"
+        JOIN "user_collections" ON "user_collections"."id"="collection_items"."user_collection_id"
+        WHERE "found"=FALSE AND "user_id"<>$1
+        GROUP BY "item_id"
+        ORDER BY "item_id";`;
+    pool.query(query, [req.user.id])
+        .then((results) => {
+            res.send(results.rows);
+        }).catch((err) => {
+            res.sendStatus(500);
+        })
+});
 
 // Makes user_collections row and 
 // posts collection_items rows for a given collection_type.id
