@@ -17,7 +17,7 @@ const styles = theme => ({
         padding: theme.spacing.unit,
     },
     title: {
-        fontSize: 14,
+        fontSize: 18,
     },
     media: {
         // minWidth: '65%',

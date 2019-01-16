@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import LandingCard from '../LandingCard/LandingCard';
 
 const styles = theme => ({
   headline: {
-    // margin: theme.spacing.unit,
+    margin: theme.spacing.unit,
     marginTop: 10,
   },
 });
