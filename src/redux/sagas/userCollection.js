@@ -48,7 +48,6 @@ function* buildItemsTable(action) {
 }
 
 function* addUserCollection(action) {
-    console.log('addUser. id:', action.payload);
     try {
         yield axios.post(`api/collection/collection_items/${action.payload}`);
         yield dispatch({ type: 'FETCH_USER_COLLECTION_ITEMS' });
