@@ -74,7 +74,12 @@ router.get('/collection_items/:userCollectionId/:searchParams', rejectUnauthenti
 router.get('/collection_stats/:userCollectionId', rejectUnauthenticated, (req, res) => {
     const { userCollectionId } = req.params;
     const query = 
-        `SELECT MIN("items"."year"), MAX("items"."year"), COUNT(*), SUM("found"::int) FROM "collection_items" AS "ci"
+        `SELECT MIN("items"."year"), 
+            MAX("items"."year"), 
+            to_char(MIN("ci"."date_found"), 'Mon DD, YYYY') AS "first_find", 
+            COUNT(*), 
+            SUM("found"::int) 
+        FROM "collection_items" AS "ci"
         JOIN "items" ON "items"."id"="ci"."item_id"
         WHERE "user_collection_id"=${userCollectionId};`;
     pool.query(query)
