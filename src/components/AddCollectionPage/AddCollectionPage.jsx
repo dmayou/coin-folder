@@ -19,7 +19,7 @@ class AddCollectionPage extends Component {
         this.props.dispatch({ type: 'ADD_USER_COLLECTION', payload: id })
     };
     componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_CAN_ADD_COLLECTION' })
+        this.props.dispatch({ type: 'FETCH_CAN_ADD_COLLECTIONS' })
     }
     render() {
         const { classes } = this.props;
@@ -42,7 +42,6 @@ class AddCollectionPage extends Component {
                     key={1} // react requires key value for list
                     className={classes.text}
                     >There are no more collections to add.<br/>You have added them all!
-                />
                 </Typography>
         }
         return (

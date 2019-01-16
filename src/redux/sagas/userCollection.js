@@ -50,7 +50,7 @@ function* buildItemsTable(action) {
 function* addUserCollection(action) {
     try {
         yield axios.post(`api/collection/collection_items/${action.payload}`);
-        yield dispatch({ type: 'FETCH_USER_COLLECTION_ITEMS' });
+        yield dispatch({ type: 'FETCH_CAN_ADD_COLLECTIONS' });
     } catch (err) {
         console.log('Error adding user collection items:', err);
     }
@@ -85,7 +85,7 @@ function* userCollectionSaga() {
     yield takeLatest('FETCH_COLLECTION_STATS', fetchCollectionStats);
     yield takeLatest('FETCH_COLLECTION_COUNT', fetchCollectionCount);
     yield takeLatest('FETCH_USER_COLLECTIONS', fetchUserCollections);
-    yield takeLatest('FETCH_CAN_ADD_COLLECTION', fetchCanAddCollections);
+    yield takeLatest('FETCH_CAN_ADD_COLLECTIONS', fetchCanAddCollections);
 }
 
 export default userCollectionSaga;
