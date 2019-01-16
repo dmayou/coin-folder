@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import { Bar, Pie } from 'react-chartjs-2'
 
 class CollectionCharts extends Component { 
     render() {
         return(
-        <div>
+        <Grid container>
+        <Grid item xs={12} sm={6}>
             <Bar
+                height={'200%'}
                 data={{
                     labels: [
                         "January",
@@ -14,7 +18,12 @@ class CollectionCharts extends Component {
                         "April",
                         "May",
                         "June",
-                        "July"
+                        "July",
+                        "August",
+                        "September",
+                        "October",
+                        "November",
+                        "December",
                         ], 
                     datasets: [
                         {
@@ -28,6 +37,11 @@ class CollectionCharts extends Component {
                                 8,
                                 9,
                                 2,
+                                6,
+                                1,
+                                0,
+                                4,
+                                6,
                             ]
                         }, {
                         hidden: true,
@@ -58,13 +72,15 @@ class CollectionCharts extends Component {
                     ]
                 }}
             />
+            </Grid>
+            <Grid item xs={12} sm={6}>
             <Pie
                 options={
                     {
                         cutoutPercentage: 45,
                     }
                 }
-                height={'200%'}
+                height={'170%'}
                 data={
                     {
                         labels: [
@@ -80,7 +96,13 @@ class CollectionCharts extends Component {
                     }
                 }
             />
-        </div>
+            </Grid>
+            <Grid item xs={12}>
+                <Typography>Great job with your State Quarters collection!</Typography>
+                <Typography>You've found 4 quarters in the last month.</Typography>
+                <Typography>There are 3 other users with this collection.</Typography>
+            </Grid>
+        </Grid>
         );
     }
 }
