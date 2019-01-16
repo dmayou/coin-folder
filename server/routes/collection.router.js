@@ -78,10 +78,13 @@ router.get('/collection_stats/:userCollectionId', rejectUnauthenticated, (req, r
             MAX("items"."year"), 
             to_char(MIN("ci"."date_found"), 'Mon DD, YYYY') AS "first_find", 
             COUNT(*), 
-            SUM("found"::int) 
+            SUM("found"::int),
+            (   SELECT COUNT(*) FROM "collection_items" 
+                WHERE date_found > current_date - 30
+            ) AS "found_last_month"
         FROM "collection_items" AS "ci"
         JOIN "items" ON "items"."id"="ci"."item_id"
-        WHERE "user_collection_id"=${userCollectionId};`;
+        WHERE "user_collection_id"=${userCollectionId}`;
     pool.query(query)
         .then((results) => {
             res.send(results.rows[0]);
