@@ -46,7 +46,7 @@ class AddCollectionPage extends Component {
         }
         return (
             <div>
-                <Typography className={this.props.classes.headline} variant={'h4'}>Select A Collection</Typography>
+                <Typography className={this.props.classes.headline} variant={'h4'}>Add A Collection</Typography>
                 {collectionList}
             </div>
         );

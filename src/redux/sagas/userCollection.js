@@ -51,6 +51,7 @@ function* addUserCollection(action) {
     try {
         yield axios.post(`api/collection/collection_items/${action.payload}`);
         yield dispatch({ type: 'FETCH_CAN_ADD_COLLECTIONS' });
+        yield dispatch({ type: 'FETCH_USER_COLLECTIONS'});
     } catch (err) {
         console.log('Error adding user collection items:', err);
     }

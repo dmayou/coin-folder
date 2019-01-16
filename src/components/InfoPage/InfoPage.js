@@ -132,4 +132,4 @@ const mapStoreToProps = ( state ) => ({
   search: state.search, 
 });
 
-export default connect(mapStoreToProps)(compose(withTheme(), withStyles(styles))(InfoPage));
+export default connect(mapStoreToProps)(withStyles(styles)(InfoPage));
