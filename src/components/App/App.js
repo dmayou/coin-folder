@@ -23,6 +23,7 @@ import CollectionPage from '../CollectionPage/CollectionPage';
 import MainMenu from '../MainMenu/MainMenu';
 import AdminPage from '../AdminPage/AdminPage';
 import AddCollectionPage from '../AddCollectionPage/AddCollectionPage';
+import CollectionCharts from '../CollectionCharts/CollectionCharts';
 
 const theme = createMuiTheme({});
 
@@ -63,7 +64,8 @@ class App extends Component {
               <ProtectedRoute
                 exact
                 path="/my_collections"
-                component={CollectionPage}
+                // component={CollectionPage}
+                component={CollectionCharts}
               />
               <ProtectedRoute
                 exact

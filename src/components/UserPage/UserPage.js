@@ -7,7 +7,7 @@ import LandingCard from '../LandingCard/LandingCard';
 
 const styles = theme => ({
   headline: {
-    margin: theme.spacing.unit,
+    // margin: theme.spacing.unit,
     marginTop: 10,
   },
 });
