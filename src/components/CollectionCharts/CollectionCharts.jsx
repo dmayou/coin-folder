@@ -31,11 +31,13 @@ class CollectionCharts extends Component {
                     datasets: [
                         {
                             label: 'Other collectors average',
-                            backgroundColor: "rgba(220,220,220,0.5)",
-                            data: this.props.collections.foundCounts.otherCounts,
+                            // backgroundColor: "rgba(220,220,220,0.5)",
+                            backgroundColor: '#949FB1',
+                    
+                    data: this.props.collections.foundCounts.otherCounts,
                         }, {
                             label: 'Your collections',
-                            backgroundColor: "rgba(151,187,205,0.5)",
+                            backgroundColor: "rgba(185,121,151,0.5)",
                             data: this.props.collections.foundCounts.counts,
                         }
                     ]
@@ -53,13 +55,13 @@ class CollectionCharts extends Component {
                 data={
                     {
                         labels: [
-                            "Red", "Green", "Yellow", "Grey", "Dark Grey"
+                            "Found", "Need"
                         ],
                         datasets:
                         [
                             { 
-                                backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
-                                data: [5, 10, 15, 20, 25],
+                                backgroundColor: ["#46BFBD", "#DDB4AC"],
+                                data: [5, 25],
                             }
                         ] 
                     }
