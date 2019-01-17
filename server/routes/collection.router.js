@@ -132,15 +132,22 @@ router.get('/user_item_counts', rejectUnauthenticated, (req, res) => {
 // group has finds in all months.
 router.get('/found_counts', rejectUnauthenticated, (req, res) => {
     const query =
-        `SELECT (SELECT COUNT("id") FROM "user")-1 AS num_other_users,
-        COUNT("date_found") FILTER (WHERE "user_id"<>$1) AS other_count,
-        COUNT("date_found") FILTER (WHERE "user_id"=$1),
-        CONCAT(to_char(date_found, 'Month'), extract(year from date_found)) AS "mon_year"
-        FROM "collection_items"
-        JOIN "user_collections" ON "user_collections"."id"="collection_items"."user_collection_id"
-        WHERE date_found IS NOT NULL AND current_date - date_found < 395
-        GROUP BY "mon_year", date_found
-        ORDER BY "date_found" DESC LIMIT 12;`;
+        `WITH "found_months" AS (
+            SELECT user_id,
+            CONCAT(to_char(date_found, 'Month'), extract(year from date_found)) AS "mon_year",
+            CONCAT(extract(year from date_found), to_char(date_found, 'MM')) AS "sort_field"
+            FROM "collection_items"
+            JOIN "user_collections" ON "user_collections"."id" = "collection_items"."user_collection_id"
+            WHERE date_found IS NOT NULL AND current_date - date_found < 365
+        )
+        SELECT
+            (SELECT COUNT("id") FROM "user") - 1 AS "num_other_users",
+            COUNT(*) FILTER(WHERE "user_id" = $1),
+            COUNT(*) FILTER(WHERE "user_id" <> $1) AS "other_count",
+            "mon_year"
+            FROM "found_months"
+        GROUP BY "mon_year", sort_field--these fields will appear as distinct pairs
+        ORDER BY "sort_field" LIMIT 12;`;
     pool.query(query, [req.user.id])
         .then((results) => {
             res.send(results.rows);

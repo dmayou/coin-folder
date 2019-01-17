@@ -76,12 +76,11 @@ const foundCounts = (state = {}, action) => {
                 numOtherUsers = 1; // prevent divide by 0
             }
             const length = action.payload.data.length;
-            debugger;
             for (let i = 0; i < length; i++) {
                 let row = action.payload.data[i];
-                months[length - i - 1] = row.mon_year;
-                counts[length - i - 1] = +row.count;
-                otherCounts[length - i - 1] = +row.other_count / numOtherUsers; // average
+                months[i] = row.mon_year;
+                counts[i] = +row.count;
+                otherCounts[i] = row.other_count / numOtherUsers; // average
             }
             return {
                 months,
