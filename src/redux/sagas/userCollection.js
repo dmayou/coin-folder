@@ -78,6 +78,15 @@ function* fetchCollectionCount(action) {
     }
 }
 
+function* fetchFoundCounts(action) {
+    try {
+        const data = yield axios.get('api/collection/found_counts');
+        yield dispatch({ type: 'SET_FOUND_COUNTS', payload: data });
+    } catch(err) {
+        console.log('Error fectching found counts');
+    }
+}
+
 function* fetchUserItemCounts(action) {
     try {
         const data = yield axios.get('api/collection/user_item_counts');
@@ -99,6 +108,7 @@ function* userCollectionSaga() {
     yield takeLatest('FETCH_COLLECTION_STATS', fetchCollectionStats);
     yield takeLatest('FETCH_COLLECTION_COUNT', fetchCollectionCount);
     yield takeLatest('FETCH_USER_ITEM_COUNTS', fetchUserItemCounts);
+    yield takeLatest('FETCH_FOUND_COUNTS', fetchFoundCounts);
     yield takeLatest('FETCH_USER_COLLECTIONS', fetchUserCollections);
     yield takeLatest('FETCH_CAN_ADD_COLLECTIONS', fetchCanAddCollections);
 }

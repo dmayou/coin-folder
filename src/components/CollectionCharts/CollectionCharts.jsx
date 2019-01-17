@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Bar, Pie } from 'react-chartjs-2'
 
-class CollectionCharts extends Component { 
+class CollectionCharts extends Component {
+    state = {
+        months: [],
+        counts: [],
+        otherCounts: [],
+    }
+    componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_FOUND_COUNTS' });
+    }
     render() {
         return(
         <Grid container>
+        {JSON.stringify(this.state)}
         <Grid item xs={12} sm={6}>
             <Bar
-                height={'200%'}
+                height={200}
                 data={{
                     labels: [
                         "January",
@@ -80,7 +90,7 @@ class CollectionCharts extends Component {
                         cutoutPercentage: 45,
                     }
                 }
-                height={'170%'}
+                height={200}
                 data={
                     {
                         labels: [
@@ -107,4 +117,6 @@ class CollectionCharts extends Component {
     }
 }
 
-export default CollectionCharts;
+const mapStateToProps = ({ collections }) => ({ collections });
+
+export default connect(mapStateToProps)(CollectionCharts);

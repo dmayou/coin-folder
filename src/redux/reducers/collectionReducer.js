@@ -65,6 +65,28 @@ const collectionCount = (state = 0, action) => {
     }
 };
 
+const foundCounts = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_FOUND_COUNTS':
+            let months = [];
+            let counts = [];
+            let otherCounts = [];
+            for (let i = action.payload.data.length - 1; i >= 0; i--) {
+                let row = action.payload.data[i];
+                months[i] = row.mon_year;
+                counts[i] = +row.count;
+                otherCounts[i] = +row.other_count;
+            }
+            return {
+                months,
+                counts,
+                otherCounts,
+            };
+        default:
+            return state;
+    }
+};
+
 const userItemCounts = (state = {}, action) => {
     switch (action.type) {
         case 'SET_USER_ITEM_COUNTS':
@@ -81,6 +103,7 @@ export default combineReducers({
     canAddCollections,
     collectionStats,
     collectionCount,
+    foundCounts,
     userItemCounts,
     selected,
 });
