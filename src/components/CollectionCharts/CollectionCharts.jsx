@@ -5,39 +5,20 @@ import Typography from '@material-ui/core/Typography';
 import { Bar, Pie } from 'react-chartjs-2'
 
 class CollectionCharts extends Component {
-    state = {
-        months: [],
-        counts: [],
-        otherCounts: [],
-    }
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_FOUND_COUNTS' });
     }
     render() {
         return(
         <Grid container>
-        {JSON.stringify(this.state)}
         <Grid item xs={12} sm={6}>
             <Bar
                 height={200}
                 data={{
-                    labels: [
-                        "January",
-                        "February",
-                        "March",
-                        "April",
-                        "May",
-                        "June",
-                        "July",
-                        "August",
-                        "September",
-                        "October",
-                        "November",
-                        "December",
-                        ], 
+                    labels: this.props.collections.foundCounts.months,
                     datasets: [
                         {
-                            label: 'Dataset 1',
+                            label: 'Other collectors average',
                             backgroundColor: "rgba(220,220,220,0.5)",
                             data: [
                                 4,
@@ -54,31 +35,23 @@ class CollectionCharts extends Component {
                                 6,
                             ]
                         }, {
-                        hidden: true,
-                        label: 'Dataset 2',
-                        backgroundColor: "rgba(151,187,205,0.5)",
-                        data: [
-                            4,
-                            4,
-                            4,
-                            4,
-                            4,
-                            4,
-                            4
-                        ]
-                        }, {
-                            label: 'Dataset 3',
-                        backgroundColor: "rgba(151,187,205,0.5)",
-                        data: [
-                            4,
-                            4,
-                            4,
-                            4,
-                            4,
-                            4,
-                            4
-                        ]
-                    }
+                            label: 'Your collections',
+                            backgroundColor: "rgba(151,187,205,0.5)",
+                            data: [
+                                4,
+                                4,
+                                4,
+                                4,
+                                4,
+                                4,
+                                4,
+                                0,
+                                1,
+                                2,
+                                3,
+                                4,
+                            ]
+                        }
                     ]
                 }}
             />

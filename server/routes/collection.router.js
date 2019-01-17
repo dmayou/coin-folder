@@ -132,7 +132,8 @@ router.get('/user_item_counts', rejectUnauthenticated, (req, res) => {
 // group has finds in all months.
 router.get('/found_counts', rejectUnauthenticated, (req, res) => {
     const query =
-        `SELECT COUNT("date_found") FILTER (WHERE "user_id"<>$1) AS other_count,
+        `SELECT (SELECT COUNT("id") FROM "user")-1 AS num_other_users,
+        COUNT("date_found") FILTER (WHERE "user_id"<>$1) AS other_count,
         COUNT("date_found") FILTER (WHERE "user_id"=$1),
         CONCAT(to_char(date_found, 'Month'), extract(year from date_found)) AS "mon_year"
         FROM "collection_items"
