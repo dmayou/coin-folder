@@ -4,6 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Bar, Pie } from 'react-chartjs-2'
 
+
+
 class CollectionCharts extends Component {
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_FOUND_COUNTS' });
@@ -65,9 +67,9 @@ class CollectionCharts extends Component {
             />
             </Grid>
             <Grid item xs={12}>
-                <Typography>Great job with your State Quarters collection!</Typography>
-                <Typography>You've found 4 quarters in the last month.</Typography>
-                <Typography>There are 3 other users with this collection.</Typography>
+                <Typography align="center">Great job with your State Quarters collection!</Typography>
+                <Typography align="center">You've found 4 quarters in the last month.</Typography>
+                    <Typography align="center">There are 3 other users with this collection.</Typography>
             </Grid>
         </Grid>
         );

@@ -78,7 +78,7 @@ const foundCounts = (state = {}, action) => {
             const length = action.payload.data.length;
             for (let i = 0; i < length; i++) {
                 let row = action.payload.data[i];
-                months[i] = row.mon_year;
+                months[i] = row.mon_year.replace(/ +(?= )/g, ''); // remove extra spaces
                 counts[i] = +row.count;
                 otherCounts[i] = row.other_count / numOtherUsers; // average
             }
