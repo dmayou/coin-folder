@@ -71,15 +71,17 @@ const foundCounts = (state = {}, action) => {
             let months = [];
             let counts = [];
             let otherCounts = [];
-            const numOtherUsers = action.payload.data[0].num_other_users;
+            let numOtherUsers = action.payload.data[0].num_other_users;
             if (numOtherUsers === 0) {
                 numOtherUsers = 1; // prevent divide by 0
-            } 
-            for (let i = action.payload.data.length - 1; i >= 0; i--) {
+            }
+            const length = action.payload.data.length;
+            debugger;
+            for (let i = 0; i < length; i++) {
                 let row = action.payload.data[i];
-                months[i] = row.mon_year;
-                counts[i] = +row.count;
-                otherCounts[i] = +row.other_count / numOtherUsers; // average
+                months[length - i - 1] = row.mon_year;
+                counts[length - i - 1] = +row.count;
+                otherCounts[length - i - 1] = +row.other_count / numOtherUsers; // average
             }
             return {
                 months,

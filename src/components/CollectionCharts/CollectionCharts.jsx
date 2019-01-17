@@ -14,43 +14,27 @@ class CollectionCharts extends Component {
         <Grid item xs={12} sm={6}>
             <Bar
                 height={200}
+                options={{
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: false,
+                                fontSize: 12,
+                            },
+                        }],
+                    },
+                }}
                 data={{
                     labels: this.props.collections.foundCounts.months,
                     datasets: [
                         {
                             label: 'Other collectors average',
                             backgroundColor: "rgba(220,220,220,0.5)",
-                            data: [
-                                4,
-                                5,
-                                6,
-                                8,
-                                8,
-                                9,
-                                2,
-                                6,
-                                1,
-                                0,
-                                4,
-                                6,
-                            ]
+                            data: this.props.collections.foundCounts.otherCounts,
                         }, {
                             label: 'Your collections',
                             backgroundColor: "rgba(151,187,205,0.5)",
-                            data: [
-                                4,
-                                4,
-                                4,
-                                4,
-                                4,
-                                4,
-                                4,
-                                0,
-                                1,
-                                2,
-                                3,
-                                4,
-                            ]
+                            data: this.props.collections.foundCounts.counts,
                         }
                     ]
                 }}
