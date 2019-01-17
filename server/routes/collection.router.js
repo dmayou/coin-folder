@@ -60,9 +60,9 @@ router.get('/collection_items/:userCollectionId/:searchParams', rejectUnauthenti
             FROM "collection_items" AS "ci"
         JOIN "items" ON "ci"."item_id"="items"."id"
         LEFT JOIN "condition" ON "ci"."condition_id"="condition"."id"
-        WHERE "ci"."user_collection_id"=${userCollectionId} ${queryWhere}
+        WHERE "ci"."user_collection_id"=$1 ${queryWhere}
         ORDER BY "items"."year" ASC, "ci"."item_id" ASC;`;
-    pool.query(query)
+    pool.query(query, [userCollectionId])
         .then( (results) => {
             res.send(results.rows);
         }).catch( (err) => {
@@ -124,6 +124,29 @@ router.get('/user_item_counts', rejectUnauthenticated, (req, res) => {
         }).catch((err) => {
             res.sendStatus(500);
         })
+});
+
+// returns 12 rows representing counts of finds for user and finds for other
+// users for past 12+1 months (390 days) for ALL collections.
+// Most recent month is first. Could return fewer than 12 rows if neither 
+// group has finds in all months.
+router.get('/found_counts', rejectUnauthenticated, (req, res) => {
+    const query =
+        `SELECT COUNT("date_found") FILTER (WHERE "user_id"<>$1) AS other_count,
+        COUNT("date_found") FILTER (WHERE "user_id"=$1),
+        CONCAT(to_char(date_found, 'Month'), extract(year from date_found)) AS "mon_year"
+        FROM "collection_items"
+        JOIN "user_collections" ON "user_collections"."id"="collection_items"."user_collection_id"
+        WHERE date_found IS NOT NULL AND current_date - date_found < 395
+        GROUP BY "mon_year", date_found
+        ORDER BY "date_found" DESC LIMIT 12;`;
+    pool.query(query, [req.user.id])
+        .then((results) => {
+            res.send(results.rows);
+        }).catch((err) => {
+            res.sendStatus(500);
+        }
+    );
 });
 
 // Makes user_collections row and 

@@ -73,7 +73,7 @@ class CoinCard extends Component {
             showEdit: true,
         });
     };
-    handleFoundClose = (id)=> (event) => {
+    handleFoundClose = (id) => (event) => {
         this.setState({
             showEdit: false,
         });
