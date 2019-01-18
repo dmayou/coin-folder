@@ -72,20 +72,22 @@ const foundCounts = (state = {}, action) => {
             let counts = [];
             let otherCounts = [];
             let numOtherUsers = action.payload.data[0].num_other_users;
-            if (numOtherUsers === 0) {
-                numOtherUsers = 1; // prevent divide by 0
-            }
             const length = action.payload.data.length;
             for (let i = 0; i < length; i++) {
                 let row = action.payload.data[i];
                 months[i] = row.mon_year.replace(/ +(?= )/g, ''); // remove extra spaces
                 counts[i] = +row.count;
-                otherCounts[i] = row.other_count / numOtherUsers; // average
+                if (numOtherUsers === 0) {
+                    otherCounts[i] = 0; // prevent division by 0
+                } else {
+                    otherCounts[i] = row.other_count / numOtherUsers; // average
+                }
             }
             return {
                 months,
                 counts,
                 otherCounts,
+                numOtherUsers,
             };
         default:
             return state;
