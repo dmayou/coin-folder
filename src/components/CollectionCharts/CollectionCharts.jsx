@@ -15,6 +15,7 @@ class CollectionCharts extends Component {
         });
     }
     render() {
+        const stats = this.props.collections.collectionStats;
         return(
         <Grid container>
         <Grid item xs={12} sm={6}>
@@ -73,8 +74,8 @@ class CollectionCharts extends Component {
             />
             </Grid>
             <Grid item xs={12}>
-                <Typography align="center">Great job with your State Quarters collection!</Typography>
-                <Typography align="center">You've found 4 quarters in the last month.</Typography>
+                <Typography align="center">Great job with your {stats.name} collection!</Typography>
+                <Typography align="center">You've found {`${stats.found_last_month} ${stats.denomination}s`} in the last month.</Typography>
                 <Typography align="center">There are 3 other users with this collection.</Typography>
                 <br/>
                 <br/>
