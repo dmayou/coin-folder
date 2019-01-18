@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
-import Button from '@material-ui/core/Button';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
 import InfoIcon from '@material-ui/icons/Info';
@@ -77,14 +76,6 @@ function MySnackbarContent(props) {
     );
 }
 
-MySnackbarContent.propTypes = {
-    classes: PropTypes.object.isRequired,
-    className: PropTypes.string,
-    message: PropTypes.node,
-    onClose: PropTypes.func,
-    variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
-};
-
 const MySnackbarContentWrapper = withStyles(styles1)(MySnackbarContent);
 
 const styles2 = theme => ({
@@ -94,72 +85,43 @@ const styles2 = theme => ({
 });
 
 class CustomizedSnackbars extends React.Component {
-    state = {
-        open: false,
-    };
-
     handleClick = () => {
-        this.setState({ open: true });
+        this.props.dispatch({ 
+            type: 'SHOW_NOTIFICATION',
+            payload: {
+                message: 'myMessage',
+                variant: 'warning',
+                dwell: 3000,
+            }
+        });
     };
-
     handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        this.setState({ open: false });
+        this.props.dispatch({ type: 'HIDE_NOTIFICATION' });
     };
-
     render() {
-        const { classes } = this.props;
-
+        const { classes, notification } = this.props;
         return (
             <div>
-                <Button className={classes.margin} onClick={this.handleClick}>
-                    Open success snackbar
-        </Button>
                 <Snackbar
                     anchorOrigin={{
                         vertical: 'bottom',
                         horizontal: 'left',
                     }}
-                    open={this.state.open}
-                    autoHideDuration={6000}
+                    open={notification.showing}
+                    autoHideDuration={notification.dwell}
                     onClose={this.handleClose}
                 >
                     <MySnackbarContentWrapper
                         onClose={this.handleClose}
-                        variant="success"
-                        message="This is a success message!"
+                        variant={notification.variant}
+                        message={notification.message}
                     />
                 </Snackbar>
-                <MySnackbarContentWrapper
-                    variant="error"
-                    className={classes.margin}
-                    message="This is an error message!"
-                />
-                <MySnackbarContentWrapper
-                    variant="warning"
-                    className={classes.margin}
-                    message="This is a warning message!"
-                />
-                <MySnackbarContentWrapper
-                    variant="info"
-                    className={classes.margin}
-                    message="This is an information message!"
-                />
-                <MySnackbarContentWrapper
-                    variant="success"
-                    className={classes.margin}
-                    message="This is a success message!"
-                />
             </div>
         );
     }
 }
 
-CustomizedSnackbars.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
+const mapStateToProps = ({ notification }) => ({ notification });
 
-export default withStyles(styles2)(CustomizedSnackbars);
+export default connect(mapStateToProps)(withStyles(styles2)(CustomizedSnackbars));

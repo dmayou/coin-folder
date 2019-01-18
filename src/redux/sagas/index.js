@@ -23,6 +23,5 @@ export default function* rootSaga() {
     conditionSaga(),
     updateCoinSaga(),
     updateSearchSaga(),
-    notifySaga(),
   ]);
 }

@@ -9,10 +9,8 @@ const notification = (state = initialNotificationState, action) => {
     switch (action.type) {
         case 'SHOW_NOTIFICATION':
             return {
+                ...action.payload,
                 showing: true,
-                message: action.payload.message,
-                variant: action.payload.variant,
-                icon: action.payload.icon,
             };
         case 'HIDE_NOTIFICATION':
             return {
