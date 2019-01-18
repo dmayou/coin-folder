@@ -10,6 +10,7 @@ const styles = theme => ({
     },
     text: {
         margin: theme.spacing.unit,
+        fontSize: 16,
         textAlign: 'left',
     },
 });
@@ -39,7 +40,7 @@ class CollectionPage extends Component {
                     key={0} // React needs unique key
                     className={classes.text}
                     >You haven't selected any collections yet. <br/>
-                    Choose Add Collections from the main menu.
+                Choose <a>Add Collections</a> from the main menu.
                 </Typography>
         }  
         return(

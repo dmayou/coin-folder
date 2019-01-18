@@ -64,8 +64,8 @@ class App extends Component {
               <ProtectedRoute
                 exact
                 path="/my_collections"
-                // component={CollectionPage}
-                component={CollectionCharts}
+                component={CollectionPage}
+                // component={CollectionCharts}
               />
               <ProtectedRoute
                 exact

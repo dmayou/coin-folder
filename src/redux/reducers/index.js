@@ -7,6 +7,7 @@ import collections from './collectionReducer';
 import search from './searchReducer';
 import coin from './coinReducer';
 import conditions from './conditionsReducer';
+import notification from './notificationReducer';
 
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   search, // stores component values from SearchDrawer
   coin, // stores editable fields of collection_item
   conditions, // stores conditions table entries
+  notification,
 });
 
 export default rootReducer;
