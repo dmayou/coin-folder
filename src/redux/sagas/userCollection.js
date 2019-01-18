@@ -4,6 +4,7 @@ import axios from 'axios';
 function* fetchUserCollectionItems(action) {
     try {
         const { id, searchParams } = action.payload;
+        console.log('fetch items. id=', id)
         const data = yield axios.get(`api/collection/collection_items/${id}/${JSON.stringify(searchParams)}`);
         yield dispatch({ type: 'SET_USER_COLLECTION_ITEMS', payload: data });
     } catch (err) {

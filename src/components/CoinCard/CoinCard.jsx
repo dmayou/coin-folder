@@ -73,7 +73,7 @@ class CoinCard extends Component {
             showEdit: true,
         });
     };
-    handleFoundClose = (id) => (event) => {
+    handleFoundClose = (id, selected) => (event) => {
         this.setState({
             showEdit: false,
         });
@@ -83,7 +83,7 @@ class CoinCard extends Component {
                 id: id,
                 data: this.props.coin,
                 searchParams: this.props.search,
-                collectionID: this.props.collections.selected,
+                collectionId: selected,
             }
         });
     };
@@ -160,7 +160,7 @@ class CoinCard extends Component {
                 </Collapse>
                 <EditCoin
                     show={this.state.showEdit}
-                    handleClose={this.handleFoundClose(this.props.coinId)}
+                    handleClose={this.handleFoundClose(this.props.coinId, this.props.collections.selected)}
                     title={`${yearMint} ${this.props.name} ${this.props.denomination}`}
                 />
             </Card>
