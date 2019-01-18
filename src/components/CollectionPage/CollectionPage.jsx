@@ -30,6 +30,7 @@ class CollectionPage extends Component {
                     action={'Select'}
                     description={collection.description}
                     handleClick={this.handleClick(collection.coll_id)}
+                    auxActionButton={'Compare progress'}
                 />
                 
             );
