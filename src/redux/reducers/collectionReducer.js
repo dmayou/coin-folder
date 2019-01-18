@@ -94,6 +94,15 @@ const foundCounts = (state = {}, action) => {
     }
 };
 
+const otherFoundAvg = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_OTHER_FOUND_AVG':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 const userItemCounts = (state = {}, action) => {
     switch (action.type) {
         case 'SET_USER_ITEM_COUNTS':
@@ -111,6 +120,7 @@ export default combineReducers({
     stats,
     collectionCount,
     foundCounts,
+    otherFoundAvg,
     userItemCounts,
     selected,
 });

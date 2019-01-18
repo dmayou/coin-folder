@@ -13,6 +13,10 @@ class CollectionCharts extends Component {
             type: 'FETCH_COLLECTION_STATS',
             payload: this.props.collections.selected,
         });
+        this.props.dispatch({
+            type: 'FETCH_OTHER_FOUND_AVG',
+            payload: this.props.collections.selected,
+        });
     }
     render() {
         const stats = this.props.collections.stats;
