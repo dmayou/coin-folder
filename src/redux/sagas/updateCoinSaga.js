@@ -10,9 +10,25 @@ function* updateCoin(action) {
                 id: action.payload.collectionId, 
                 searchParams: action.payload.searchParams 
             }
-        });;
+        });
+        yield dispatch({
+            type: 'SHOW_NOTIFICATION',
+            payload: {
+                message: 'Your collection has been updated!',
+                variant: 'success',
+                dwell: 2500,
+            }
+        });
     } catch (err) {
         console.log('Error updating coin.');
+        yield dispatch({
+            type: 'SHOW_NOTIFICATION',
+            payload: {
+                message: 'There was an error saving what you entered. Try again!',
+                variant: 'error',
+                dwell: 2500,
+            }
+        });
     }
 }
 

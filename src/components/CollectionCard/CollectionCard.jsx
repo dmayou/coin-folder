@@ -65,6 +65,12 @@ function CollectionCard(props) {
                     onClick={props.handleClick}
                 >{props.action}
                 </Button>
+                {props.auxActionButton &&
+                <Button
+                    size="small"
+                    onClick={props.handleClick}    
+                >{props.auxActionButton}
+                </Button>}
             </CardActions>
         </Card>
     );

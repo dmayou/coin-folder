@@ -84,8 +84,8 @@ router.get('/collection_stats/:userCollectionId', rejectUnauthenticated, (req, r
             ) AS "found_last_month"
         FROM "collection_items" AS "ci"
         JOIN "items" ON "items"."id"="ci"."item_id"
-        WHERE "user_collection_id"=${userCollectionId}`;
-    pool.query(query)
+        WHERE "user_collection_id"=$1`;
+    pool.query(query, [userCollectionId])
         .then((results) => {
             res.send(results.rows[0]);
         }).catch((err) => {
@@ -128,8 +128,7 @@ router.get('/user_item_counts', rejectUnauthenticated, (req, res) => {
 
 // returns 12 rows representing counts of finds for user and finds for other
 // users for past 12+1 months (390 days) for ALL collections.
-// Most recent month is first. Could return fewer than 12 rows if neither 
-// group has finds in all months.
+// Could return fewer than 12 rows if neither group has finds in all months.
 router.get('/found_counts', rejectUnauthenticated, (req, res) => {
     const query =
         `WITH "found_months" AS (
@@ -138,15 +137,15 @@ router.get('/found_counts', rejectUnauthenticated, (req, res) => {
             CONCAT(extract(year from date_found), to_char(date_found, 'MM')) AS "sort_field"
             FROM "collection_items"
             JOIN "user_collections" ON "user_collections"."id" = "collection_items"."user_collection_id"
-            WHERE date_found IS NOT NULL AND current_date - date_found < 365
+            WHERE date_found IS NOT NULL AND current_date - date_found < 390
         )
         SELECT
             (SELECT COUNT("id") FROM "user") - 1 AS "num_other_users",
-            COUNT(*) FILTER(WHERE "user_id" = $1),
-            COUNT(*) FILTER(WHERE "user_id" <> $1) AS "other_count",
+            COUNT(*) FILTER(WHERE "user_id"=$1),
+            COUNT(*) FILTER(WHERE "user_id"<>$1) AS "other_count",
             "mon_year"
             FROM "found_months"
-        GROUP BY "mon_year", sort_field--these fields will appear as distinct pairs
+        GROUP BY "mon_year", sort_field --these fields will appear as distinct pairs
         ORDER BY "sort_field" LIMIT 12;`;
     pool.query(query, [req.user.id])
         .then((results) => {
@@ -161,7 +160,6 @@ router.get('/found_counts', rejectUnauthenticated, (req, res) => {
 // posts collection_items rows for a given collection_type.id
 // by copying rows from 'items'
 router.post('/collection_items/:collectionId', rejectUnauthenticated, (req, res) => {
-    
     const { collectionId } = req.params;
     // query makes new user_collection, then inserts items 
     // matching collection_id into collection_items

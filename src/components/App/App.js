@@ -24,6 +24,7 @@ import MainMenu from '../MainMenu/MainMenu';
 import AdminPage from '../AdminPage/AdminPage';
 import AddCollectionPage from '../AddCollectionPage/AddCollectionPage';
 import CollectionCharts from '../CollectionCharts/CollectionCharts';
+import Notification from '../Notification/Notification';
 
 const theme = createMuiTheme({});
 
@@ -64,8 +65,8 @@ class App extends Component {
               <ProtectedRoute
                 exact
                 path="/my_collections"
-                // component={CollectionPage}
-                component={CollectionCharts}
+                component={CollectionPage}
+                // component={CollectionCharts}
               />
               <ProtectedRoute
                 exact
@@ -87,6 +88,7 @@ class App extends Component {
             <Footer />
           </div>
         </Router>
+        <Notification/>
       </MuiThemeProvider>
   )}
 }
