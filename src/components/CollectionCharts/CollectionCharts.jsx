@@ -66,7 +66,10 @@ class CollectionCharts extends Component {
                         [
                             { 
                                 backgroundColor: ["#46BFBD", "#DDB4AC"],
-                                data: [5, 25],
+                                data: [
+                                    +this.props.collections.collectionStats.num_found,
+                                    +this.props.collections.collectionStats.count - this.props.collections.collectionStats.num_found,
+                                ],
                             }
                         ] 
                     }
