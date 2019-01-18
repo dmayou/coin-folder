@@ -130,7 +130,7 @@ class SearchDrawer extends Component {
     }
     render() {
         const { classes, theme, search } = this.props;
-        const { collectionStats } = this.props.collections;
+        const { stats } = this.props.collections;
         const drawer = (
             <div>
                 <Typography 
@@ -146,7 +146,7 @@ class SearchDrawer extends Component {
                 </Typography>
                 <Button
                     className={classes.allButton}
-                    onClick={this.handleAllClick(collectionStats.min, collectionStats.max)}
+                    onClick={this.handleAllClick(stats.min, stats.max)}
                     size='small'
                 >All
                 </Button>
@@ -156,8 +156,8 @@ class SearchDrawer extends Component {
                         handleChange={this.handleSliderChange}
                         startYear={search.startYear}
                         endYear={search.endYear}
-                        min={this.props.collections.collectionStats.min}
-                        max={collectionStats.max}
+                        min={this.props.collections.stats.min}
+                        max={stats.max}
                     />
                 </div>
                 <Divider />
@@ -243,7 +243,7 @@ class SearchDrawer extends Component {
 
                         <Button 
                             className={classes.showAllButton}
-                        onClick={this.handleShowAllClick(collectionStats.min, collectionStats.max)}
+                        onClick={this.handleShowAllClick(stats.min, stats.max)}
                         >Show all
                         </Button>
                         <Hidden smUp>

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withStyles, withTheme } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import CoinCard from '../CoinCard/CoinCard';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import Search from '@material-ui/icons/Search';
-import { compose } from 'recompose';
 import FilterTabs from '../FilterTabs/FilterTabs';
 import SearchDrawer from '../SearchDrawer/SearchDrawer';
 import UpButton from '../ScrollUpButton/ScrollUpButton';

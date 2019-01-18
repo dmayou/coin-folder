@@ -98,7 +98,7 @@ class CustomizedSnackbars extends React.Component {
         this.props.dispatch({ type: 'HIDE_NOTIFICATION' });
     };
     render() {
-        const { classes, notification } = this.props;
+        const { notification } = this.props;
         return (
             <div>
                 <Snackbar

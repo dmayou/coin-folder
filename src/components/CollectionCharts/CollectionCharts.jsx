@@ -15,7 +15,7 @@ class CollectionCharts extends Component {
         });
     }
     render() {
-        const stats = this.props.collections.collectionStats;
+        const stats = this.props.collections.stats;
         return(
         <Grid container>
         <Grid item xs={12} sm={6}>
@@ -67,8 +67,8 @@ class CollectionCharts extends Component {
                             { 
                                 backgroundColor: ["#46BFBD", "#DDB4AC"],
                                 data: [
-                                    +this.props.collections.collectionStats.num_found,
-                                    +this.props.collections.collectionStats.count - this.props.collections.collectionStats.num_found,
+                                    +stats.num_found, 
+                                    +stats.count - stats.num_found, // needed=total-found
                                 ],
                             }
                         ] 
@@ -79,6 +79,7 @@ class CollectionCharts extends Component {
             <Grid item xs={12}>
                 <Typography align="center">Great job with your {stats.name} collection!</Typography>
                 <Typography align="center">You've found {`${stats.found_last_month} ${stats.denomination}s`} in the last month.</Typography>
+                <Typography align="center">You found your first {`${stats.denomination} on ${stats.first_find}`}.</Typography>
                 <Typography align="center">There are 4 other users with this collection.</Typography>
                 <br/>
                 <br/>

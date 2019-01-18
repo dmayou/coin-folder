@@ -71,17 +71,15 @@ router.get('/collection_items/:userCollectionId/:searchParams', rejectUnauthenti
     }
 );
 
-router.get('/collection_stats/:userCollectionId', rejectUnauthenticated, (req, res) => {
+router.get('/stats/:userCollectionId', rejectUnauthenticated, (req, res) => {
     const { userCollectionId } = req.params;
     const query = 
         `SELECT MIN("items"."year"), 
             MAX("items"."year"), 
             to_char(MIN("ci"."date_found"), 'Mon DD, YYYY') AS "first_find", 
             COUNT(*), 
+            COUNT(*) FILTER (WHERE date_found > current_date - 30) AS "found_last_month",
             SUM("found"::int) AS num_found,
-            (   SELECT COUNT(*) FROM "collection_items" 
-                WHERE date_found > current_date - 30
-            ) AS "found_last_month",
             (   SELECT "name" FROM "collection_type"
                 JOIN "user_collections" ON "collection_type"."id"="user_collections"."collection_id"
                 WHERE "user_collections"."id"=94

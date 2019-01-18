@@ -4,7 +4,6 @@ import axios from 'axios';
 function* fetchUserCollectionItems(action) {
     try {
         const { id, searchParams } = action.payload;
-        console.log('fetch items. id=', id)
         const data = yield axios.get(`api/collection/collection_items/${id}/${JSON.stringify(searchParams)}`);
         yield dispatch({ type: 'SET_USER_COLLECTION_ITEMS', payload: data });
     } catch (err) {
@@ -31,7 +30,6 @@ function* fetchUserCollections(action) {
 }
 
 function* fetchCanAddCollections(action) {
-    console.log('in canAddCollections');
     try {
         const data = yield axios.get(`api/collection/can_add_collections`);
         yield dispatch({ type: 'SET_CAN_ADD_COLLECTIONS', payload: data });
@@ -68,9 +66,8 @@ function* addUserCollection(action) {
 
 function* fetchCollectionStats(action) {
     try {
-        const data = yield axios.get(`api/collection/collection_stats/${action.payload}`);
+        const data = yield axios.get(`api/collection/stats/${action.payload}`);
         yield dispatch({ type: 'SET_COLLECTION_STATS', payload: data });
-        console.log('fetch years', data.data);
         yield dispatch({ type: 'SET_YEARS', payload: [data.data.min, data.data.max] });
     } catch (err) {
         console.log('Error fetching collection stats.');
@@ -92,7 +89,7 @@ function* fetchFoundCounts(action) {
         const data = yield axios.get('api/collection/found_counts');
         yield dispatch({ type: 'SET_FOUND_COUNTS', payload: data });
     } catch(err) {
-        console.log('Error fectching found counts');
+        console.log('Error fetching found counts');
     }
 }
 
