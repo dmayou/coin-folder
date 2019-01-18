@@ -7,7 +7,7 @@ function* updateCoin(action) {
         yield dispatch({
             type: 'FETCH_USER_COLLECTION_ITEMS',
             payload: { 
-                id: action.payload.selectedCollection, 
+                id: action.payload.collectionId, 
                 searchParams: action.payload.searchParams 
             }
         });;

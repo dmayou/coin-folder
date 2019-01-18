@@ -16,11 +16,10 @@ const styles = theme => ({
 
 class AddCollectionPage extends Component {
     handleClick = (id) => () => {
-        console.log('handleClick. id:', id);
         this.props.dispatch({ type: 'ADD_USER_COLLECTION', payload: id })
     };
     componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_CAN_ADD_COLLECTION' })
+        this.props.dispatch({ type: 'FETCH_CAN_ADD_COLLECTIONS' })
     }
     render() {
         const { classes } = this.props;
@@ -42,14 +41,12 @@ class AddCollectionPage extends Component {
                 <Typography
                     key={1} // react requires key value for list
                     className={classes.text}
-                >You haven't selected any collections yet. <br />
-                    Choose Add Collections from the main menu.
+                    >There are no more collections to add.<br/>You have added them all!
                 </Typography>
         }
-        console.log('collectionList:', collectionList);
         return (
             <div>
-                <Typography className={this.props.classes.headline} variant={'h4'}>Select A Collection</Typography>
+                <Typography className={this.props.classes.headline} variant={'h4'}>Add A Collection</Typography>
                 {collectionList}
             </div>
         );

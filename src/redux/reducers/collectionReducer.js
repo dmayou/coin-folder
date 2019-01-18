@@ -65,6 +65,42 @@ const collectionCount = (state = 0, action) => {
     }
 };
 
+const foundCounts = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_FOUND_COUNTS':
+            let months = [];
+            let counts = [];
+            let otherCounts = [];
+            let numOtherUsers = action.payload.data[0].num_other_users;
+            if (numOtherUsers === 0) {
+                numOtherUsers = 1; // prevent divide by 0
+            }
+            const length = action.payload.data.length;
+            for (let i = 0; i < length; i++) {
+                let row = action.payload.data[i];
+                months[i] = row.mon_year.replace(/ +(?= )/g, ''); // remove extra spaces
+                counts[i] = +row.count;
+                otherCounts[i] = row.other_count / numOtherUsers; // average
+            }
+            return {
+                months,
+                counts,
+                otherCounts,
+            };
+        default:
+            return state;
+    }
+};
+
+const userItemCounts = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_USER_ITEM_COUNTS':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     collectionItems,
     collectionType,
@@ -72,5 +108,7 @@ export default combineReducers({
     canAddCollections,
     collectionStats,
     collectionCount,
+    foundCounts,
+    userItemCounts,
     selected,
 });

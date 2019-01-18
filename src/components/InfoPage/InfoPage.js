@@ -64,6 +64,7 @@ class InfoPage extends Component {
   componentDidMount () {
     this.fetchItems(this.state.filter);
     this.props.dispatch({ type: 'FETCH_CONDITIONS' });
+    this.props.dispatch({ type: 'FETCH_USER_ITEM_COUNTS' });
   }
   render () {
     const { classes } = this.props;
@@ -74,6 +75,7 @@ class InfoPage extends Component {
           <Grid key={coin.id} item xs={12} sm={6} lg={4}>
             <CoinCard
               coinId={coin.ci_id}
+              itemId={coin.item_id}
               image={coin.image_path}
               name={coin.name}
               year={coin.year}
@@ -132,4 +134,4 @@ const mapStoreToProps = ( state ) => ({
   search: state.search, 
 });
 
-export default connect(mapStoreToProps)(compose(withTheme(), withStyles(styles))(InfoPage));
+export default connect(mapStoreToProps)(withStyles(styles)(InfoPage));

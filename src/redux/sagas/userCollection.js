@@ -48,10 +48,10 @@ function* buildItemsTable(action) {
 }
 
 function* addUserCollection(action) {
-    console.log('addUser. id:', action.payload);
     try {
         yield axios.post(`api/collection/collection_items/${action.payload}`);
-        yield dispatch({ type: 'FETCH_USER_COLLECTION_ITEMS' });
+        yield dispatch({ type: 'FETCH_CAN_ADD_COLLECTIONS' });
+        yield dispatch({ type: 'FETCH_USER_COLLECTIONS'});
     } catch (err) {
         console.log('Error adding user collection items:', err);
     }
@@ -78,6 +78,28 @@ function* fetchCollectionCount(action) {
     }
 }
 
+function* fetchFoundCounts(action) {
+    try {
+        const data = yield axios.get('api/collection/found_counts');
+        yield dispatch({ type: 'SET_FOUND_COUNTS', payload: data });
+    } catch(err) {
+        console.log('Error fectching found counts');
+    }
+}
+
+function* fetchUserItemCounts(action) {
+    try {
+        const data = yield axios.get('api/collection/user_item_counts');
+        let counts = {};
+        for (let count of data.data) {
+            counts[String(count.item_id)] = +count.count;
+        }
+        yield dispatch({ type: 'SET_USER_ITEM_COUNTS', payload: counts });
+    } catch (err) {
+        console.log('Error fetching user item counts')
+    }
+}
+
 function* userCollectionSaga() {
     yield takeEvery('ADD_USER_COLLECTION', addUserCollection);
     yield takeLatest('FETCH_USER_COLLECTION_ITEMS', fetchUserCollectionItems);
@@ -85,8 +107,10 @@ function* userCollectionSaga() {
     yield takeLatest('BUILD_ITEMS_TABLE', buildItemsTable);
     yield takeLatest('FETCH_COLLECTION_STATS', fetchCollectionStats);
     yield takeLatest('FETCH_COLLECTION_COUNT', fetchCollectionCount);
+    yield takeLatest('FETCH_USER_ITEM_COUNTS', fetchUserItemCounts);
+    yield takeLatest('FETCH_FOUND_COUNTS', fetchFoundCounts);
     yield takeLatest('FETCH_USER_COLLECTIONS', fetchUserCollections);
-    yield takeLatest('FETCH_CAN_ADD_COLLECTION', fetchCanAddCollections);
+    yield takeLatest('FETCH_CAN_ADD_COLLECTIONS', fetchCanAddCollections);
 }
 
 export default userCollectionSaga;
