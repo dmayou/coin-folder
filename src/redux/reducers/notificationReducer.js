@@ -2,13 +2,14 @@ const initialNotificationState = {
     showing: false,
     message: '',
     variant: '',
-    icon: '',
+    dwell: 2500,
 };
 
 const notification = (state = initialNotificationState, action) => {
     switch (action.type) {
         case 'SHOW_NOTIFICATION':
             return {
+                ...state,
                 ...action.payload,
                 showing: true,
             };

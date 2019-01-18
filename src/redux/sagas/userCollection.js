@@ -39,21 +39,29 @@ function* fetchCanAddCollections(action) {
     }
 }
 
-function* buildItemsTable(action) {
-    try {
-        yield console.log('in buildItemsTable');
-    } catch (err) {
-        console.log('Error rebuilding items table.');
-    }
-}
-
 function* addUserCollection(action) {
     try {
         yield axios.post(`api/collection/collection_items/${action.payload}`);
         yield dispatch({ type: 'FETCH_CAN_ADD_COLLECTIONS' });
         yield dispatch({ type: 'FETCH_USER_COLLECTIONS'});
+        yield dispatch({
+            type: 'SHOW_NOTIFICATION',
+            payload: {
+                message: 'Your collection has been added!',
+                variant: 'success',
+                dwell: 2500,
+            }
+        });
     } catch (err) {
         console.log('Error adding user collection items:', err);
+        yield dispatch({
+            type: 'SHOW_NOTIFICATION',
+            payload: {
+                message: 'Error adding the collection. Try again!',
+                variant: 'error',
+                dwell: 2500,
+            }
+        });
     }
 }
 
@@ -104,7 +112,6 @@ function* userCollectionSaga() {
     yield takeEvery('ADD_USER_COLLECTION', addUserCollection);
     yield takeLatest('FETCH_USER_COLLECTION_ITEMS', fetchUserCollectionItems);
     yield takeLatest('FETCH_COLLECTION_TYPE', fetchCollectionType);
-    yield takeLatest('BUILD_ITEMS_TABLE', buildItemsTable);
     yield takeLatest('FETCH_COLLECTION_STATS', fetchCollectionStats);
     yield takeLatest('FETCH_COLLECTION_COUNT', fetchCollectionCount);
     yield takeLatest('FETCH_USER_ITEM_COUNTS', fetchUserItemCounts);
