@@ -63,12 +63,14 @@ function CollectionCard(props) {
                 <Button 
                     size="small"
                     onClick={props.handleClick}
+                    value={props.action}
                 >{props.action}
                 </Button>
                 {props.auxActionButton &&
                 <Button
                     size="small"
-                    onClick={props.handleClick}    
+                    onClick={props.handleClick}
+                    value={props.auxActionButton}
                 >{props.auxActionButton}
                 </Button>}
             </CardActions>

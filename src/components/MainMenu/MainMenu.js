@@ -35,7 +35,7 @@ class MainMenu extends Component {
                     ''}
                     {user.id ?
                         <MenuItem 
-                            onClick={this.handleClose('/home')}
+                            onClick={this.handleClose('/my_collections')}
                             >My Collections
                         </MenuItem>
                     :

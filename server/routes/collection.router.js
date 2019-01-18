@@ -78,13 +78,19 @@ router.get('/collection_stats/:userCollectionId', rejectUnauthenticated, (req, r
             MAX("items"."year"), 
             to_char(MIN("ci"."date_found"), 'Mon DD, YYYY') AS "first_find", 
             COUNT(*), 
-            SUM("found"::int),
+            SUM("found"::int) AS num_found,
             (   SELECT COUNT(*) FROM "collection_items" 
                 WHERE date_found > current_date - 30
-            ) AS "found_last_month"
+            ) AS "found_last_month",
+            (   SELECT "name" FROM "collection_type"
+                JOIN "user_collections" ON "collection_type"."id"="user_collections"."collection_id"
+                WHERE "user_collections"."id"=94
+            ),
+            "items"."denomination"
         FROM "collection_items" AS "ci"
         JOIN "items" ON "items"."id"="ci"."item_id"
-        WHERE "user_collection_id"=$1`;
+        WHERE "user_collection_id"=$1
+        GROUP BY denomination`;
     pool.query(query, [userCollectionId])
         .then((results) => {
             res.send(results.rows[0]);

@@ -4,6 +4,8 @@ import CollectionCard from '../CollectionCard/CollectionCard';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 
+import CollectionCharts from '../CollectionCharts/CollectionCharts';
+
 const styles = theme => ({
     headline: {
         margin: theme.spacing.unit,
@@ -16,8 +18,22 @@ const styles = theme => ({
 });
 
 class CollectionPage extends Component {
-    handleClick = (id) => () => {
-        this.props.dispatch({ type: 'SET_SELECTED_COLLECTION', payload: id })
+    state = {
+        showCharts: false,
+    }
+    handleClick = (id) => (event) => {
+        this.props.dispatch({ type: 'SET_SELECTED_COLLECTION', payload: id });
+        switch (event.currentTarget.value) {
+            case 'Selected':
+                break;
+            case 'Compare progress':
+                this.setState({
+                    showCharts: true,
+                });
+                break;
+            default:
+                console.log('in default case for CollectionCard handleClick');
+        }
     };
     render() {
         const { classes } = this.props;
@@ -41,11 +57,12 @@ class CollectionPage extends Component {
                     key={0} // React needs unique key
                     className={classes.text}
                     >You haven't selected any collections yet. <br/>
-                Choose <a>Add Collections</a> from the main menu.
+                    Choose from the main menu.
                 </Typography>
         }  
         return(
             <div>
+                {this.state.showCharts && <CollectionCharts />}
                 <Typography className={this.props.classes.headline} variant={'h4'}>Select A Collection</Typography>
                 {collectionList}
             </div>

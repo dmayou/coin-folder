@@ -9,6 +9,10 @@ import { Bar, Pie } from 'react-chartjs-2'
 class CollectionCharts extends Component {
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_FOUND_COUNTS' });
+        this.props.dispatch({
+            type: 'FETCH_COLLECTION_STATS',
+            payload: this.props.collections.selected,
+        });
     }
     render() {
         return(
@@ -71,7 +75,10 @@ class CollectionCharts extends Component {
             <Grid item xs={12}>
                 <Typography align="center">Great job with your State Quarters collection!</Typography>
                 <Typography align="center">You've found 4 quarters in the last month.</Typography>
-                    <Typography align="center">There are 3 other users with this collection.</Typography>
+                <Typography align="center">There are 3 other users with this collection.</Typography>
+                <br/>
+                <br/>
+                <br/>
             </Grid>
         </Grid>
         );
