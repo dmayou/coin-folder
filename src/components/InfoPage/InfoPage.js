@@ -10,6 +10,9 @@ import Search from '@material-ui/icons/Search';
 import FilterTabs from '../FilterTabs/FilterTabs';
 import SearchDrawer from '../SearchDrawer/SearchDrawer';
 import UpButton from '../ScrollUpButton/ScrollUpButton';
+import { ClipLoader } from 'react-spinners';
+
+import { css } from '@emotion/core';
 
 const styles = theme => ({
   content: {
@@ -29,6 +32,11 @@ const styles = theme => ({
   },
   buttonDiv: {
     backgroundColor: 'white',
+  },
+  spinner: {
+    display: 'block',
+    // margin: '0 auto',
+    position: 'absolute',
   },
 });
 
@@ -122,6 +130,17 @@ class InfoPage extends Component {
           onClose={this.toggleSearchDrawer}
         />
         <UpButton />
+        <ClipLoader
+          // className={classes.spinner}
+          css={css`position: absolute;
+            height: 60px;
+            width: 60px;
+            top: 50%;
+            left: 38%;`}
+          size={90}
+          color={'#0000ff'}
+          loading={true}
+        />
       </div>
     );
   }
