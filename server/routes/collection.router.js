@@ -79,7 +79,7 @@ router.get('/stats/:userCollectionId', rejectUnauthenticated, (req, res) => {
             to_char(MIN("ci"."date_found"), 'Mon DD, YYYY') AS "first_find", 
             COUNT(*), 
             COUNT(*) FILTER (WHERE date_found > current_date - 30) AS "found_last_month",
-            SUM("found"::int) AS num_found,
+            SUM("found"::int) AS "num_found",
             (   SELECT "name" FROM "collection_type"
                 JOIN "user_collections" ON "collection_type"."id"="user_collections"."collection_id"
                 WHERE "user_collections"."id"=94
