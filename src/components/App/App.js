@@ -75,13 +75,13 @@ class App extends Component {
                   : 
                   () => <CollectionPage title="Which Collection?" suppressAuxAction={true}/>}
               />
-              <ProtectedRoute
+              {/* <ProtectedRoute
                 exact
                 path="/admin"
                 component={AdminPage}
-              />
+              /> */}
               {/* If none of the other routes matched, we will show a 404. */}
-              <Route render={() => <h1>404</h1>} />
+              <Route render={() => <h3>Page not found! (404)</h3>} />
             </Switch>
             <MainMenu />
             <Footer />
