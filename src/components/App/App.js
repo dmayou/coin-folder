@@ -21,7 +21,7 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import CollectionPage from '../CollectionPage/CollectionPage';
 import MainMenu from '../MainMenu/MainMenu';
-import AdminPage from '../AdminPage/AdminPage';
+// import AdminPage from '../AdminPage/AdminPage';
 import AddCollectionPage from '../AddCollectionPage/AddCollectionPage';
 import Notification from '../Notification/Notification';
 

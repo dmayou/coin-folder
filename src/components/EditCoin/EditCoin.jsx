@@ -18,7 +18,6 @@ class EditCoin extends Component {
     };
     render() {
         return (
-            <div>
                 <Dialog
                     open={this.props.show}
                     aria-labelledby="form-dialog-title"
@@ -56,7 +55,6 @@ class EditCoin extends Component {
                         </Button>
                     </DialogActions>
                 </Dialog>
-            </div>
         );
     }
 }

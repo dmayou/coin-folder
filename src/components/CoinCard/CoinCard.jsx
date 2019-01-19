@@ -138,6 +138,7 @@ class CoinCard extends Component {
                 </div>
                     <CardActions className={classes.actions}>
                         {this.otherUsersMessage(this.props.found, this.props.itemId)}
+                        {this.props.found &&
                         <IconButton
                             className={classnames(classes.expand, {
                                 [classes.expandOpen]: this.state.expanded,
@@ -148,6 +149,7 @@ class CoinCard extends Component {
                         >
                             <ExpandMoreIcon />
                         </IconButton>
+                        }
                     </CardActions>
                 <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
                     <CardContent className={classes.expandContent}>
