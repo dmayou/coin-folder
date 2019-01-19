@@ -99,6 +99,7 @@ class CollectionCharts extends Component {
             <Grid item xs={12} sm={6}>
             <Pie
                 options={{  cutoutPercentage: 25,
+                            rotation: -0.75 * Math.PI,
                             title: {
                                 display: true,
                                 text: 'How Complete (inner ring is average)',
