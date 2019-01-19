@@ -71,20 +71,24 @@ router.get('/collection_items/:userCollectionId/:searchParams', rejectUnauthenti
     }
 );
 
-router.get('/collection_stats/:userCollectionId', rejectUnauthenticated, (req, res) => {
+router.get('/stats/:userCollectionId', rejectUnauthenticated, (req, res) => {
     const { userCollectionId } = req.params;
     const query = 
         `SELECT MIN("items"."year"), 
             MAX("items"."year"), 
             to_char(MIN("ci"."date_found"), 'Mon DD, YYYY') AS "first_find", 
             COUNT(*), 
-            SUM("found"::int),
-            (   SELECT COUNT(*) FROM "collection_items" 
-                WHERE date_found > current_date - 30
-            ) AS "found_last_month"
+            COUNT(*) FILTER (WHERE date_found > current_date - 30) AS "found_last_month",
+            SUM("found"::int) AS "num_found",
+            (   SELECT "name" FROM "collection_type"
+                JOIN "user_collections" ON "collection_type"."id"="user_collections"."collection_id"
+                WHERE "user_collections"."id"=94
+            ),
+            "items"."denomination"
         FROM "collection_items" AS "ci"
         JOIN "items" ON "items"."id"="ci"."item_id"
-        WHERE "user_collection_id"=$1`;
+        WHERE "user_collection_id"=$1
+        GROUP BY denomination`;
     pool.query(query, [userCollectionId])
         .then((results) => {
             res.send(results.rows[0]);
@@ -144,10 +148,34 @@ router.get('/found_counts', rejectUnauthenticated, (req, res) => {
             COUNT(*) FILTER(WHERE "user_id"=$1),
             COUNT(*) FILTER(WHERE "user_id"<>$1) AS "other_count",
             "mon_year"
-            FROM "found_months"
+        FROM "found_months"
         GROUP BY "mon_year", sort_field --these fields will appear as distinct pairs
         ORDER BY "sort_field" LIMIT 12;`;
     pool.query(query, [req.user.id])
+        .then((results) => {
+            res.send(results.rows);
+        }).catch((err) => {
+            res.sendStatus(500);
+        }
+    );
+});
+
+router.get('/other_found_avg/:userCollectionId', rejectUnauthenticated, (req, res) => {
+    const { userCollectionId } = req.params;
+    const query =
+        `SELECT
+            COUNT(*) AS "total",
+            COUNT(*) FILTER(WHERE date_found IS NOT NULL) AS "found"
+        FROM "collection_items"
+        JOIN "user_collections" ON "user_collections"."id"="collection_items"."user_collection_id"
+        WHERE "user_collection_id"<>$1 AND "collection_id"=
+            (SELECT DISTINCT "collection_id" FROM "collection_items"
+            JOIN "user_collections"
+            ON "user_collections"."id"="collection_items"."user_collection_id"
+            WHERE "user_collection_id"=$1
+            )
+        ;`;
+    pool.query(query, [userCollectionId])
         .then((results) => {
             res.send(results.rows);
         }).catch((err) => {

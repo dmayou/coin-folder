@@ -30,7 +30,6 @@ function* fetchUserCollections(action) {
 }
 
 function* fetchCanAddCollections(action) {
-    console.log('in canAddCollections');
     try {
         const data = yield axios.get(`api/collection/can_add_collections`);
         yield dispatch({ type: 'SET_CAN_ADD_COLLECTIONS', payload: data });
@@ -67,9 +66,8 @@ function* addUserCollection(action) {
 
 function* fetchCollectionStats(action) {
     try {
-        const data = yield axios.get(`api/collection/collection_stats/${action.payload}`);
+        const data = yield axios.get(`api/collection/stats/${action.payload}`);
         yield dispatch({ type: 'SET_COLLECTION_STATS', payload: data });
-        console.log('fetch years', data.data);
         yield dispatch({ type: 'SET_YEARS', payload: [data.data.min, data.data.max] });
     } catch (err) {
         console.log('Error fetching collection stats.');
@@ -91,7 +89,7 @@ function* fetchFoundCounts(action) {
         const data = yield axios.get('api/collection/found_counts');
         yield dispatch({ type: 'SET_FOUND_COUNTS', payload: data });
     } catch(err) {
-        console.log('Error fectching found counts');
+        console.log('Error fetching found counts');
     }
 }
 
@@ -108,6 +106,15 @@ function* fetchUserItemCounts(action) {
     }
 }
 
+function* fetchOtherFoundAvg(action) {
+    try {
+        const data = yield axios.get(`api/collection/other_found_avg/${action.payload}`);
+        yield dispatch({ type: 'SET_OTHER_FOUND_AVG', payload: data.data[0] });
+    } catch(err) {
+        console.log('Error fetching other found average.');
+    }
+}
+
 function* userCollectionSaga() {
     yield takeEvery('ADD_USER_COLLECTION', addUserCollection);
     yield takeLatest('FETCH_USER_COLLECTION_ITEMS', fetchUserCollectionItems);
@@ -116,6 +123,7 @@ function* userCollectionSaga() {
     yield takeLatest('FETCH_COLLECTION_COUNT', fetchCollectionCount);
     yield takeLatest('FETCH_USER_ITEM_COUNTS', fetchUserItemCounts);
     yield takeLatest('FETCH_FOUND_COUNTS', fetchFoundCounts);
+    yield takeLatest('FETCH_OTHER_FOUND_AVG', fetchOtherFoundAvg);
     yield takeLatest('FETCH_USER_COLLECTIONS', fetchUserCollections);
     yield takeLatest('FETCH_CAN_ADD_COLLECTIONS', fetchCanAddCollections);
 }

@@ -23,7 +23,6 @@ import CollectionPage from '../CollectionPage/CollectionPage';
 import MainMenu from '../MainMenu/MainMenu';
 import AdminPage from '../AdminPage/AdminPage';
 import AddCollectionPage from '../AddCollectionPage/AddCollectionPage';
-import CollectionCharts from '../CollectionCharts/CollectionCharts';
 import Notification from '../Notification/Notification';
 
 const theme = createMuiTheme({});
