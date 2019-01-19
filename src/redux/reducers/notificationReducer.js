@@ -3,6 +3,7 @@ const initialNotificationState = {
     message: '',
     variant: '',
     dwell: 2500,
+    showSpinner: false,
 };
 
 const notification = (state = initialNotificationState, action) => {
@@ -18,6 +19,16 @@ const notification = (state = initialNotificationState, action) => {
                 ...state,
                 showing: false,
             };
+        case 'SHOW_SPINNER':
+            return {
+                ...state,
+                showSpinner: true,
+            };
+        case 'HIDE_SPINNER':
+            return {
+                ...state,
+                showSpinner: false,
+            }
         default:
             return state;
     }

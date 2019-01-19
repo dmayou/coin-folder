@@ -3,11 +3,14 @@ import axios from 'axios';
 
 function* fetchUserCollectionItems(action) {
     try {
+        yield dispatch({ type: 'SHOW_SPINNER' });
         const { id, searchParams } = action.payload;
         const data = yield axios.get(`api/collection/collection_items/${id}/${JSON.stringify(searchParams)}`);
         yield dispatch({ type: 'SET_USER_COLLECTION_ITEMS', payload: data });
+        yield dispatch({ type: 'HIDE_SPINNER' });
     } catch (err) {
-        console.log('Error fetching user collection items:', err)
+        console.log('Error fetching user collection items:', err);
+        yield dispatch({ type: 'HIDE_SPINNER' });
     }
 }
 

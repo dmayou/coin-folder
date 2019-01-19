@@ -33,11 +33,6 @@ const styles = theme => ({
   buttonDiv: {
     backgroundColor: 'white',
   },
-  spinner: {
-    display: 'block',
-    // margin: '0 auto',
-    position: 'absolute',
-  },
 });
 
 class InfoPage extends Component {
@@ -131,7 +126,6 @@ class InfoPage extends Component {
         />
         <UpButton />
         <ClipLoader
-          // className={classes.spinner}
           css={css`position: absolute;
             height: 60px;
             width: 60px;
@@ -139,7 +133,7 @@ class InfoPage extends Component {
             left: 38%;`}
           size={90}
           color={'#0000ff'}
-          loading={true}
+          loading={this.props.notification.showSpinner}
         />
       </div>
     );
@@ -150,6 +144,7 @@ const mapStoreToProps = ( state ) => ({
   selected: state.collections.selected,
   collectionItems: state.collections.collectionItems,
   search: state.search, 
+  notification: state.notification,
 });
 
 export default connect(mapStoreToProps)(withStyles(styles)(InfoPage));

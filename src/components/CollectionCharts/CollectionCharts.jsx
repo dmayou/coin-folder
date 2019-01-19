@@ -75,7 +75,7 @@ class CollectionCharts extends Component {
                     },
                     title: {
                         display: true,
-                        text: 'How Many You\'ve Found Per Month',
+                        text: 'Finds Per Month',
                         fontSize: 14,
                     },
                 }}
