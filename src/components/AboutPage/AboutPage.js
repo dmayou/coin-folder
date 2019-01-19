@@ -39,7 +39,7 @@ const AboutPage = ({classes}) => (
       </List>
       <Typography className={classes.footer} align="center" variant={'h6'}>Keep collecting!</Typography>
       <Typography className={classes.footer} align="center">Thanks to Vega cohort and Prime instructors!</Typography>
-      <Typography className={classes.footer} align="center">&copy; David Mayou 2019</Typography>
+      <Typography className={classes.footer} align="center">&copy; 2019 David Mayou</Typography>
     </div>
   </div>
 );

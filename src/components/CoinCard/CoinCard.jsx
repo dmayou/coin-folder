@@ -96,7 +96,7 @@ class CoinCard extends Component {
             return (
                 <div>
                     <Typography className={this.props.classes.text}>
-                        In collection - {(numOtherUsers === 0) ? 'No' : numOtherUsers} other {(numOtherUsers === 1) ? 'user needs':'users need'} this
+                        In collection - {(numOtherUsers === 0) ? 'No' : numOtherUsers} {(numOtherUsers === 1) ? 'other needs':'others need'}
                     {(numOtherUsers === 0) ? // only show e-mail button if there is at least 1  other user
                         ''
                         :

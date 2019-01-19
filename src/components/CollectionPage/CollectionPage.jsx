@@ -38,6 +38,7 @@ class CollectionPage extends Component {
     render() {
         const { classes } = this.props;
         let collectionList = this.props.collections.userCollections.map((collection) => {
+            console.log('aux', this.props.suppressAuxAction);
             return (
                 <CollectionCard
                     key={collection.coll_id}
@@ -46,7 +47,7 @@ class CollectionPage extends Component {
                     action={'Select'}
                     description={collection.description}
                     handleClick={this.handleClick(collection.coll_id)}
-                    auxActionButton={'Compare progress'}
+                    auxActionButton={!this.props.suppressAuxAction && 'Compare progress'}
                 />
                 
             );
@@ -63,7 +64,7 @@ class CollectionPage extends Component {
         return(
             <div>
                 {this.state.showCharts && <CollectionCharts />}
-                <Typography className={this.props.classes.headline} variant={'h4'}>Select A Collection</Typography>
+                <Typography className={this.props.classes.headline} variant={'h4'}>{this.props.title || 'Select A Collection'}</Typography>
                 {collectionList}
             </div>
         );

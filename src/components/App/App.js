@@ -71,9 +71,9 @@ class App extends Component {
                 exact
                 path='/info'
                 render={(collectionSelected) ? 
-                  () => <InfoPage marginLeft={0} /> 
+                  () => <InfoPage /> 
                   : 
-                  () => <CollectionPage marginLeft={0}/>}
+                  () => <CollectionPage title="Which Collection?" suppressAuxAction={true}/>}
               />
               <ProtectedRoute
                 exact
