@@ -4,7 +4,7 @@ import axios from 'axios';
 function* fetchUserEmails(action) {
     try {
         // const data = yield axios.get(`api/user_email/${action.payload}`);
-        yield dispatch({ type: 'SET_USER_EMAILS', payload: data.data });
+        // yield dispatch({ type: 'SET_USER_EMAILS', payload: data.data });
     } catch (err) {
         console.log('Error fetching user emails.');
     }
