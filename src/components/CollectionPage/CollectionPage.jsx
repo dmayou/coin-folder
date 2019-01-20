@@ -24,7 +24,7 @@ class CollectionPage extends Component {
     handleClick = (id) => (event) => {
         this.props.dispatch({ type: 'SET_SELECTED_COLLECTION', payload: id });
         switch (event.currentTarget.value) {
-            case 'Selected':
+            case 'Select':
                 break;
             case 'Compare progress':
                 this.setState({
@@ -46,7 +46,7 @@ class CollectionPage extends Component {
                     action={'Select'}
                     description={collection.description}
                     handleClick={this.handleClick(collection.coll_id)}
-                    auxActionButton={'Compare progress'}
+                    auxActionButton={!this.props.suppressAuxAction && 'Compare progress'}
                 />
                 
             );
@@ -63,7 +63,7 @@ class CollectionPage extends Component {
         return(
             <div>
                 {this.state.showCharts && <CollectionCharts />}
-                <Typography className={this.props.classes.headline} variant={'h4'}>Select A Collection</Typography>
+                <Typography className={this.props.classes.headline} variant={'h4'}>{this.props.title || 'Select A Collection'}</Typography>
                 {collectionList}
             </div>
         );

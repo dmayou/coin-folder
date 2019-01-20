@@ -126,11 +126,16 @@ class InfoPage extends Component {
         />
         <UpButton />
         <ClipLoader
-          css={css`position: absolute;
+          css={`position: absolute;
             height: 60px;
             width: 60px;
             top: 50%;
-            left: 38%;`}
+            left: 38%;
+            @media (min-width: 600px) {
+                left: 57%;
+              }
+            }
+            `}
           size={90}
           color={'#0000ff'}
           loading={this.props.notification.showSpinner}

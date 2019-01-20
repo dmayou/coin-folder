@@ -23,7 +23,6 @@ class SelectCondition extends Component {
         conditionId: 0,
     };
     handleChange = event => {
-        // this.setState({ conditionId: event.target.value });
         this.props.dispatch({ type: 'SET_CONDITION_ID', payload: event.target.value })
     };
     render() {

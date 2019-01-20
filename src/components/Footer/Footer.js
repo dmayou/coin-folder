@@ -3,7 +3,6 @@ import './Footer.css'
 
 const Footer = () => (
   <footer>
-    &copy; David Mayou
   </footer>
 );
 

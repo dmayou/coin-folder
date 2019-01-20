@@ -21,7 +21,7 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import CollectionPage from '../CollectionPage/CollectionPage';
 import MainMenu from '../MainMenu/MainMenu';
-import AdminPage from '../AdminPage/AdminPage';
+// import AdminPage from '../AdminPage/AdminPage';
 import AddCollectionPage from '../AddCollectionPage/AddCollectionPage';
 import Notification from '../Notification/Notification';
 
@@ -71,17 +71,17 @@ class App extends Component {
                 exact
                 path='/info'
                 render={(collectionSelected) ? 
-                  () => <InfoPage marginLeft={0} /> 
+                  () => <InfoPage /> 
                   : 
-                  () => <CollectionPage marginLeft={0}/>}
+                  () => <CollectionPage title="Which Collection?" suppressAuxAction={true}/>}
               />
-              <ProtectedRoute
+              {/* <ProtectedRoute
                 exact
                 path="/admin"
                 component={AdminPage}
-              />
+              /> */}
               {/* If none of the other routes matched, we will show a 404. */}
-              <Route render={() => <h1>404</h1>} />
+              <Route render={() => <h3>Page not found! (404)</h3>} />
             </Switch>
             <MainMenu />
             <Footer />

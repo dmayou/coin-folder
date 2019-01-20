@@ -20,8 +20,6 @@ const styles = theme => ({
         fontSize: 18,
     },
     media: {
-        // minWidth: '65%',
-        // maxWidth: '65%',
         minWidth: 120,
         height: 130,
         margin: theme.spacing.unit,

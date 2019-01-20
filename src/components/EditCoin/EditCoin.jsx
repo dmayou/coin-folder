@@ -18,7 +18,6 @@ class EditCoin extends Component {
     };
     render() {
         return (
-            <div>
                 <Dialog
                     open={this.props.show}
                     aria-labelledby="form-dialog-title"
@@ -48,15 +47,20 @@ class EditCoin extends Component {
                         />
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.props.handleClose} color="primary">
+                        <Button 
+                            onClick={this.props.handleClose} color="primary"
+                            value="Cancel"
+                        >
                             Cancel
                         </Button>
-                        <Button onClick={this.props.handleClose} color="primary">
+                        <Button 
+                            onClick={this.props.handleClose} color="primary"
+                            value="Save"
+                        >
                             Save
                         </Button>
                     </DialogActions>
                 </Dialog>
-            </div>
         );
     }
 }

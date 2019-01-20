@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import LandingCard from '../LandingCard/LandingCard';
 
 const styles = theme => ({
   headline: {
-    // margin: theme.spacing.unit,
+    margin: theme.spacing.unit,
     marginTop: 10,
   },
 });
@@ -51,5 +51,6 @@ class UserPage extends Component {
 const mapStateToProps = ({ user }) => ({
   user,
 });
+
 
 export default connect(mapStateToProps)(withStyles(styles)(withRouter(UserPage)));
