@@ -9,7 +9,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Search from '@material-ui/icons/Search';
 import FilterTabs from '../FilterTabs/FilterTabs';
 import SearchDrawer from '../SearchDrawer/SearchDrawer';
-import SendEmail from '../SendEmail/SendEmail';
 import UpButton from '../ScrollUpButton/ScrollUpButton';
 import { ClipLoader } from 'react-spinners';
 
@@ -125,10 +124,9 @@ class InfoPage extends Component {
           open={this.state.mobileOpen}
           onClose={this.toggleSearchDrawer}
         />
-        <SendEmail />
         <UpButton />
         <ClipLoader
-          css={css`position: absolute;
+          css={`position: absolute;
             height: 60px;
             width: 60px;
             top: 50%;

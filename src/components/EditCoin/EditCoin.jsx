@@ -47,10 +47,16 @@ class EditCoin extends Component {
                         />
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.props.handleClose} color="primary">
+                        <Button 
+                            onClick={this.props.handleClose} color="primary"
+                            value="Cancel"
+                        >
                             Cancel
                         </Button>
-                        <Button onClick={this.props.handleClose} color="primary">
+                        <Button 
+                            onClick={this.props.handleClose} color="primary"
+                            value="Save"
+                        >
                             Save
                         </Button>
                     </DialogActions>

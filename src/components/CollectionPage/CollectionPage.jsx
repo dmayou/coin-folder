@@ -24,7 +24,7 @@ class CollectionPage extends Component {
     handleClick = (id) => (event) => {
         this.props.dispatch({ type: 'SET_SELECTED_COLLECTION', payload: id });
         switch (event.currentTarget.value) {
-            case 'Selected':
+            case 'Select':
                 break;
             case 'Compare progress':
                 this.setState({
@@ -38,7 +38,6 @@ class CollectionPage extends Component {
     render() {
         const { classes } = this.props;
         let collectionList = this.props.collections.userCollections.map((collection) => {
-            console.log('aux', this.props.suppressAuxAction);
             return (
                 <CollectionCard
                     key={collection.coll_id}

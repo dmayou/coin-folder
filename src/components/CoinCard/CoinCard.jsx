@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MailOutline from '@material-ui/icons/MailOutline';
 import EditCoin from '../EditCoin/EditCoin';
+import SendEmail from '../SendEmail/SendEmail';
 
 const styles = theme => ({
     card: {
@@ -63,6 +64,7 @@ class CoinCard extends Component {
     state = { 
         expanded: false,
         showEdit: false,
+        showSendEmail: false,
     };
     handleExpandClick = () => {
         this.setState(state => ({ expanded: !state.expanded }));
@@ -77,16 +79,29 @@ class CoinCard extends Component {
         this.setState({
             showEdit: false,
         });
-        this.props.dispatch({ 
-            type: 'UPDATE_COIN', 
-            payload: {
-                id: id,
-                data: this.props.coin,
-                searchParams: this.props.search,
-                collectionId: selected,
-            }
-        });
+        if (event.currentTarget.value === 'Save') {
+            this.props.dispatch({ 
+                type: 'UPDATE_COIN', 
+                payload: {
+                    id: id,
+                    data: this.props.coin,
+                    searchParams: this.props.search,
+                    collectionId: selected,
+                }
+            });
+        }
     };
+    handleEmailClick = () => {
+        this.setState({
+            showSendEmail: true,
+        });
+        this.props.dispatch({ type: 'FETCH_USER_EMAILS', payload: this.props.itemID })
+    };
+    handleEmailClose = () => {
+        this.setState({
+            showSendEmail: false,
+        });
+    }
     otherUsersNeed = (itemId) => {
         return this.props.collections.userItemCounts[itemId];
     };
@@ -103,6 +118,7 @@ class CoinCard extends Component {
                         <IconButton
                             aria-label="Email user"
                             className={this.props.classes.emailButton}
+                            onClick={this.handleEmailClick}
                         >
                             <MailOutline />
                         </IconButton>
@@ -164,6 +180,12 @@ class CoinCard extends Component {
                     show={this.state.showEdit}
                     handleClose={this.handleFoundClose(this.props.coinId, this.props.collections.selected)}
                     title={`${yearMint} ${this.props.name} ${this.props.denomination}`}
+                />
+                <SendEmail
+                    show={this.state.showSendEmail}
+                    title={`${yearMint} ${this.props.name} ${this.props.denomination}`}
+                    image={this.props.image}
+                    handleClose={this.handleEmailClose}
                 />
             </Card>
         );
