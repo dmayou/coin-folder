@@ -97,10 +97,13 @@ class CoinCard extends Component {
         });
         this.props.dispatch({ type: 'FETCH_USER_EMAILS', payload: this.props.itemID })
     };
-    handleEmailClose = () => {
+    handleEmailClose = (event) => {
         this.setState({
             showSendEmail: false,
         });
+        if (event.currentTarget.value === 'Send email') {
+            this.props.dispatch({ type: 'SEND_EMAILS' });
+        }
     }
     otherUsersNeed = (itemId) => {
         return this.props.collections.userItemCounts[itemId];
