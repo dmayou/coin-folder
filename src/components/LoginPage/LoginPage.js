@@ -129,6 +129,9 @@ class LoginPage extends Component {
             >Register
           </Button>
           </Grid>
+          <Grid item xs={12}>
+            <img src="/images/coins.png" alt="pile of coins" height="200"></img>
+          </Grid>
         </form>
       </Grid>
     );

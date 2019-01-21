@@ -7,10 +7,14 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 class EmailList extends Component {
     state = {
-        checkBox: {},
+        checkedA: true,
+        checkedB: true,
+        checkedC: true,
     }
     handleChange = (name) => (event) => {
-        
+        this.setState({
+            [name]: event.target.checked,
+        });
     }
     render() {
         return (
@@ -19,7 +23,7 @@ class EmailList extends Component {
                     Send emails to these collectors:
                 </Typography>            
                 <FormGroup row>
-                    <FormControlLabel
+                    {/* <FormControlLabel
                         control={
                             <Checkbox
                                 checked={this.state.checkedA}
@@ -28,8 +32,8 @@ class EmailList extends Component {
                                 color="primary"
                             />
                         }
-                        label="Dane"
-                    />
+                        label="Martha"
+                    /> */}
                     <FormControlLabel
                         control={
                             <Checkbox
@@ -39,18 +43,18 @@ class EmailList extends Component {
                                 color="primary"
                             />
                         }
-                        label="Ally"
+                        label="Grandma"
                     />
                     <FormControlLabel
                         control={
                             <Checkbox
-                                checked={this.state.checkedB}
+                                checked={this.state.checkedC}
                                 onChange={this.handleChange('checkedC')}
                                 value="checkedC"
                                 color="primary"
                             />
                         }
-                        label="Fred"
+                        label="Dick"
                     />
                 </FormGroup>
             </div>

@@ -57,7 +57,7 @@ class CollectionPage extends Component {
                     key={0} // React needs unique key
                     className={classes.text}
                     >You haven't selected any collections yet. <br/>
-                    Choose from the main menu.
+                    Choose Add Collections from the main menu.
                 </Typography>
         }  
         return(
