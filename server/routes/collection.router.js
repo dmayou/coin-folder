@@ -82,7 +82,7 @@ router.get('/stats/:userCollectionId', rejectUnauthenticated, (req, res) => {
             SUM("found"::int) AS "num_found",
             (   SELECT "name" FROM "collection_type"
                 JOIN "user_collections" ON "collection_type"."id"="user_collections"."collection_id"
-                WHERE "user_collections"."id"=94
+                WHERE "user_collections"."id"=$1
             ),
             "items"."denomination"
         FROM "collection_items" AS "ci"
